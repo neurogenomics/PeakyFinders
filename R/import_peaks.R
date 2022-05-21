@@ -40,7 +40,7 @@
 #' @param nThread Number of threads to parallelize across.
 #' @param verbose Print messages.
 #' @inheritParams call_peaks
-#' @inheritParams get_geo_supplementary_files
+#' @inheritParams construct_searches
 #' @inheritParams BiocParallel::MulticoreParam
 #' 
 #' @returns 
@@ -51,8 +51,10 @@
 #' @export
 #' @importFrom stats setNames 
 #' @importFrom GenomicRanges GRanges
-#' @examples 
-#' grl <- peakyfinders::import_peaks(ids = "GSM4271282")
+#' @examples
+#' grl <- peakyfinders::import_peaks(
+#'     ids = "GSM945244",
+#'     searches = construct_searches(keys = "narrowpeak"))
 import_peaks <- function(ids,
                          builds = "hg19",
                          query_granges = NULL, 
@@ -61,13 +63,7 @@ import_peaks <- function(ids,
                          condense_queries = TRUE,
                          force_new = FALSE, 
                          cutoff = NULL,
-                         regex_queries = list(
-                             narrowPeak="narrowpeak",
-                             broadPeak="broadpeak",
-                             genericPeak="peak",
-                             bedGraph="bedgraph|graph.gz|bdg.gz",
-                             bigWig="bigwig|bw$"
-                         ),
+                         searches = construct_searches(),
                          peaks_dir = tempdir(),
                          save_path = tempfile(fileext = "grl.hg38.rds"),
                          nThread = 1,
@@ -117,7 +113,7 @@ import_peaks <- function(ids,
                                      query_granges = query_granges,
                                      query_granges_build = query_granges_build,
                                      cutoff = cutoff,
-                                     regex_queries = regex_queries,
+                                     searches = searches,
                                      peaks_dir = peaks_dir,
                                      split_chromosomes = split_chromosomes,
                                      nThread = nThread,

@@ -1,7 +1,7 @@
 import_peaks_genericpeak <- function(paths,
                                      nThread=1,
                                      verbose=TRUE){
-    messager("Using pre-computed generic peak files.",v=verbose)
+    messager("Importing pre-computed generic peak files.",v=verbose)
     peaks <- lapply(paths, function(f){
         tryCatch({
             ### not all files parse very cleanly 

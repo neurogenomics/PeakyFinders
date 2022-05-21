@@ -5,6 +5,7 @@
 #' peaks wil be called first.
 #' 
 #' @inheritParams import_peaks 
+#' @inheritParams construct_searches 
 #' @keywords internal
 #' @importFrom BiocParallel register SnowParam bplapply
 import_peaks_multi <- function(links,
@@ -15,7 +16,7 @@ import_peaks_multi <- function(links,
                                split_chromosomes = FALSE,
                                condense_queries = TRUE,
                                cutoff = NULL,
-                               regex_queries = list(
+                               searches = list(
                                    narrowPeak="narrowpeak",
                                    broadPeak="broadpeak",
                                    genericPeak="peak",
@@ -32,6 +33,7 @@ import_peaks_multi <- function(links,
     # BiocParallel::register(
     #     
     # ) 
+    t1 <- Sys.time()
     BPPARAM <-  BiocParallel::SnowParam(workers = nThread,
                                         progressbar = nThread>1)
     #### Liftover (if necessary) ####
@@ -141,5 +143,7 @@ import_peaks_multi <- function(links,
     if(merge_list){
         peaks_all <- unlist(GenomicRanges::GRangesList(peaks_all)) 
     } 
+    t2 <- Sys.time()
+    difftime(t2, t1, units = "min")
     return(peaks_all)
 }

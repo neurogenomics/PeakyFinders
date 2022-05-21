@@ -2,6 +2,7 @@
 
 export(call_peaks)
 export(condense_granges)
+export(construct_searches)
 export(dt_to_granges)
 export(get_genome)
 export(import_peaks)

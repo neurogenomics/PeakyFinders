@@ -29,13 +29,7 @@ import_peaks_geo <- function(gsm,
                              query_granges_build,
                              split_chromosomes = FALSE,
                              cutoff = NULL,
-                             regex_queries = list(
-                                 narrowPeak="narrowpeak",
-                                 broadPeak="broadpeak",
-                                 genericPeak="peak",
-                                 bedGraph="bedgraph|graph.gz|bdg.gz",
-                                 bigWig="bigwig|bw$"
-                             ),
+                             searches = construct_searches(),
                              peaks_dir = tempdir(),
                              timeout = 3*60,
                              nThread = 1,
@@ -49,7 +43,7 @@ import_peaks_geo <- function(gsm,
                      override = TRUE)  
     #### Get links to supplementary files on GEO ####
     links <- get_geo_supplementary_files(gsm = gsm,
-                                         regex_queries = regex_queries,
+                                         searches = searches,
                                          verbose = verbose)
     #### Import peaks ####
     peaks_all <- import_peaks_multi(links = links, 
@@ -59,7 +53,7 @@ import_peaks_geo <- function(gsm,
                                     query_granges_build = query_granges_build,
                                     split_chromosomes = split_chromosomes,
                                     cutoff = cutoff,
-                                    regex_queries = regex_queries,
+                                    searches = searches,
                                     peaks_dir = peaks_dir,
                                     nThread = nThread,
                                     verbose = verbose)

@@ -8,7 +8,7 @@ test_that("import_peaks works", {
     ids <- "GSM2101439" 
     grl <- peakyfinders::import_peaks(ids = ids,
                                        builds = "hg19",
-                                       regex_queries = list(genericPeak="peak"))
+                                       searches = list(genericPeak="peak"))
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 96376)
@@ -20,7 +20,7 @@ test_that("import_peaks works", {
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
-                                   regex_queries = list(genericPeak="peak"))
+                                   searches = list(genericPeak="peak"))
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 68)
@@ -33,7 +33,7 @@ test_that("import_peaks works", {
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
-                                   regex_queries = list(broadPeak="broadpeak"))
+                                   searches = list(broadPeak="broadpeak"))
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 3)
@@ -46,7 +46,7 @@ test_that("import_peaks works", {
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
-                                   regex_queries = list(narrowPeak="narrowpeak"))
+                                   searches = list(narrowPeak="narrowpeak"))
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 115)
@@ -57,7 +57,7 @@ test_that("import_peaks works", {
     ids <- "GSM4703766"
     grl <- peakyfinders::import_peaks(ids = ids,
                                    builds = "hg19", 
-                                   regex_queries = list(bedGraph="bedgraph|graph.gz|bdg.gz",
+                                   searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                         bigWig="bigwig|bw$"))
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
@@ -71,7 +71,7 @@ test_that("import_peaks works", {
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
-                                   regex_queries = list(bedGraph="bedgraph|graph.gz|bdg.gz",
+                                   searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                         bigWig="bigwig|bw$"))
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
@@ -89,7 +89,7 @@ test_that("import_peaks works", {
                                    builds = "hg38",
                                    query_granges = query_granges,
                                    query_granges_build = "hg38",
-                                   regex_queries = list(bedGraph="bedgraph|graph.gz|bdg.gz",
+                                   searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                         bigWig="bigwig|bw$"))
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
@@ -108,7 +108,7 @@ test_that("import_peaks works", {
                                       builds = "hg38", 
                                       query_granges = query_granges,
                                       query_granges_build = "hg38",
-                                      regex_queries = list(bedGraph="bedgraph|graph.gz|bdg.gz",
+                                      searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                            bigWig="bigwig|bw$"),
                                       split_chromosomes = TRUE, 
                                       nThread = 1)

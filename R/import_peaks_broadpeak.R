@@ -1,7 +1,7 @@
 import_peaks_broadpeak <- function(paths,
                                    query_granges,
                                    verbose=TRUE){
-    messager("Using pre-computed broadPeak files.",v=verbose)
+    messager("Importing pre-computed broadPeak files.",v=verbose)
     peaks <- lapply(paths, function(f){ 
         p <- rtracklayer::import(con = f, 
                                  which = query_granges,

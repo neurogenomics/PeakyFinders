@@ -13,8 +13,7 @@ import_peaks(
   condense_queries = TRUE,
   force_new = FALSE,
   cutoff = NULL,
-  regex_queries = list(narrowPeak = "narrowpeak", broadPeak = "broadpeak", genericPeak
-    = "peak", bedGraph = "bedgraph|graph.gz|bdg.gz", bigWig = "bigwig|bw$"),
+  searches = construct_searches(),
   peaks_dir = tempdir(),
   save_path = tempfile(fileext = "grl.hg38.rds"),
   nThread = 1,
@@ -61,8 +60,7 @@ If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
 through a \code{cutoff_analysis}.}
 
-\item{regex_queries}{Named list of queries.
-Matches will be case-insensitive.}
+\item{searches}{Named list of regex queries.}
 
 \item{peaks_dir}{Directory to save peaks to 
 (only used when calling peaks from bedGraph files).}
@@ -87,5 +85,7 @@ Automatically detects which database each accession ID is from
 and queries a subset of ranges specified in \code{query_granges}.
 }
 \examples{
-grl <- peakyfinders::import_peaks(ids = "GSM4271282")
+grl <- peakyfinders::import_peaks(
+    ids = "GSM945244",
+    searches = construct_searches(keys = "narrowpeak"))
 }

@@ -13,8 +13,8 @@ import_peaks_multi(
   split_chromosomes = FALSE,
   condense_queries = TRUE,
   cutoff = NULL,
-  regex_queries = list(narrowPeak = "narrowpeak", broadPeak = "broadpeak", genericPeak
-    = "peak", bedGraph = "bedgraph|graph.gz|bdg.gz", bigWig = "bigwig|bw$"),
+  searches = list(narrowPeak = "narrowpeak", broadPeak = "broadpeak", genericPeak =
+    "peak", bedGraph = "bedgraph|graph.gz|bdg.gz", bigWig = "bigwig|bw$"),
   peaks_dir = tempdir(),
   merge_list = TRUE,
   nThread = 1,
@@ -46,8 +46,7 @@ If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
 through a \code{cutoff_analysis}.}
 
-\item{regex_queries}{Named list of queries.
-Matches will be case-insensitive.}
+\item{searches}{Named list of regex queries.}
 
 \item{peaks_dir}{Directory to save peaks to 
 (only used when calling peaks from bedGraph files).}

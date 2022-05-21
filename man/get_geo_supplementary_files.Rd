@@ -6,21 +6,20 @@
 \usage{
 get_geo_supplementary_files(
   gsm,
-  regex_queries = list(narrowPeak = "narrowpeak", broadPeak = "broadpeak", genericPeak
-    = "peak", bedGraph = "bedgraph|graph.gz|bdg.gz", bigWig = "bigwig|bw$"),
+  searches = construct_searches(),
   verbose = TRUE
 )
 }
 \arguments{
-\item{gsm}{GEO GSM id.}
-
-\item{regex_queries}{Named list of queries.
+\item{gsm}{GEO GSM id.
 Matches will be case-insensitive.}
+
+\item{searches}{Named list of regex queries.}
 
 \item{verbose}{Print messages.}
 }
 \description{
 Get links to any GEO supplementary files matches one or more of the 
-\code{regex_queries}.
+\code{searches}.
 }
 \keyword{internal}

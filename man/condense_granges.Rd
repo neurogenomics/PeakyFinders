@@ -4,7 +4,7 @@
 \alias{condense_granges}
 \title{Condense \link[GenomicRanges]{GRanges}}
 \usage{
-condense_granges(gr, split_chromosomes = TRUE)
+condense_granges(gr, split_chromosomes = FALSE)
 }
 \arguments{
 \item{gr}{A \link[GenomicRanges]{GRanges} object.}
@@ -19,8 +19,11 @@ which can cause memory allocation problems
 due to repeated calls to the underlying C libraries.
 }
 \examples{
-grlist <- list("gr1"=GenomicRanges::GRanges("4:1-100"),
-               "gr2"=GenomicRanges::GRanges("4:200-500"),
-               "gr3"=GenomicRanges::GRanges("8:-10000"))
+gr <- unlist(
+    GenomicRanges::GRangesList(
+        "gr1"=GenomicRanges::GRanges("4:1-100"),
+        "gr2"=GenomicRanges::GRanges("4:300-500"),
+        "gr3"=GenomicRanges::GRanges("8:40-10000"))
+)
 gr2 <- condense_granges(gr = gr)                
 }
