@@ -52,7 +52,7 @@
 #' @importFrom stats setNames 
 #' @importFrom GenomicRanges GRanges
 #' @examples
-#' grl <- peakyfinders::import_peaks(
+#' grl <- PeakyFinders::import_peaks(
 #'     ids = "GSM945244",
 #'     searches = construct_searches(keys = "narrowpeak"))
 import_peaks <- function(ids,

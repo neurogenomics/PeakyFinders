@@ -13,7 +13,22 @@ get_genome(
 )
 }
 \arguments{
+\item{keep.chr}{is a character vector stating the names of the chromosomes to keep. Any chromosome not in the vector will be filtered out. If keep.chr is supplied, organism and chr.type are ignored.}
+
 \item{genome}{The genome object or genome identifier.}
+
+\item{sort}{Whether to sort the \link[GenomicRanges]{GRanges}
+by chromosomes.}
+
+\item{style}{Chromosome style,
+set by \link[GenomeInfoDb]{seqlevelsStyle}.
+\itemize{
+\item{"UCSC" : }{Uses the chromosome style "chr1".}
+\item{"NCBI" : }{Uses the chromosome style "1"}
+}}
+
+\item{split_chromosomes}{Whether to split the 
+\link[GenomicRanges]{GRanges} by chromosome (as a named list).}
 }
 \description{
 Get a genome (or a subset of chromosomes from a genome) 

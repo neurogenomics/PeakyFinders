@@ -3,6 +3,12 @@
 #' Get a genome (or a subset of chromosomes from a genome) 
 #' as a \link[GenomicRanges]{GRanges} object. This can be useful for 
 #' querying whole-chromosomes at a time. 
+#' @param sort Whether to sort the \link[GenomicRanges]{GRanges}
+#' by chromosomes. 
+#' @param split_chromosomes Whether to split the 
+#' \link[GenomicRanges]{GRanges} by chromosome (as a named list). 
+#' @inheritParams liftover_grlist
+#' @inheritParams regioneR::filterChromosomes
 #' @inheritParams regioneR::getGenome
 #' @export
 #' @importFrom regioneR filterChromosomes getGenome

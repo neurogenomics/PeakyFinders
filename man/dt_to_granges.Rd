@@ -8,7 +8,7 @@ dt_to_granges(
   dat,
   chrom_col = "seqnames",
   start_col = "start",
-  end_col = start_col,
+  end_col = "end",
   style = "NCBI",
   verbose = TRUE
 )
@@ -33,6 +33,6 @@ Convert \link[data.table]{data.table}/\link[base]{data.frame} to a
 }
 \examples{
 dat <- data.frame(GenomicRanges::GRanges("4:1-1000000"))
-gr <- peakyfinders::dt_to_granges(dat = dat)
+gr <- dt_to_granges(dat = dat)
 }
 \concept{utils}

@@ -19,10 +19,10 @@ import_bedgraph_chroms <- function(URL,
                                    verbose = TRUE){
     requireNamespace("regioneR")
     if(tolower(build) %in% c("hg19","grch37")){
-        requireNamespace("BSgenome.Hsapiens.UCSC.hg19")     
+        requireNamespace("BSgenome.Hsapiens.UCSC.hg19.masked")     
     }
     if(tolower(build) %in% c("hg38","grch38")){
-        requireNamespace("BSgenome.Hsapiens.UCSC.hg38")     
+        requireNamespace("BSgenome.Hsapiens.UCSC.hg38.masked")     
     } 
     messager("Importing chromosome(s):",
              paste(chroms,collapse = ","),v=verbose) 

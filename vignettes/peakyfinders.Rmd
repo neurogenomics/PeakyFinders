@@ -30,7 +30,7 @@ Some peaks files are already made available on [GEO](https://www.ncbi.nlm.nih.go
 where the names are the GEO sample `ids`. 
 
 ```{r}
-grl <- peakyfinders::import_peaks(
+grl <- PeakyFinders::import_peaks(
     ids = "GSM945244",
     searches = construct_searches(keys = c("narrowpeak",
                                            "broadpeak"))) 
@@ -47,10 +47,10 @@ Here, we'll just construct query for all of chromosome 22
 using the helper function `get_genome`
 
 ```{r}
-query_granges <- peakyfinders::get_genome(genome = "hg19",
+query_granges <- PeakyFinders::get_genome(genome = "hg19",
                                           keep.chr = 22)
 
-grl2 <- peakyfinders::import_peaks(
+grl2 <- PeakyFinders::import_peaks(
     ids = "GSM945244",
     searches = construct_searches(keys = c("narrowpeak",
                                            "broadpeak")),
@@ -68,7 +68,7 @@ knitr::kable(
 When no pre-computed peaks are available, you can instead use `import_peaks` to recompute peaks from *bigWig* or *bedGraph* files.  
 
 ```{r}
-grl3 <- peakyfinders::import_peaks(
+grl3 <- PeakyFinders::import_peaks(
     ids = "GSM945244",
     searches = construct_searches(keys = "bigwig"),
     builds = "hg19",
@@ -88,14 +88,14 @@ you can take advantage of the parallelization features in `import_peaks`.
 For example, if you want to call peaks across the entire genome
 from a given *bigWig* file, you could speed up this process by dividing the task by chromosome and distributing it across multiple cores or compute nodes. 
 
-Internally, `peakyfinders` takes a number of steps to optimise these parallel processes, so you don't have to worry about it as much. This helps to avoid common issues stemming from excessive numbers of queries, both to the servers where the peak data is hosted, and to the C libraries that R relies on to makes these queries.  
+Internally, `PeakyFinders` takes a number of steps to optimise these parallel processes, so you don't have to worry about it as much. This helps to avoid common issues stemming from excessive numbers of queries, both to the servers where the peak data is hosted, and to the C libraries that R relies on to makes these queries.  
 
 **Tip**:  
 
 > It's usually a good idea to leave several cores free when running parallel processes, so that you can still have enough resources to use your computer while the function is running. In the example below, I'm using 10/12 cores on my local laptop. 
 
 ```{r, eval=FALSE}
-grl4 <- peakyfinders::import_peaks(
+grl4 <- PeakyFinders::import_peaks(
     ids = "GSM945244",
     searches = construct_searches(keys = "bigwig"),
     split_chromosomes = TRUE,

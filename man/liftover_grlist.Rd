@@ -23,6 +23,13 @@ or simply a single unlisted \link[GenomicRanges]{GRanges} object.}
 \item{output_build}{Desired genome build for
 \code{grlist} to be lifted over to.}
 
+\item{style}{Chromosome style,
+set by \link[GenomeInfoDb]{seqlevelsStyle}.
+\itemize{
+\item{"UCSC" : }{Uses the chromosome style "chr1".}
+\item{"NCBI" : }{Uses the chromosome style "1"}
+}}
+
 \item{as_grangeslist}{Return as a \link[GenomicRanges]{GRangesList}.}
 
 \item{merge_all}{Merge all \link[GenomicRanges]{GRanges} into a single

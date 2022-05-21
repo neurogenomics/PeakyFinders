@@ -6,7 +6,7 @@ test_that("import_peaks works", {
 
     #### genericPeak: Without query_granges ####
     ids <- "GSM2101439" 
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                        builds = "hg19",
                                        searches = list(genericPeak="peak"))
     testthat::expect_true(names(grl)==ids)
@@ -16,7 +16,7 @@ test_that("import_peaks works", {
     
     #### genericPeak: With query_granges #### 
     ids <- "GSM2101439" 
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
@@ -29,7 +29,7 @@ test_that("import_peaks works", {
     
     #### broadPeak: With query_granges #### 
     ids <- "GSM1003455"
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
@@ -42,7 +42,7 @@ test_that("import_peaks works", {
     
     #### narrowPeak: With query_granges #### 
     ids <- "GSM945244"
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
@@ -55,7 +55,7 @@ test_that("import_peaks works", {
     
     #### called peaks: Without query_granges #### 
     ids <- "GSM4703766"
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                    builds = "hg19", 
                                    searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                         bigWig="bigwig|bw$"))
@@ -67,7 +67,7 @@ test_that("import_peaks works", {
     
     #### called peaks: With query_granges #### 
     ids <- "GSM4703766"
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                    builds = "hg19",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
@@ -85,7 +85,7 @@ test_that("import_peaks works", {
         regioneR::getGenome("hg38"), 
         keep.chr = "chr4"
     )
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                    builds = "hg38",
                                    query_granges = query_granges,
                                    query_granges_build = "hg38",
@@ -102,9 +102,9 @@ test_that("import_peaks works", {
     ## Query using the same genome build whenever possible
     ## because liftover tends to distribute 
     ## regions all over the genome.
-    query_granges <- peakyfinders::get_genome(genome = "hg38",
+    query_granges <- PeakyFinders::get_genome(genome = "hg38",
                                               keep.chr=20:22)  
-    grl <- peakyfinders::import_peaks(ids = ids,
+    grl <- PeakyFinders::import_peaks(ids = ids,
                                       builds = "hg38", 
                                       query_granges = query_granges,
                                       query_granges_build = "hg38",

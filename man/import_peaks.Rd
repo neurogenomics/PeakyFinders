@@ -85,7 +85,7 @@ Automatically detects which database each accession ID is from
 and queries a subset of ranges specified in \code{query_granges}.
 }
 \examples{
-grl <- peakyfinders::import_peaks(
+grl <- PeakyFinders::import_peaks(
     ids = "GSM945244",
     searches = construct_searches(keys = "narrowpeak"))
 }

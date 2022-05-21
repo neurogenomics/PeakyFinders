@@ -1,4 +1,4 @@
-Package: peakyfinders
+Package: PeakyFinders
 Type: Package
 Title: Mining, Calling, and Importing Epigenomic Peaks
 Version: 0.99.0
@@ -11,14 +11,13 @@ Authors@R:
            )
 Description:
     R package for mining, calling, and importing epigenomic peaks.
-URL: https://github.com/neurogenomics/peakyfinders
-BugReports: https://github.com/neurogenomics/peakyfinders/issues
+URL: https://github.com/neurogenomics/PeakyFinders
+BugReports: https://github.com/neurogenomics/PeakyFinders/issues
 Encoding: UTF-8
 Depends: R (>= 4.2)
 biocViews:
     Genetics, FunctionalGenomics, SystemsBiology
 Imports:
-    dplyr,
     data.table,
     utils,
     R.utils, 
@@ -27,7 +26,6 @@ Imports:
     BiocGenerics,
     GenomicRanges,
     GenomeInfoDb,
-    IRanges,
     rtracklayer,
     regioneR,
     httr,
@@ -47,9 +45,7 @@ Suggests:
     testthat (>= 3.0.0),
     badger,
     hexSticker,
-    utils,
-    here,
-    dplyr, 
+    here, 
     TxDb.Hsapiens.UCSC.hg19.knownGene,
     TxDb.Hsapiens.UCSC.hg38.knownGene,
     BSgenome.Hsapiens.UCSC.hg19.masked, 

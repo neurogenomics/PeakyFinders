@@ -17,22 +17,21 @@
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @examples 
 #' dat <- data.frame(GenomicRanges::GRanges("4:1-1000000"))
-#' gr <- peakyfinders::dt_to_granges(dat = dat)
+#' gr <- dt_to_granges(dat = dat)
 dt_to_granges <- function(dat,
                           chrom_col = "seqnames",
                           start_col = "start",
-                          end_col = start_col,
+                          end_col = "end",
                           style = "NCBI",
                           verbose = TRUE) { 
     if (is_granges(dat)) {
         messager("dat is already a GRanges object.", v = verbose)
         gr.snp <- dat
     } else {
-        messager("Converting dat to GRanges object.", v = verbose)
-        dat[["SEQnames"]] <- dat[[chrom_col]]
+        messager("Converting dat to GRanges object.", v = verbose) 
         gr.snp <- GenomicRanges::makeGRangesFromDataFrame(
             dat,
-            seqnames.field = "SEQnames",
+            seqnames.field = chrom_col,
             start.field = start_col,
             end.field = end_col,
             keep.extra.columns = TRUE

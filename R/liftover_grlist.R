@@ -10,6 +10,12 @@
 #' @param as_grangeslist Return as a \link[GenomicRanges]{GRangesList}. 
 #' @param merge_all Merge all \link[GenomicRanges]{GRanges} into a single
 #'  \link[GenomicRanges]{GRanges} object.
+#' @param style Chromosome style,
+#'  set by \link[GenomeInfoDb]{seqlevelsStyle}.
+#'  \itemize{
+#'  \item{"UCSC" : }{Uses the chromosome style "chr1".}
+#'  \item{"NCBI" : }{Uses the chromosome style "1"}
+#'  }
 #' @param verbose Print messages.
 #' 
 #' @returns Named list of lifted \link[GenomicRanges]{GRanges} objects.

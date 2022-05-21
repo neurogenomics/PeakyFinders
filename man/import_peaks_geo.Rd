@@ -60,7 +60,7 @@ Named list of peak files in \link[GenomicRanges]{GRanges} format.
 }
 \description{
 Import narrow/broad/generic peaks from GEO, or compute peaks with 
-\link[peakyfinders]{call_peaks}.
+\link[PeakyFinders]{call_peaks}.
 }
 \details{
 Must import \link[methods]{new} in my function

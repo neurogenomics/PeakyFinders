@@ -13,5 +13,5 @@ test_that("liftover_grlist works", {
     gr_lifted <- liftover_grlist(grlist = grlist[[1]],
                                      input_build = "hg19",
                                      output_build="hg38")
-    testthat::expect_true(peakyfinders:::is_granges(gr_lifted))
+    testthat::expect_true(PeakyFinders:::is_granges(gr_lifted))
 })

@@ -1,7 +1,7 @@
 #' Import peaks: GEO
 #' 
 #' Import narrow/broad/generic peaks from GEO, or compute peaks with 
-#' \link[peakyfinders]{call_peaks}.
+#' \link[PeakyFinders]{call_peaks}.
 #' 
 #' Must import \link[methods]{new} in my function
 #' because it seems \link[GEOquery]{getGEO} forgot to do this 

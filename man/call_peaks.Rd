@@ -65,12 +65,13 @@ Can automatically infer a reasonable \code{cutoff} threshold as well.
 ## Normally, you'd call peaks on the entire chromosome, 
 ## or even the whole genome. But for demo purposes we'll just use one locus.
 gsm <- "GSM4703766" 
-links <- peakyfinders:::get_geo_supplementary_files(gsm = gsm) 
+links <- PeakyFinders:::get_geo_supplementary_files(gsm = gsm) 
 query_granges <- GenomicRanges::GRanges("chr6:165169213-167169213")
-gr <- rtracklayer::import(con = links$bedGraph, which = query_granges)
+gr <- rtracklayer::import(con = links$bedgraph, 
+                          which = query_granges)
 tmp <- tempfile(fileext = ".bedgraph")
 rtracklayer::export.bedGraph(object = gr, con = tmp)
 
 #### Call peaks #### 
-peaks <- peakyfinders::call_peaks(bedgraph_path = tmp)
+peaks <- PeakyFinders::call_peaks(bedgraph_path = tmp)
 }

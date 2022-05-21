@@ -22,8 +22,7 @@
 #' @inheritParams MACSr::bdgpeakcall
 #' 
 #' @export
-#' @importFrom rtracklayer import.bed import export.bedGraph
-#' @importFrom echodata is_local
+#' @importFrom rtracklayer import.bed import export.bedGraph 
 #' @importFrom R.utils isGzipped gunzip 
 #' @importFrom utils download.file
 #' @importFrom data.table fread
@@ -34,14 +33,15 @@
 #' ## Normally, you'd call peaks on the entire chromosome, 
 #' ## or even the whole genome. But for demo purposes we'll just use one locus.
 #' gsm <- "GSM4703766" 
-#' links <- peakyfinders:::get_geo_supplementary_files(gsm = gsm) 
+#' links <- PeakyFinders:::get_geo_supplementary_files(gsm = gsm) 
 #' query_granges <- GenomicRanges::GRanges("chr6:165169213-167169213")
-#' gr <- rtracklayer::import(con = links$bedGraph, which = query_granges)
+#' gr <- rtracklayer::import(con = links$bedgraph, 
+#'                           which = query_granges)
 #' tmp <- tempfile(fileext = ".bedgraph")
 #' rtracklayer::export.bedGraph(object = gr, con = tmp)
 #' 
 #' #### Call peaks #### 
-#' peaks <- peakyfinders::call_peaks(bedgraph_path = tmp)
+#' peaks <- PeakyFinders::call_peaks(bedgraph_path = tmp)
 call_peaks <- function(bedgraph_path,
                        cutoff = NULL,
                        minlen = 200L,
@@ -55,8 +55,10 @@ call_peaks <- function(bedgraph_path,
                        verbose = TRUE){
     
     #### Download ####
-    if(!echodata::is_local(bedgraph_path)){
-        bedgraph_path2 <- file.path(tempdir(),basename(bedgraph_path))
+    if(!is_local(bedgraph_path)){
+        bedgraph_path2 <- paste(tempdir(),
+                                basename(bedgraph_path),
+                                sep = "/")
         utils::download.file(url = bedgraph_path, 
                              destfile = bedgraph_path2)
         if(R.utils::isGzipped(bedgraph_path2)){
