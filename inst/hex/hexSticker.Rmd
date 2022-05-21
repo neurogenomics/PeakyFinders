@@ -45,32 +45,45 @@ dir.create(dirname(filename), showWarnings = FALSE, recursive = TRUE)
 
 ## Subplot
 
+Palette semi-automatically made with Peaky Blinders image and
+[Image picker](https://coolors.co/image-picker), 
+
 [ggimage](https://yulab-smu.top/pkgdocs/ggimage.html)
 
 ```{r, eval=FALSE} 
-#### Create function to adjust image opacity ####
-alph <- function(img,a=.8) {
-  magick::image_fx(img, 
-                   expression = paste0(a,"*a"),
-                   channel = "alpha")
-}
-#### Create data to define images/position ####
-dat <- data.frame(x=rep(1,2), 
-                  y=rep(1,2), 
-                  image = c(here::here("inst/hex/brain2.png"),
-                            here::here("inst/hex/gene1.png")),
-                  size = c(1, .5),
-                  alpha = c(.5, 1))
-## Make sure the gene is placed behind the brain
-dat$image <- factor(x = dat$image, 
-                    labels = rev(unique(dat$image)), 
-                    ordered = TRUE)
-#### Create plot ####
-gp <-  ggplot(data=dat, 
-              aes(x=x, y=y)) +  
-  ggimage::geom_image(aes(image=image,
-                          size=I(size), alpha=I(alpha))) + 
-  theme_void() 
+library(ggridges)
+peaky_palette <- c("#292D34",
+                   "#3A3D4E",
+                   "#4B4F52",
+                   "#655D48",
+                   "#868077",
+                   "#B4966E",
+                   "#B1A47F",
+                   "#C8C5A6")
+peaky_palette <- c(rev(peaky_palette),peaky_palette)
+
+lvls <- c("July","June","August","September","May")
+dat <- subset(lincoln_weather, Month %in% lvls) %>% 
+    dplyr::mutate(value=`Mean Temperature [F]`)
+center <- mean(subset(dat,Month=="July")$value)
+dat$Month <- factor(x = dat$Month, levels = lvls, ordered = TRUE)
+# dat <- rbind(
+#     dat,
+#     subset(dat, Month=="June") %>% dplyr::mutate(value=value+center)
+# )
+
+gp <- ggplot(dat, 
+       aes(x = value, 
+           y = Month, fill = stat(x))) +
+  geom_density_ridges_gradient(scale = 3, 
+                               rel_min_height = 0.01, 
+                               show.legend = FALSE,
+                               gradient_lwd = .5,
+                               lwd=.2,
+                               alpha=.8,
+                               color="white") + 
+      scale_fill_gradientn(colours = peaky_palette) + 
+    theme_void() 
 print(gp)
 ```
 
@@ -78,17 +91,17 @@ print(gp)
 ## hexSticker 
 
 ```{r}    
-s_size = 1.5
+s_size = 1.25
 stick <- hexSticker::sticker( 
   subplot = gp,
   #### Package name ####
-  package = pkg, p_size=20, p_y = 1.5,
+  package = pkg, p_size=5, p_y = 1.5,
   #### Subplot #####
-  s_x=1, s_y=1,  s_height = s_size, s_width = s_size,
+  s_x=1, s_y=.8,  s_height = s_size, s_width = s_size,
   #### Fill & border ####
-  h_fill = "#0e326d", h_color = "#44c7fd",
+  h_fill = "#3A3D4E", h_color = "#868077",
   #### Spotlight ####
-  spotlight = TRUE, l_alpha = .3, l_width = 10,
+  spotlight = TRUE, l_alpha = .3, l_width = 10, l_y = 1.3,
   #### File output ####
   filename = filename, dpi = 300)
 print(stick)

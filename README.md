@@ -21,8 +21,6 @@ README updated: <i>May-21-2022</i>
 
 If you use `PeakyFinders`, please cite:
 
-<!-- Modify this by editing the file: inst/CITATION  -->
-
 > author1, author2, author3 (publicationYear) articleTitle,
 > *journalName*; volumeNumber, [linkToPublication](linkToPublication)
 
