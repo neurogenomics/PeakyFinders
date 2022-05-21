@@ -1,23 +1,41 @@
-Package: templateR
+Package: peakyfinders
 Type: Package
-Title: packageTitle
+Title: Mining, Calling, and Importing Epigenomic Peaks
 Version: 0.99.0
-Authors@R: c( 
-     person(given = "yourGivenName",
-           family = "yourFamilyName",
+Authors@R: 
+    c(person(given = "Brian",
+           family = "Schilder",
            role = c("cre"),
-           email = "yourEmail@email.com",
-           comment = c(ORCID = "yourOrcidId"))
-    )
-Description: packageDescription.
-URL: https://github.com/neurogenomics/templateR
-BugReports: https://github.com/neurogenomics/templateR/issues
+           email = "brian_schilder@alumni.brown.edu",
+           comment = c(ORCID = "0000-0001-5949-2191"))
+           )
+Description:
+    R package for mining, calling, and importing epigenomic peaks.
+URL: https://github.com/neurogenomics/peakyfinders
+BugReports: https://github.com/neurogenomics/peakyfinders/issues
 Encoding: UTF-8
 Depends: R (>= 4.2)
 biocViews:
     Genetics, FunctionalGenomics, SystemsBiology
 Imports:
-    methods
+    dplyr,
+    data.table,
+    utils,
+    R.utils, 
+    methods,
+    stats,
+    BiocGenerics,
+    GenomicRanges,
+    GenomeInfoDb,
+    IRanges,
+    rtracklayer,
+    regioneR,
+    httr,
+    BiocParallel,
+    MACSr,
+    GEOquery,
+    AnnotationHub,
+    stringr
 Suggests:
     markdown,
     rmarkdown,
@@ -31,8 +49,11 @@ Suggests:
     hexSticker,
     utils,
     here,
-    dplyr,
-    rlang
+    dplyr, 
+    TxDb.Hsapiens.UCSC.hg19.knownGene,
+    TxDb.Hsapiens.UCSC.hg38.knownGene,
+    BSgenome.Hsapiens.UCSC.hg19.masked, 
+    BSgenome.Hsapiens.UCSC.hg38.masked
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 License: GPL-3
