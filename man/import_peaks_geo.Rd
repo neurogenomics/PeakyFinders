@@ -66,7 +66,8 @@ due to repeated calls to the underlying C libraries.}
 \item{peaks_dir}{Directory to save peaks to 
 (only used when calling peaks from bedGraph files).}
 
-\item{nThread}{Number of threads to parallelize across.}
+\item{nThread}{When \code{nThread>1}, accelerates file importing 
+and peak calling using multi-core parallelisation.}
 
 \item{verbose}{Print messages.}
 

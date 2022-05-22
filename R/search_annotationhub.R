@@ -30,6 +30,7 @@
 #' @source {https://biodatascience.github.io/compbio/bioc/anno.html}{
 #' Mike Love tutorial on accessing peak data from AnnotationHub.}
 #' @export
+#' @importFrom utils data
 #' @importFrom AnnotationHub AnnotationHub query 
 #' @examples
 #' meta <- search_annotationhub(searches=construct_searches(keys="narrowpeak"),
@@ -44,16 +45,13 @@ search_annotationhub <- function(searches=construct_searches(),
                                 biosample_id=NULL,
                                 biosample_type=NULL,
                                 biosample_name=NULL,
-                                dataset_biosample_summary=NULL, 
-                                
+                                dataset_biosample_summary=NULL,  
                                 dataprovider=NULL,
                                 species=NULL,
                                 genome=NULL,
                                 description=NULL,
                                 rdataclass=NULL,
                                 sourcetype=NULL,
-                                
-                                
                                 ## Function args
                                 partial_match=TRUE,
                                 peaks_only=FALSE,
@@ -79,6 +77,7 @@ search_annotationhub <- function(searches=construct_searches(),
                                 verbose = verbose)
     } else {
         messager("Subsetting metadata to only peaks.",v=verbose)
+        utils::data(peaks_metadata_annotationhub)
         meta <- peaks_metadata_annotationhub
     }
     #### Get arguments ####

@@ -31,6 +31,7 @@
 #' @returns \link[data.table]{data.table}. 
 #' 
 #' @export
+#' @importFrom utils data
 #' @importFrom AnnotationHub AnnotationHub query 
 #' @examples
 #' meta <- search_roadmap(biosample_type="brain",
@@ -83,6 +84,7 @@ search_roadmap <- function(## Filter args
                                 verbose = verbose)
     } else {
         messager("Subsetting metadata to only peaks.",v=verbose)
+        utils::data(peaks_metadata_roadmap)
         meta <- peaks_metadata_roadmap
     }
     #### Get arguments ####

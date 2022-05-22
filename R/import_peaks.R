@@ -1,16 +1,34 @@
 #' Import peaks
 #' 
-#' Import pe-computed peak files, or
-#' compute new peaks from bedGraph files.
-#' Automatically detects which database each accession ID is from
-#' and queries a subset of ranges specified in \code{query_granges}.
+#' Import pre-computed peak files, or
+#' compute new peaks from bedGraph/bigWig files. 
+#' Can import a subset of ranges specified by \code{query_granges},
+#' or across the whole genome by setting \code{query_granges=NULL}.\cr
 #' Currently recognizes IDs from: 
 #' \itemize{
-#' \item{\href{http://www.ncbi.nlm.nih.gov/geo}{GEO}}
-#' \item{\href{https://www.encodeproject.org/}{ENCODE}}
-#' \item{\href{http://www.roadmapepigenomics.org/}{ROADMAP}}
-#' \item{\href{https://doi.org/doi:10.18129/B9.bioc.AnnotationHub}{
-#' AnnotationHub}}
+#' \item{\strong{\href{http://www.ncbi.nlm.nih.gov/geo}{GEO}} : }{}
+#' \item{\strong{\href{https://www.encodeproject.org/}{ENCODE}} : }{
+#' See \code{\link[PeakyFinders]{peaks_metadata_encode}} for example metadata.}
+#' \item{\strong{\href{http://www.roadmapepigenomics.org/}{ROADMAP}} : }{
+#' See \code{\link[PeakyFinders]{peaks_metadata_roadmap}} for example metadata.}
+#' \item{\strong{\href{https://doi.org/doi:10.18129/B9.bioc.AnnotationHub}{
+#' AnnotationHub}} : }{
+#' See \code{\link[PeakyFinders]{peaks_metadata_annotationhub}} 
+#' for example metadata.}
+#' } 
+#' \emph{Notable features}:\cr
+#' \enumerate{
+#' \item{Automatically infers which database each accession ID is from and 
+#' organizes the outputs accordingly.}
+#' \item{Automatically infers which function is needed to 
+#' import which file types.}
+#' \item{Automatically calls peaks from any bedGraph/bigWig files.}
+#' \item{\code{query_granges} can be a different genome build than 
+#' the files being imported, as the \code{query_granges} will 
+#' be lifted over to the correct genome build 
+#' with \link[PeakyFinders]{liftover_grlist}.}
+#' \item{When \code{nThread>1}, accelerates file importing
+#' and peak calling using multi-core parallelisation.}
 #' } 
 #' 
 #' @param ids IDs from one of the supported databases. 
@@ -43,15 +61,22 @@
 #' This helps to reduce the total number of queries, 
 #' which can cause memory allocation problems 
 #' due to repeated calls to the underlying C libraries. 
-#' @param nThread Number of threads to parallelize across.
+#' @param nThread When \code{nThread>1}, accelerates file importing 
+#' and peak calling using multi-core parallelisation.
 #' @param verbose Print messages.
 #' @inheritParams call_peaks
 #' @inheritParams construct_searches 
 #' 
 #' @returns 
-#' A named list of peak files in  \link[GenomicRanges]{GRanges} format.
+#' A nested named list of peak files in \link[GenomicRanges]{GRanges} format.
+#' Nesting structure is as follows:
+#' \emph{database -> id ->  GRanges object}
+#' Each \link[GenomicRanges]{GRanges} object contains all the peak
+#'  data that was found for that particular \code{id}, merged into one. 
+#' You can differentiate the various
+#' source file types by looking at the column "peaktype". 
 #' If peaks could not be recovered for a sample,
-#'  that element will be filled with \code{NA}.
+#'  that element will be set to \code{NULL}.
 #' 
 #' @export
 #' @importFrom stats setNames 
