@@ -2,13 +2,17 @@ import_peaks_bigwig <- function(paths,
                                 id,
                                 query_granges,
                                 build,
+                                call_peaks_method,
                                 cutoff,
                                 peaks_dir,
                                 verbose=TRUE){
     messager("Computing peaks from bigWig file.",v=verbose)
     #### Import bigWig subset #### 
+    which <- if(is.null(call_peaks_method)) query_granges else NULL
     peaks_all <- lapply(paths, function(x){
-        if(!is.null(query_granges)){
+        if((!is.null(query_granges)) &
+           (!is.null(call_peaks_method))){
+            
             chroms <- as.character(
                 unique(GenomicRanges::seqnames(query_granges))
             )
@@ -21,12 +25,19 @@ import_peaks_bigwig <- function(paths,
         } else {
             ## Import the entire genome.
             chroms <- "chrALL"
-            gr <- rtracklayer::import.bw(con = x)
+            gr <- rtracklayer::import.bw(con = x, which=which)
         }
         #### Fix seqinfo ####
         gr <- fix_seqinfo(gr = gr, 
                           build = build, 
                           verbose = verbose)
+        #### Exit early ####
+        if(is.null(call_peaks_method)) {
+            messager("Returning bigWig GRanges without computing peaks.",
+                     v=verbose)
+            GenomicRanges::mcols(gr)$peaktype <- "bigWig"
+            return(gr)
+        } 
         #### Save lifted subset ####
         messager("Writing bigWig subset as bedGraph.",v=verbose)
         tmp_lifted <- tempfile(fileext = paste(id,".bedgraph",

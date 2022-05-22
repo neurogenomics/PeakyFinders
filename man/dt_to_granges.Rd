@@ -27,6 +27,9 @@ set by \link[GenomeInfoDb]{seqlevelsStyle}.}
 
 \item{verbose}{Print messages.}
 }
+\value{
+\link[GenomicRanges]{GRanges}
+}
 \description{
 Convert \link[data.table]{data.table}/\link[base]{data.frame} to a 
 \link[GenomicRanges]{GRanges} object.

@@ -12,9 +12,9 @@ import_peaks_multi(
   query_granges_build = NULL,
   split_chromosomes = FALSE,
   condense_queries = TRUE,
+  call_peaks_method = "MACSr",
   cutoff = NULL,
-  searches = list(narrowPeak = "narrowpeak", broadPeak = "broadpeak", genericPeak =
-    "peak", bedGraph = "bedgraph|graph.gz|bdg.gz", bigWig = "bigwig|bw$"),
+  searches = construct_searches(),
   peaks_dir = tempdir(),
   merge_list = TRUE,
   nThread = 1,
@@ -41,6 +41,12 @@ This helps to reduce the total number of queries,
 which can cause memory allocation problems 
 due to repeated calls to the underlying C libraries.}
 
+\item{call_peaks_method}{Method to call peaks with:
+\itemize{
+\item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
+via \link[MACSr]{bdgpeakcall}.}
+}}
+
 \item{cutoff}{Cutoff depends on which method you used for score track.
 If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
@@ -54,6 +60,9 @@ through a \code{cutoff_analysis}.}
 \item{nThread}{Number of threads to parallelize across.}
 
 \item{verbose}{Print messages.}
+}
+\value{
+\link[GenomicRanges]{GRanges}
 }
 \description{
 Automatically import peaks in different file formats.

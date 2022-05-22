@@ -9,6 +9,7 @@ test_that("import_peaks works", {
     grl <- PeakyFinders::import_peaks(ids = ids,
                                        builds = "hg19",
                                        searches = list(genericPeak="peak"))
+    grl <- grl$GEO
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 96376)
@@ -21,6 +22,7 @@ test_that("import_peaks works", {
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
                                    searches = list(genericPeak="peak"))
+    grl <- grl$GEO
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 68)
@@ -34,6 +36,7 @@ test_that("import_peaks works", {
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
                                    searches = list(broadPeak="broadpeak"))
+    grl <- grl$GEO
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 3)
@@ -41,16 +44,39 @@ test_that("import_peaks works", {
     
     
     #### narrowPeak: With query_granges #### 
-    ids <- "GSM945244"
-    grl <- PeakyFinders::import_peaks(ids = ids,
-                                   builds = "hg19",
+    ## Import from both GEO, ENCODE, ROADMAP, AnnotationHub
+    ids <- c("GSM945244", # GEO
+             "ENCSR000AHD", # ENCODE
+             "AH32001",#"E001" # ROADMAP
+             "AH22394" # AnnotationHub
+             ) 
+    query_granges <- get_genome(keep.chr = "chr22", genome = "hg38")
+    grl_out <- PeakyFinders::import_peaks(ids = ids,
+                                   builds = "hg38",
                                    query_granges = query_granges, 
                                    query_granges_build = "hg38",
                                    searches = list(narrowPeak="narrowpeak"))
-    testthat::expect_true(names(grl)==ids)
-    testthat::expect_true(methods::is(grl[[1]], "GRanges"))
-    testthat::expect_length(grl[[1]], 115)
-    remove(grl)
+    for(nm in names(grl_out)){
+        grl <- grl_out[[nm]] 
+        testthat::expect_true(methods::is(grl[[1]], "GRanges"))
+        if(nm=="GEO") {
+            testthat::expect_true(names(grl)==ids[1])
+            testthat::expect_length(grl[[1]], 2417)
+        }
+        if(nm=="ENCODE") {
+            testthat::expect_true(names(grl)==ids[2])
+            testthat::expect_length(grl[[1]], 13109)
+        } 
+        if(nm=="ROADMAP") {
+            testthat::expect_true(names(grl)==ids[3])
+            testthat::expect_length(grl[[1]], 881)
+        } 
+        if(nm=="AnnotationHub") {
+            testthat::expect_true(names(grl)==ids[4])
+            testthat::expect_length(grl[[1]], 5064)
+        } 
+    } 
+    remove(grl_out, grl, nm)
     
     
     #### called peaks: Without query_granges #### 
@@ -59,6 +85,7 @@ test_that("import_peaks works", {
                                    builds = "hg19", 
                                    searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                         bigWig="bigwig|bw$"))
+    grl <- grl$GEO
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 18112)
@@ -73,24 +100,23 @@ test_that("import_peaks works", {
                                    query_granges_build = "hg38",
                                    searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                         bigWig="bigwig|bw$"))
+    grl <- grl$GEO
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
-    testthat::expect_length(grl[[1]], 15)
+    testthat::expect_length(grl[[1]], 304)
     remove(grl)
     
     
     #### called peaks from bigWig: With query_granges ####  
-    ids <- "GSM5684359"
-    query_granges <- regioneR::filterChromosomes(
-        regioneR::getGenome("hg38"), 
-        keep.chr = "chr4"
-    )
+    ids <- "GSM5684359" 
+    query_granges <- get_genome(keep.chr = "chr4", genome = "hg38")
     grl <- PeakyFinders::import_peaks(ids = ids,
                                    builds = "hg38",
                                    query_granges = query_granges,
                                    query_granges_build = "hg38",
                                    searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
                                                         bigWig="bigwig|bw$"))
+    grl <- grl$GEO
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 4)
@@ -112,6 +138,7 @@ test_that("import_peaks works", {
                                                            bigWig="bigwig|bw$"),
                                       split_chromosomes = TRUE, 
                                       nThread = 1)
+    grl <- grl$GEO
     testthat::expect_true(names(grl)==ids)
     testthat::expect_true(methods::is(grl[[1]], "GRanges"))
     testthat::expect_length(grl[[1]], 16)

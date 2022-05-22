@@ -18,6 +18,9 @@ import_bedgraph_chroms(
   verbose = TRUE
 )
 }
+\value{
+\link[GenomicRanges]{GRanges}
+}
 \description{
 Query a bedGraph file by a subset of chromosomes.
 This allows you to query whole chromosomes at a time, without needing to

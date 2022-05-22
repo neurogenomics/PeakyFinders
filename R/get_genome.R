@@ -10,6 +10,9 @@
 #' @inheritParams liftover_grlist
 #' @inheritParams regioneR::filterChromosomes
 #' @inheritParams regioneR::getGenome
+#' 
+#' @returns \link[GenomicRanges]{GRanges}
+#' 
 #' @export
 #' @importFrom regioneR filterChromosomes getGenome
 #' @importFrom stringr str_sort

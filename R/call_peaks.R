@@ -1,14 +1,19 @@
 #' Call peaks
 #' 
-#' Call peaks from a bedGraph or bigWig file using \link[MACSr]{bdgpeakcall}, 
-#' which is a wrapper for the \emph{MACS3} command line tool.
-#' Can automatically infer a reasonable \code{cutoff} threshold as well.
+#' Call peaks from a bedGraph or bigWig file using multiple methods.
+#' By default, it automatically infers a reasonable 
+#' \code{cutoff} threshold as well. 
 #' 
 #' @param bedgraph_path Path to bedGraph file. 
 #' Can instead provide a bigWig file, 
 #' but this will first be converted to bedGraph format, 
 #' which can take some time if trying to convert data from across the entire
 #' genome.
+#' @param call_peaks_method Method to call peaks with:
+#' \itemize{
+#' \item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
+#' via \link[MACSr]{bdgpeakcall}.}
+#' }
 #' @param cutoff Cutoff depends on which method you used for score track.
 #'  If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 #'  If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
@@ -20,6 +25,7 @@
 #' or the peak data itself as a \link[GenomicRanges]{GRanges} object.
 #' @param verbose Print messages.
 #' @inheritParams MACSr::bdgpeakcall
+#' @returns \link[GenomicRanges]{GRanges}
 #' 
 #' @export
 #' @importFrom rtracklayer import.bed import export.bedGraph 
@@ -33,7 +39,7 @@
 #' ## Normally, you'd call peaks on the entire chromosome, 
 #' ## or even the whole genome. But for demo purposes we'll just use one locus.
 #' gsm <- "GSM4703766" 
-#' links <- PeakyFinders:::get_geo_supplementary_files(gsm = gsm) 
+#' links <- PeakyFinders:::get_geo_links(gsm = gsm) 
 #' query_granges <- GenomicRanges::GRanges("chr6:165169213-167169213")
 #' gr <- rtracklayer::import(con = links$bedgraph, 
 #'                           which = query_granges)
@@ -43,6 +49,7 @@
 #' #### Call peaks #### 
 #' peaks <- PeakyFinders::call_peaks(bedgraph_path = tmp)
 call_peaks <- function(bedgraph_path,
+                       call_peaks_method = "MACSr",
                        cutoff = NULL,
                        minlen = 200L,
                        maxgap = 30L,

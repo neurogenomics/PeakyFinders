@@ -6,6 +6,8 @@
 #' @source \href{https://github.com/Bioconductor/BiocGenerics/issues/12}{
 #' GitHub Issues: conflicts with BiocGenerics}
 #' 
+#' @returns \link[GenomicRanges]{GRanges}
+#' 
 #' @keywords internal
 #' @importFrom GenomicRanges seqnames
 #' @importFrom rtracklayer import export

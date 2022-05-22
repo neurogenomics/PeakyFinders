@@ -2,11 +2,18 @@
 % Please edit documentation in R/clean_granges.R
 \name{clean_granges}
 \alias{clean_granges}
-\title{Clean GRanges object}
+\title{Clean GenomicRanges}
 \usage{
 clean_granges(gr)
 }
+\arguments{
+\item{gr}{\link[GenomicRanges]{GRanges} or \link[data.table]{data.table}.}
+}
+\value{
+\link[GenomicRanges]{GRanges}
+}
 \description{
-Clean GRanges object
+Remove known problematic columns from a 
+\link[GenomicRanges]{GRanges} object.
 }
 \keyword{internal}

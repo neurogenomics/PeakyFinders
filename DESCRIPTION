@@ -1,6 +1,6 @@
 Package: PeakyFinders
 Type: Package
-Title: Mining, Calling, and Importing Epigenomic Peaks
+Title: Mining, Calling, and Importing Epigenomic Peaks in R
 Version: 0.99.0
 Authors@R: 
     c(person(given = "Brian",
@@ -10,18 +10,25 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5949-2191"))
            )
 Description:
-    R package for mining, calling, and importing epigenomic peaks.
+    Contains flexible and user-friendly functions to find, import, and harmonise 
+    epigenomic peaks data from 
+    **GEO**, **ENCODE**, **ROADMAP**, and **AnnotationHub**. 
+    Efficiently imports multiple peak files in one function call 
+    (either genome-wide or specific regions) using parallelisation.
+    When peaks are not available, automatically calls peaks from 
+    *bedGraph* or *bigWig* files. 
 URL: https://github.com/neurogenomics/PeakyFinders
 BugReports: https://github.com/neurogenomics/PeakyFinders/issues
 Encoding: UTF-8
 Depends: R (>= 4.2)
 biocViews:
-    Genetics, FunctionalGenomics, SystemsBiology
+    Genetics, FunctionalGenomics, SystemsBiology, WholeGenome, DataImport
 Imports:
     data.table,
     utils,
     R.utils, 
     methods,
+    tools,
     stats,
     BiocGenerics,
     GenomicRanges,
@@ -49,8 +56,10 @@ Suggests:
     TxDb.Hsapiens.UCSC.hg19.knownGene,
     TxDb.Hsapiens.UCSC.hg38.knownGene,
     BSgenome.Hsapiens.UCSC.hg19.masked, 
-    BSgenome.Hsapiens.UCSC.hg38.masked
+    BSgenome.Hsapiens.UCSC.hg38.masked,
+    piggyback
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 License: GPL-3
 Config/testthat/edition: 3
+LazyData: false

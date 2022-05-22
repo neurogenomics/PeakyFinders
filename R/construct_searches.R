@@ -5,6 +5,9 @@
 #' @param searches Named list of regex queries.
 #' @param keys Keys to subset the \code{searches} with by their
 #' names. 
+#' 
+#' @returns Named list. 
+#' 
 #' @export
 #' @examples 
 #' searches <- construct_searches()
@@ -19,6 +22,8 @@ construct_searches <- function(searches=NULL,
             bigWig="bigwig|bw$"
         )
     } 
+    #### Make casing irrelevant ####
+    names(searches) <- tolower(names(searches))
     if(!is.null(keys)){ 
         searches <- searches[
             grepl(paste(keys,collapse = "|"),names(searches),

@@ -11,6 +11,9 @@ condense_granges(gr, split_chromosomes = FALSE)
 
 \item{split_chromosomes}{Split into a named list by chromosome.}
 }
+\value{
+\link[GenomicRanges]{GRanges}
+}
 \description{
 Condense a \link[GenomicRanges]{GRanges} object
 by taking the min/max position per chromosome.

@@ -11,6 +11,8 @@
 #' set by \link[GenomeInfoDb]{seqlevelsStyle}.
 #' @param verbose Print messages.
 #' 
+#' @returns \link[GenomicRanges]{GRanges}
+#' 
 #' @family utils
 #' @export
 #' @importFrom GenomeInfoDb seqlevelsStyle

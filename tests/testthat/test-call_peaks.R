@@ -2,7 +2,7 @@ test_that("call_peaks works", {
     
     
     gsm <- "GSM4703766" 
-    links <- PeakyFinders:::get_geo_supplementary_files(gsm = gsm) 
+    links <- PeakyFinders:::get_geo_links(gsm = gsm) 
     query_granges <- GenomicRanges::GRanges("chr6:165169213-167169213")
     gr <- rtracklayer::import(con = links$bedgraph,
                               which = query_granges)

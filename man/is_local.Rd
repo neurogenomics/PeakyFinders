@@ -9,6 +9,9 @@ is_local(path)
 \arguments{
 \item{path}{Path to local file or remote URL.}
 }
+\value{
+boolean.
+}
 \description{
 Determine whether a file exist locally.
 }

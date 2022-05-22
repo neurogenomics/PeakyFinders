@@ -3,12 +3,18 @@
 #' Import pe-computed peak files, or
 #' compute new peaks from bedGraph files.
 #' Automatically detects which database each accession ID is from
-#'  (\href{http://www.ncbi.nlm.nih.gov/geo}{GEO} or 
-#'  \href{https://www.encodeproject.org/}{ENCODE})
 #' and queries a subset of ranges specified in \code{query_granges}.
+#' Currently recognizes IDs from: 
+#' \itemize{
+#' \item{\href{http://www.ncbi.nlm.nih.gov/geo}{GEO}}
+#' \item{\href{https://www.encodeproject.org/}{ENCODE}}
+#' \item{\href{http://www.roadmapepigenomics.org/}{ROADMAP}}
+#' \item{\href{https://doi.org/doi:10.18129/B9.bioc.AnnotationHub}{
+#' AnnotationHub}}
+#' } 
 #' 
-#' @param ids Sample IDs from GEO (e.g. "GSM4271282") 
-#' or ENCODE (e.g. "ENCFF048VDO").
+#' @param ids IDs from one of the supported databases. 
+#' IDs can be at any level: file, sample, or experiment.
 #' @param builds Genome build that each sample in \code{ids} is aligned to.
 #' This will determine whether whether the \code{query_granges} data need to be 
 #' lifted over to different genome build before querying.
@@ -40,8 +46,7 @@
 #' @param nThread Number of threads to parallelize across.
 #' @param verbose Print messages.
 #' @inheritParams call_peaks
-#' @inheritParams construct_searches
-#' @inheritParams BiocParallel::MulticoreParam
+#' @inheritParams construct_searches 
 #' 
 #' @returns 
 #' A named list of peak files in  \link[GenomicRanges]{GRanges} format.
@@ -53,8 +58,8 @@
 #' @importFrom GenomicRanges GRanges
 #' @examples
 #' grl <- PeakyFinders::import_peaks(
-#'     ids = "GSM945244",
-#'     searches = construct_searches(keys = "narrowpeak"))
+#'     ids = c("GSM945244"),# "ENCSR000AHD"
+#'     searches = PeakyFinders::construct_searches(keys = "narrowpeak"))
 import_peaks <- function(ids,
                          builds = "hg19",
                          query_granges = NULL, 
@@ -62,10 +67,13 @@ import_peaks <- function(ids,
                          split_chromosomes = FALSE,
                          condense_queries = TRUE,
                          force_new = FALSE, 
+                         call_peaks_method = "MACSr",
                          cutoff = NULL,
                          searches = construct_searches(),
                          peaks_dir = tempdir(),
-                         save_path = tempfile(fileext = "grl.hg38.rds"),
+                         save_path = tempfile(
+                             fileext = "_PeakyFinders_grl.rds"
+                         ),
                          nThread = 1,
                          verbose = TRUE){
     
@@ -74,8 +82,8 @@ import_peaks <- function(ids,
         stop("builds must be same length as ids.")
     } 
     #### Get GSM names ####
-    ids <- process_ids(ids = ids, 
-                       verbose = verbose) 
+    id_list <- process_ids(ids = ids, 
+                           verbose = verbose) 
     #### Check query_granges ####
     if(!is.null(query_granges)){
         ## Standardise to UCSC style 
@@ -92,50 +100,79 @@ import_peaks <- function(ids,
        file.exists(save_path) & 
        isFALSE(force_new)){
         messager("Importing stored peaks data.",v=verbose)
-        grl <- readRDS(save_path)
+        out_list <- readRDS(save_path)
     } else { 
-        ids <- stats::setNames(ids,ids) 
-        messager("Querying",length(ids),"sample(s).",v=verbose)
-        grl <- mapply(ids, FUN = function(no){
-            cat(paste("\nQuery:",no,"\n"))
-            tryCatch({
-                #### Get genome build #### 
-                build <- if(length(builds)==1) {
-                    builds
-                } else if (no %in% names(builds)){
-                    builds[[no]]
-                }
-                messager("Using build:",build,v=verbose)
-                #### Import or call peaks: GEO ####
-                if(startsWith(toupper(no),"GSM")){ 
-                    import_peaks_geo(gsm = no, 
-                                     build = build,
-                                     query_granges = query_granges,
-                                     query_granges_build = query_granges_build,
-                                     cutoff = cutoff,
-                                     searches = searches,
-                                     peaks_dir = peaks_dir,
-                                     split_chromosomes = split_chromosomes,
-                                     nThread = nThread,
-                                     verbose = verbose) 
-                #### Import peaks: ENCODE ####
-                } else if(startsWith(toupper(no),"ENCF")){
-                    messager("Under construction.")
-                    return(GenomicRanges::GRanges())
-                } else {
-                    messager("id not recognized. Skipping:",no,
-                             v=verbose)
-                    return(GenomicRanges::GRanges())
-                } 
-            }, error=function(e) {message(e); GenomicRanges::GRanges()}) 
-        })
+        out_list <- list()
+        # build <- parse_build(builds=builds,
+        #                      id=id,
+        #                      verbose=TRUE)
+        #### Import GEO data ####
+        if(length(id_list$GEO)>0){
+            out_list[["GEO"]] <- import_peaks_geo(
+                ids = id_list$GEO,  
+                build = builds,
+                query_granges = query_granges,
+                query_granges_build = query_granges_build,
+                split_chromosomes = split_chromosomes,
+                call_peaks_method = call_peaks_method,
+                cutoff = cutoff,
+                searches = searches,
+                peaks_dir = peaks_dir, 
+                nThread = nThread,
+                verbose = verbose)
+        }
+        #### Import ENCODE data ####
+        if(length(id_list$ENCODE)>0){
+            out_list[["ENCODE"]] <- import_peaks_encode(
+                ids = id_list$ENCODE,  
+                build = builds,
+                query_granges = query_granges,
+                query_granges_build = query_granges_build,
+                split_chromosomes = split_chromosomes,
+                call_peaks_method = call_peaks_method,
+                cutoff = cutoff,
+                searches = searches,
+                peaks_dir = peaks_dir, 
+                nThread = nThread,
+                verbose = verbose)
+        } 
+        #### Import ROADMAP data ####
+        if(length(id_list$ROADMAP)>0){
+            out_list[["ROADMAP"]] <- import_peaks_roadmap(
+                ids = id_list$ROADMAP,  
+                build = builds,
+                query_granges = query_granges,
+                query_granges_build = query_granges_build,
+                split_chromosomes = split_chromosomes,
+                call_peaks_method = call_peaks_method,
+                cutoff = cutoff,
+                searches = searches,
+                peaks_dir = peaks_dir, 
+                nThread = nThread,
+                verbose = verbose)
+        } 
+        #### Import ROADMAP data ####
+        if(length(id_list$AnnotationHub)>0){
+            out_list[["AnnotationHub"]] <- import_peaks_annotationhub(
+                ids = id_list$AnnotationHub,  
+                build = builds,
+                query_granges = query_granges,
+                query_granges_build = query_granges_build,
+                split_chromosomes = split_chromosomes,
+                call_peaks_method = call_peaks_method,
+                cutoff = cutoff,
+                searches = searches,
+                peaks_dir = peaks_dir, 
+                nThread = nThread,
+                verbose = verbose)
+        } 
         #### Save ####
         if(!is.null(save_path)){
             messager("Saving results ==> ",save_path,v=verbose)
             dir.create(dirname(save_path),
                        showWarnings = FALSE, recursive = TRUE)
-            saveRDS(grl, save_path)
+            saveRDS(out_list, save_path)
         } 
     }
-    return(grl)    
+    return(out_list)    
 }

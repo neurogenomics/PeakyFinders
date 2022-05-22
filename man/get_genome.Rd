@@ -30,6 +30,9 @@ set by \link[GenomeInfoDb]{seqlevelsStyle}.
 \item{split_chromosomes}{Whether to split the 
 \link[GenomicRanges]{GRanges} by chromosome (as a named list).}
 }
+\value{
+\link[GenomicRanges]{GRanges}
+}
 \description{
 Get a genome (or a subset of chromosomes from a genome) 
 as a \link[GenomicRanges]{GRanges} object. This can be useful for 

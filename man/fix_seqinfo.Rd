@@ -13,6 +13,9 @@ fix_seqinfo(gr, build = "hg19", verbose = TRUE)
 
 \item{verbose}{Print messages.}
 }
+\value{
+\link[GenomicRanges]{GRanges}
+}
 \description{
 Fix issues with \link[GenomicRanges]{GRanges} object
 imported by \code{rtracklayer::import}, 

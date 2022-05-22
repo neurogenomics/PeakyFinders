@@ -12,17 +12,18 @@ import_peaks(
   split_chromosomes = FALSE,
   condense_queries = TRUE,
   force_new = FALSE,
+  call_peaks_method = "MACSr",
   cutoff = NULL,
   searches = construct_searches(),
   peaks_dir = tempdir(),
-  save_path = tempfile(fileext = "grl.hg38.rds"),
+  save_path = tempfile(fileext = "_PeakyFinders_grl.rds"),
   nThread = 1,
   verbose = TRUE
 )
 }
 \arguments{
-\item{ids}{Sample IDs from GEO (e.g. "GSM4271282") 
-or ENCODE (e.g. "ENCFF048VDO").}
+\item{ids}{IDs from one of the supported databases. 
+IDs can be at any level: file, sample, or experiment.}
 
 \item{builds}{Genome build that each sample in \code{ids} is aligned to.
 This will determine whether whether the \code{query_granges} data need to be 
@@ -55,6 +56,12 @@ will be imported instead of running queries. However you can override this
 by setting \code{force_new} to perform new queries regardless and overwrite
  the old \code{save_path} file.}
 
+\item{call_peaks_method}{Method to call peaks with:
+\itemize{
+\item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
+via \link[MACSr]{bdgpeakcall}.}
+}}
+
 \item{cutoff}{Cutoff depends on which method you used for score track.
 If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
@@ -80,12 +87,18 @@ If peaks could not be recovered for a sample,
 Import pe-computed peak files, or
 compute new peaks from bedGraph files.
 Automatically detects which database each accession ID is from
- (\href{http://www.ncbi.nlm.nih.gov/geo}{GEO} or 
- \href{https://www.encodeproject.org/}{ENCODE})
 and queries a subset of ranges specified in \code{query_granges}.
+Currently recognizes IDs from: 
+\itemize{
+\item{\href{http://www.ncbi.nlm.nih.gov/geo}{GEO}}
+\item{\href{https://www.encodeproject.org/}{ENCODE}}
+\item{\href{http://www.roadmapepigenomics.org/}{ROADMAP}}
+\item{\href{https://doi.org/doi:10.18129/B9.bioc.AnnotationHub}{
+AnnotationHub}}
+}
 }
 \examples{
 grl <- PeakyFinders::import_peaks(
-    ids = "GSM945244",
-    searches = construct_searches(keys = "narrowpeak"))
+    ids = c("GSM945244"),# "ENCSR000AHD"
+    searches = PeakyFinders::construct_searches(keys = "narrowpeak"))
 }

@@ -3,6 +3,7 @@
 #' @keywords internal
 #' @source \href{https://rdrr.io/cran/seqminer/src/R/seqminer.R}{
 #' Borrowed from \code{seqminer} internal function}
+#' @returns boolean.
 is_url <- function(fileName) {
     if (all(grepl(pattern = "^http://", fileName) |
             grepl(pattern = "^ftp://", fileName) )) {

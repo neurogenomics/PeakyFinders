@@ -12,13 +12,15 @@ Issue with importing bigWig files in parallel}
 }
 \usage{
 import_peaks_geo(
-  gsm,
+  ids,
   build,
   query_granges,
   query_granges_build,
   split_chromosomes = FALSE,
+  call_peaks_method = "MACSr",
   cutoff = NULL,
   searches = construct_searches(),
+  condense_queries = TRUE,
   peaks_dir = tempdir(),
   timeout = 3 * 60,
   nThread = 1,
@@ -26,7 +28,8 @@ import_peaks_geo(
 )
 }
 \arguments{
-\item{gsm}{GEO GSM id (e.g. "GSM4271282").}
+\item{ids}{IDs from one of the supported databases. 
+IDs can be at any level: file, sample, or experiment.}
 
 \item{query_granges}{[Optional]
 \link[GenomicRanges]{GRanges} object indicating which genomic
@@ -41,6 +44,12 @@ This is can be helpful especially when calling peaks from
 large bigWig/bedGraph files.
 The number of threads used is set by the \code{nThread} argument.}
 
+\item{call_peaks_method}{Method to call peaks with:
+\itemize{
+\item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
+via \link[MACSr]{bdgpeakcall}.}
+}}
+
 \item{cutoff}{Cutoff depends on which method you used for score track.
 If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
@@ -48,12 +57,20 @@ through a \code{cutoff_analysis}.}
 
 \item{searches}{Named list of regex queries.}
 
+\item{condense_queries}{Condense \code{query_granges}
+by taking the min/max position per chromosome (default: \code{TRUE)}.
+This helps to reduce the total number of queries, 
+which can cause memory allocation problems 
+due to repeated calls to the underlying C libraries.}
+
 \item{peaks_dir}{Directory to save peaks to 
 (only used when calling peaks from bedGraph files).}
 
 \item{nThread}{Number of threads to parallelize across.}
 
 \item{verbose}{Print messages.}
+
+\item{gsm}{GEO GSM id (e.g. "GSM4271282").}
 }
 \value{
 Named list of peak files in \link[GenomicRanges]{GRanges} format.

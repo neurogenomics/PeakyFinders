@@ -13,6 +13,9 @@ is_url(fileName)
 \arguments{
 \item{fileName}{character vector}
 }
+\value{
+boolean.
+}
 \description{
 Check if the input is url e.g. http:// or ftp://
 }

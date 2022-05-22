@@ -1,5 +1,11 @@
-#' Clean GRanges object
-#'
+#' Clean GenomicRanges
+#' 
+#' Remove known problematic columns from a 
+#' \link[GenomicRanges]{GRanges} object. 
+#' @param gr \link[GenomicRanges]{GRanges} or \link[data.table]{data.table}. 
+#' 
+#' @returns \link[GenomicRanges]{GRanges}
+#' 
 #' @keywords internal
 #' @importFrom GenomicRanges elementMetadata
 #' @importFrom methods is

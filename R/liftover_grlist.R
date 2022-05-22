@@ -39,12 +39,14 @@ liftover_grlist <- function(grlist,
                             merge_all=FALSE,
                             verbose=TRUE){ 
     
-    input_build <- tolower(input_build)
-    output_build <- tolower(output_build)
+    input_build <- translate_genome(genome = input_build, 
+                                    style = "UCSC")
+    output_build <- translate_genome(genome = output_build, 
+                                     style = "UCSC")
     #### No liftover necessary ####
     if(input_build==output_build){
-        messager("grlist is already in the output_build format. ",
-                "Skipping liftover.",v=verbose)
+        messager("grlist is already in the output_build format.",
+                 "Skipping liftover.",v=verbose)
         ## Exit early
         return(grlist)
     } 

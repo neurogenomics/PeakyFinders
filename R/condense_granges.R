@@ -7,6 +7,9 @@
 #' due to repeated calls to the underlying C libraries. 
 #' @param gr A \link[GenomicRanges]{GRanges} object.  
 #' @param split_chromosomes Split into a named list by chromosome. 
+#' 
+#' @returns \link[GenomicRanges]{GRanges}
+#' 
 #' @export
 #' @importFrom GenomicRanges GRanges seqnames start end GRangesList
 #' @examples

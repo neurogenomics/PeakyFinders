@@ -4,6 +4,8 @@
 #' If the file is in \emph{bigWig} or \emph{bedGraph} format, 
 #' peaks wil be called first.
 #' 
+#' @returns \link[GenomicRanges]{GRanges}
+#' 
 #' @inheritParams import_peaks 
 #' @inheritParams construct_searches 
 #' @keywords internal
@@ -15,27 +17,22 @@ import_peaks_multi <- function(links,
                                query_granges_build = NULL,
                                split_chromosomes = FALSE,
                                condense_queries = TRUE,
+                               call_peaks_method = "MACSr",
                                cutoff = NULL,
-                               searches = list(
-                                   narrowPeak="narrowpeak",
-                                   broadPeak="broadpeak",
-                                   genericPeak="peak",
-                                   bedGraph="bedgraph|graph.gz|bdg.gz",
-                                   bigWig="bigwig|bw$"
-                               ),
+                               searches = construct_searches(),
                                peaks_dir = tempdir(),
                                merge_list = TRUE,
                                nThread = 1,
                                verbose = TRUE){
     #### Parallelise ####
     ## SnowParam is less prone to errors than MultiParam, 
-    ## but doesn't work on Windows. 
-    # BiocParallel::register(
-    #     
-    # ) 
+    ## but doesn't work on Windows.
     t1 <- Sys.time()
     BPPARAM <-  BiocParallel::SnowParam(workers = nThread,
                                         progressbar = nThread>1)
+    if(!is.null(names(links))){
+        names(links) <- tolower(names(links))
+    }
     #### Liftover (if necessary) ####
     if(!is.null(query_granges)){
         query_granges <- liftover_grlist(grlist = query_granges, 
@@ -107,6 +104,7 @@ import_peaks_multi <- function(links,
                                            id=id, 
                                            query_granges=query_granges,
                                            build=build,
+                                           call_peaks_method=call_peaks_method,
                                            cutoff=cutoff,
                                            peaks_dir=peaks_dir,
                                            verbose=verbose)
@@ -119,6 +117,7 @@ import_peaks_multi <- function(links,
                                          id=id,
                                          query_granges=query_granges,
                                          build=build,
+                                         call_peaks_method=call_peaks_method,
                                          cutoff=cutoff,
                                          peaks_dir=peaks_dir,
                                          verbose=verbose)

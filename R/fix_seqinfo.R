@@ -8,6 +8,9 @@
 #' @param gr \link[GenomicRanges]{GRanges} object.
 #' @param build Genome build.
 #' @param verbose Print messages.
+#' 
+#' @returns \link[GenomicRanges]{GRanges}
+#' 
 #' @keywords internal
 fix_seqinfo <- function(gr, 
                         build = "hg19",
