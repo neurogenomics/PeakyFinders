@@ -10,14 +10,19 @@ GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-pro
 Authors: <i>Brian Schilder</i>
 </h4>
 <h4>
-README updated: <i>May-21-2022</i>
+README updated: <i>May-22-2022</i>
 </h4>
 
 <!-- To modify Package/Title/Description/Authors fields, edit the DESCRIPTION file -->
 
-## `PeakyFinders`: Mining, Calling, and Importing Epigenomic Peaks
+## `PeakyFinders`: Mining, Calling, and Importing Epigenomic Peaks in R
 
-### R package for mining, calling, and importing epigenomic peaks.
+Contains flexible and user-friendly functions to find, import, and
+harmonise epigenomic peaks data from **GEO**, **ENCODE**, **ROADMAP**,
+and **AnnotationHub**. Efficiently imports multiple peak files in one
+function call (either genome-wide or specific regions) using
+parallelisation. When peaks are not available, automatically calls peaks
+from *bedGraph* or *bigWig* files.
 
 If you use `PeakyFinders`, please cite:
 

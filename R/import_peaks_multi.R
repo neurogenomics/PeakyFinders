@@ -27,9 +27,7 @@ import_peaks_multi <- function(links,
     #### Parallelise ####
     ## SnowParam is less prone to errors than MultiParam, 
     ## but doesn't work on Windows.
-    t1 <- Sys.time()
-    BPPARAM <-  BiocParallel::SnowParam(workers = nThread,
-                                        progressbar = nThread>1)
+    t1 <- Sys.time() 
     if(!is.null(names(links))){
         names(links) <- tolower(names(links))
     }
@@ -56,7 +54,7 @@ import_peaks_multi <- function(links,
         query_granges_list <- list(all=query_granges)
     }  
     #### Iterate over chromosomes #### 
-    # BiocParallel::bplapply()
+    BPPARAM <- get_bpparam(workers = nThread)
     peaks_all <- BiocParallel::bplapply(X = query_granges_list, 
                                         BPPARAM = BPPARAM,
                                         FUN = function(query_granges){

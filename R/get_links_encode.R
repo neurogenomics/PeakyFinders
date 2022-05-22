@@ -28,7 +28,10 @@ get_links_encode <- function(meta,
          } else {
              ## genericPeak is unnecessary here and 
              ## imports same peaks twice
-             searches$genericpeak <- NULL 
+             peak_types <- c("narrowpeak","broadpeak","gappedpeak")
+             if(any(peak_types %in% names(searches))){
+                 searches$genericpeak <- NULL 
+             } 
              ## Iterate over search keys
              links <- lapply(names(searches), function(nm){
                  m <- meta2[
