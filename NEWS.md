@@ -2,7 +2,10 @@
 
 ## Bug fixes  
 
-* Select `SnowParam` vs. `MultiParam` depending on OS to avoid issues on Windows. 
+* Select `SnowParam` vs. `SerialParam` depending on OS to avoid issues on Windows. 
+* Fix vignette formatting. 
+* Add error handlers for `import.bw` on Windows 
+(until someone fixes `rtracklayer`). 
 
 ## New features 
 

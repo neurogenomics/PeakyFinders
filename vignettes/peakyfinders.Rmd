@@ -59,38 +59,49 @@ grl2 <- PeakyFinders::import_peaks(
     query_granges_build = "hg19") 
 
 knitr::kable(
-    head(grl2$GSM945244)
+    head(data.frame(grl2$GSM945244))
 )
 ```
 
 ## Call peaks
 
-When no pre-computed peaks are available, you can instead use `import_peaks` to recompute peaks from *bigWig* or *bedGraph* files.  
+When no pre-computed peaks are available, you can instead use `import_peaks` to compute peaks from *bigWig* or *bedGraph* files. The default peak calling method is currently [`MACS3`](https://github.com/macs3-project/MACS) via the [`MACSr`](http://www.bioconductor.org/packages/release/bioc/html/MACSr.html) package. 
+
+**Note**: 
+
+> By default, peaks are called using whole-chromosomes, from which a subset specified by `query_granges` is returned. This ensures that an appropriate background is used when computing peaks. You can also call peaks using the whole genome at once, but this is usally less computationally efficient than splitting the task by chromosome (i.e. setting `split_chromosomes=TRUE` when `query_granges` is not provided).  
+
+> By default, `import_peaks` (and the subfunction `call_peaks`) automatically infer a reasonable cutoff threshold based on an iterative testing procedure. See `?PeakyFinders::call_peaks` for more details. 
 
 ```{r}
-grl3 <- PeakyFinders::import_peaks(
+### rtracklayer::import.bw() is currently broken on Windows.
+if(.Platform$OS.type!="windows"){
+    
+    grl3 <- PeakyFinders::import_peaks(
     ids = "GSM945244",
     searches = construct_searches(keys = "bigwig"),
     builds = "hg19",
     query_granges = query_granges,
     query_granges_build = "hg19"
     ) 
-
-knitr::kable(
-    head(grl3$GSM945244)
-)
+    
+    knitr::kable(
+        head(data.frame(grl3$GSM945244))
+    )
+} 
 ```
+
 ## Parallelization
 
 To speed up the process of importing and/or calling peaks, 
-you can take advantage of the parallelization features in `import_peaks`. 
+you can take advantage of the parallelisation features in `import_peaks`. 
 
 For example, if you want to call peaks across the entire genome
-from a given *bigWig* file, you could speed up this process by dividing the task by chromosome and distributing it across multiple cores or compute nodes. 
+from a given *bigWig* file, you could speed up this process by dividing the task by chromosome (`split_chromosomes=TRUE`) and distributing it across multiple cores or compute nodes (`nThread=2` or greater). 
 
 Internally, `PeakyFinders` takes a number of steps to optimise these parallel processes, so you don't have to worry about it as much. This helps to avoid common issues stemming from excessive numbers of queries, both to the servers where the peak data is hosted, and to the C libraries that R relies on to makes these queries.  
 
-**Tip**:  
+**Note**:  
 
 > It's usually a good idea to leave several cores free when running parallel processes, so that you can still have enough resources to use your computer while the function is running. In the example below, I'm using 10/12 cores on my local laptop. 
 

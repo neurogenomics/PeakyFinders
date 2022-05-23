@@ -6,7 +6,9 @@ import_peaks_bigwig <- function(paths,
                                 cutoff,
                                 peaks_dir,
                                 verbose=TRUE){
+    
     messager("Computing peaks from bigWig file.",v=verbose)
+    is_windows <- rtracklayer_bigwig_error() 
     #### Import bigWig subset #### 
     which <- if(is.null(call_peaks_method)) query_granges else NULL
     peaks_all <- lapply(paths, function(x){

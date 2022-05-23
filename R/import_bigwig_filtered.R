@@ -4,8 +4,8 @@
 #' based on the coordinates in a \link[GenomicRanges]{GRanges} 
 #' object (\code{gr.query_dat}).
 #' @param bw.file Path to a bigwig file.
-#' @param gr.query_dat \link[GenomicRanges]{GRanges}
-#'  object to query the bigwig file with.
+#' @param query_granges \link[GenomicRanges]{GRanges}
+#'  object to query the bigWig file with.
 #' @param full_data Whether to return the actual read ranges
 #'  (\code{full_data=TRUE}),
 #' or just the "score" column which summarizes the height of
@@ -17,26 +17,40 @@
 #' @importFrom GenomicRanges mcols start end
 #' @importFrom rtracklayer import.bw
 import_bigwig_filtered <- function(bw.file,
-                                   gr.query_dat,
+                                   query_granges,
                                    full_data = TRUE) {
+    #### Get all ranges within min/max ####
+    ## Otherwise, just use the score for the exact values.
     if (full_data) {
-        #### Get all ranges within min/max ####
-        gr.span <- gr.query_dat[1, ]
-        GenomicRanges::mcols(gr.span) <- NULL
-        GenomicRanges::start(gr.span) <-
-            min(GenomicRanges::start(gr.query_dat), na.rm = TRUE)
-        GenomicRanges::end(gr.span) <-
-            max(GenomicRanges::end(gr.query_dat), na.rm = TRUE)
-    } else {
-        #### Otherwise, just use the score for the exact values ####
-        gr.span <- gr.query_dat
-    }
-    # bw.dat <- rtracklayer::BigWigSelection(ranges = gr.query_dat,
-    #                                        colnames = "score")
-    bw.filt <- rtracklayer::import.bw(
+        query_granges <- condense_granges(gr = query_granges) 
+    } 
+    # query_granges <- get_genome(keep.chr = "chr22", style = "NCBI")
+    # query_granges <- rtracklayer::BigWigSelection(ranges = query_granges,
+    #                                               colnames = "score")
+    # bw.file <- paste0(
+    #     "https://www.encodeproject.org",
+    #     "/files/ENCFF103JOZ/@@download/ENCFF103JOZ.bigWig"
+    # )
+    #### Try reticulate + pyBigWig ####
+    # echoconda::activate_env(conda_env = "epiprepare")
+    # echoconda::which_env()
+    # pyBigWig <- reticulate::import("pyBigWig")
+    # bw <- pyBigWig$open(bw.file)
+    # bw$isBigWig()
+    # bw$chroms()
+    # bw$header()
+    # dat <- bw$intervals("chr22")
+    
+    # Sys.setlocale(locale="C") 
+    # tmp <- tempfile()
+    # download.file(bw.file, tmp)
+    
+    # bw.filt <- plyranges::read_bigwig(file = bw.file,
+    #                                   genome_info = query_granges)
+    bw.filt <- rtracklayer::import(
         con = bw.file,
-        selection = gr.span
-    )
+        selection = query_granges
+    ) 
     # plot(x = start(bw.filt), y=bw.filt$score)
     return(bw.filt)
 }

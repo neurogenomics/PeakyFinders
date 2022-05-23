@@ -35,6 +35,7 @@ import_bedgraph_chroms <- function(URL,
         stop("No matching chromosomes could be identified.\n")
     }
     messager("+ Importing as:",import_format,v=verbose)
+    is_windows <- rtracklayer_bigwig_error()
     gr <- rtracklayer::import(con = URL, 
                               which = select_chrom,
                               format = import_format) 

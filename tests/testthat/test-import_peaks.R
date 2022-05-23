@@ -108,39 +108,59 @@ test_that("import_peaks works", {
     
     
     #### called peaks from bigWig: With query_granges ####  
-    ids <- "GSM5684359" 
-    query_granges <- get_genome(keep.chr = "chr4", genome = "hg38")
-    grl <- PeakyFinders::import_peaks(ids = ids,
-                                   builds = "hg38",
-                                   query_granges = query_granges,
-                                   query_granges_build = "hg38",
-                                   searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
-                                                        bigWig="bigwig|bw$"))
-    grl <- grl$GEO
-    testthat::expect_true(names(grl)==ids)
-    testthat::expect_true(methods::is(grl[[1]], "GRanges"))
-    testthat::expect_length(grl[[1]], 4)
-    remove(grl)
+    bw_test <- function(){
+        ids <- "GSM5684359" 
+        query_granges <- get_genome(keep.chr = "chr4", genome = "hg38")
+        grl <- PeakyFinders::import_peaks(ids = ids,
+                                          builds = "hg38",
+                                          query_granges = query_granges,
+                                          query_granges_build = "hg38",
+                                          searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
+                                                          bigWig="bigwig|bw$"))
+        grl <- grl$GEO
+        testthat::expect_true(names(grl)==ids)
+        testthat::expect_true(methods::is(grl[[1]], "GRanges"))
+        testthat::expect_length(grl[[1]], 4)
+        remove(grl)
+    }
+    if(.Platform$OS.type=="windows"){
+        testthat::expect_failure(
+            bw_test()
+        )
+    } else {
+        bw_test()
+    }
     
     
-    #### called peaks from bigWig:  split_chromosomes ####  
-    ids <- "GSM5684359" 
-    ## Query using the same genome build whenever possible
-    ## because liftover tends to distribute 
-    ## regions all over the genome.
-    query_granges <- PeakyFinders::get_genome(genome = "hg38",
-                                              keep.chr=20:22)  
-    grl <- PeakyFinders::import_peaks(ids = ids,
-                                      builds = "hg38", 
-                                      query_granges = query_granges,
-                                      query_granges_build = "hg38",
-                                      searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
-                                                           bigWig="bigwig|bw$"),
-                                      split_chromosomes = TRUE, 
-                                      nThread = 1)
-    grl <- grl$GEO
-    testthat::expect_true(names(grl)==ids)
-    testthat::expect_true(methods::is(grl[[1]], "GRanges"))
-    testthat::expect_length(grl[[1]], 16)
-    remove(grl)
+    bw_test2 <- function(){
+        #### called peaks from bigWig:  split_chromosomes ####  
+        ids <- "GSM5684359" 
+        ## Query using the same genome build whenever possible
+        ## because liftover tends to distribute 
+        ## regions all over the genome.
+        query_granges <- PeakyFinders::get_genome(genome = "hg38",
+                                                  keep.chr=20:22)  
+        grl <- PeakyFinders::import_peaks(ids = ids,
+                                          builds = "hg38", 
+                                          query_granges = query_granges,
+                                          query_granges_build = "hg38",
+                                          searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
+                                                          bigWig="bigwig|bw$"),
+                                          split_chromosomes = TRUE, 
+                                          nThread = 1)
+        grl <- grl$GEO
+        testthat::expect_true(names(grl)==ids)
+        testthat::expect_true(methods::is(grl[[1]], "GRanges"))
+        testthat::expect_length(grl[[1]], 16)
+        remove(grl)
+    }
+    
+    if(.Platform$OS.type=="windows"){
+        testthat::expect_failure(
+            bw_test2()
+        )
+    } else {
+        bw_test2()
+    }
+    
 })

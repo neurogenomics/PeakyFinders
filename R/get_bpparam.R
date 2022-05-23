@@ -4,20 +4,19 @@
 #' (\code{BPPARAM}). \link[BiocParallel]{SnowParam} is the default function
 #' as it tends to be more robust. However, because it doesn't work on Windows, 
 #' this function automatically detected the Operating System and switches 
-#' to  \link[BiocParallel]{MulticoreParam} as needed. 
+#' to  \link[BiocParallel]{SerialParam} as needed. 
 #' @keywords internal
 #' @param workers Number of threads to parallelize across. 
 #' @param register_now Register the cores now with 
 #' \link[BiocParallel]{register} (\code{TRUE}),
 #'  or simply return the \code{BPPARAM object} (default: \code{FALSE}). 
 #' @returns BPPARAM
-#' @importFrom BiocParallel MulticoreParam SnowParam register 
+#' @importFrom BiocParallel SerialParam SnowParam register 
 get_bpparam <- function(workers,
                         register_now=FALSE){
     
     if(.Platform$OS.type == "windows"){
-        BPPARAM <-  BiocParallel::MulticoreParam(workers = workers,
-                                                 progressbar = workers>1)
+        BPPARAM <-  BiocParallel::SerialParam()
     } else {
         BPPARAM <-  BiocParallel::SnowParam(workers = workers,
                                             progressbar = workers>1)
