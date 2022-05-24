@@ -87,7 +87,7 @@ Authors: <i>Brian Schilder</i>
 </h4></h4>
             
             <h4 data-toc-skip class="date"><h4>
-Vignette updated: <i>May-22-2022</i>
+Vignette updated: <i>May-24-2022</i>
 </h4></h4>
       
       <small class="dont-index">Source: <a href="https://github.com/neurogenomics/PeakyFinders/blob/HEAD/vignettes/peakyfinders.Rmd" class="external-link"><code>vignettes/peakyfinders.Rmd</code></a></small>
@@ -130,7 +130,7 @@ Vignette updated: <i>May-22-2022</i>
 <pre><code><span class="co">## Importing pre-computed narrowPeak files.</span></code></pre>
 <pre><code><span class="co">## Importing pre-computed broadPeak files.</span></code></pre>
 <pre><code><span class="co">## </span></code></pre>
-<pre><code><span class="co">## Saving results ==&gt;  /tmp/RtmpC4yzZR/file17062b799a84_PeakyFinders_grl.rds</span></code></pre>
+<pre><code><span class="co">## Saving results ==&gt;  /tmp/RtmpKRFMrY/file171564a7726b_PeakyFinders_grl.rds</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="pre-computed-peak-subset">Pre-computed peak: subset<a class="anchor" aria-label="anchor" href="#pre-computed-peak-subset"></a>
@@ -193,10 +193,10 @@ helper function <code>get_genome</code></p>
 <pre><code><span class="co">## Importing pre-computed broadPeak files.</span></code></pre>
 <pre><code><span class="co">## Subsetting peaks.</span></code></pre>
 <pre><code><span class="co">## </span></code></pre>
-<pre><code><span class="co">## Saving results ==&gt;  /tmp/RtmpC4yzZR/file17067268709a_PeakyFinders_grl.rds</span></code></pre>
+<pre><code><span class="co">## Saving results ==&gt;  /tmp/RtmpKRFMrY/file17152b4a94b0_PeakyFinders_grl.rds</span></code></pre>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">grl2</span><span class="op">$</span><span class="va">GSM945244</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">grl2</span><span class="op">$</span><span class="va">GSM945244</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>|| || || ||</p>
 </div>
@@ -204,16 +204,45 @@ helper function <code>get_genome</code></p>
 <h3 id="call-peaks">Call peaks<a class="anchor" aria-label="anchor" href="#call-peaks"></a>
 </h3>
 <p>When no pre-computed peaks are available, you can instead use
-<code>import_peaks</code> to recompute peaks from <em>bigWig</em> or
-<em>bedGraph</em> files.</p>
+<code>import_peaks</code> to compute peaks from <em>bigWig</em> or
+<em>bedGraph</em> files. The default peak calling method is currently <a href="https://github.com/macs3-project/MACS" class="external-link"><code>MACS3</code></a> via
+the <a href="http://www.bioconductor.org/packages/release/bioc/html/MACSr.html" class="external-link"><code>MACSr</code></a>
+package.</p>
+<p><strong>Note</strong>:</p>
+<blockquote>
+<p>By default, peaks are called using whole-chromosomes, from which a
+subset specified by <code>query_granges</code> is returned. This ensures
+that an appropriate background is used when computing peaks. You can
+also call peaks using the whole genome at once, but this is usally less
+computationally efficient than splitting the task by chromosome
+(i.e. setting <code>split_chromosomes=TRUE</code> when
+<code>query_granges</code> is not provided).</p>
+</blockquote>
+<blockquote>
+<p>By default, <code>import_peaks</code> (and the subfunction
+<code>call_peaks</code>) automatically infer a reasonable cutoff
+threshold based on an iterative testing procedure. See
+<code><a href="../reference/call_peaks.html">?PeakyFinders::call_peaks</a></code> for more details.</p>
+</blockquote>
+<p><strong>Warning</strong>:</p>
+<p>Peak calling with <code>MACS3</code>/<code>MACSr</code> is not
+currently compatible with Windows OS.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">grl3</span> <span class="op">&lt;-</span> <span class="fu">PeakyFinders</span><span class="fu">::</span><span class="fu"><a href="../reference/import_peaks.html">import_peaks</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="co">### rtracklayer::import.bw() is currently broken on Windows.</span>
+<span class="kw">if</span><span class="op">(</span><span class="va">.Platform</span><span class="op">$</span><span class="va">OS.type</span><span class="op">!=</span><span class="st">"windows"</span><span class="op">)</span><span class="op">{</span>
+    
+    <span class="va">grl3</span> <span class="op">&lt;-</span> <span class="fu">PeakyFinders</span><span class="fu">::</span><span class="fu"><a href="../reference/import_peaks.html">import_peaks</a></span><span class="op">(</span>
     ids <span class="op">=</span> <span class="st">"GSM945244"</span>,
     searches <span class="op">=</span> <span class="fu"><a href="../reference/construct_searches.html">construct_searches</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="st">"bigwig"</span><span class="op">)</span>,
     builds <span class="op">=</span> <span class="st">"hg19"</span>,
     query_granges <span class="op">=</span> <span class="va">query_granges</span>,
     query_granges_build <span class="op">=</span> <span class="st">"hg19"</span>
-    <span class="op">)</span> </code></pre></div>
+    <span class="op">)</span> 
+    
+    <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">grl3</span><span class="op">$</span><span class="va">GSM945244</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">)</span>
+<span class="op">}</span> </code></pre></div>
 <pre><code><span class="co">## Processing id(s).</span></code></pre>
 <pre><code><span class="co">## 1 unique GEO id(s) identified.</span></code></pre>
 <pre><code><span class="co">## dat is already a GRanges object.</span></code></pre>
@@ -262,32 +291,37 @@ helper function <code>get_genome</code></p>
 <pre><code><span class="co">## 259 peaks called.</span></code></pre>
 <pre><code><span class="co">## Subsetting peaks.</span></code></pre>
 <pre><code><span class="co">## </span></code></pre>
-<pre><code><span class="co">## Saving results ==&gt;  /tmp/RtmpC4yzZR/file17062f2e3b3f_PeakyFinders_grl.rds</span></code></pre>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">grl3</span><span class="op">$</span><span class="va">GSM945244</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>|| || || || ## Parallelization</p>
+<pre><code><span class="co">## Saving results ==&gt;  /tmp/RtmpKRFMrY/file1715426484_PeakyFinders_grl.rds</span></code></pre>
+<p>|| || || ||</p>
+</div>
+<div class="section level3">
+<h3 id="parallelization">Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"></a>
+</h3>
 <p>To speed up the process of importing and/or calling peaks, you can
-take advantage of the parallelization features in
+take advantage of the parallelisation features in
 <code>import_peaks</code>.</p>
 <p>For example, if you want to call peaks across the entire genome from
 a given <em>bigWig</em> file, you could speed up this process by
-dividing the task by chromosome and distributing it across multiple
-cores or compute nodes.</p>
+dividing the task by chromosome (<code>split_chromosomes=TRUE</code>)
+and distributing it across multiple cores or compute nodes
+(<code>nThread=2</code> or greater).</p>
 <p>Internally, <code>PeakyFinders</code> takes a number of steps to
 optimise these parallel processes, so you don’t have to worry about it
 as much. This helps to avoid common issues stemming from excessive
 numbers of queries, both to the servers where the peak data is hosted,
 and to the C libraries that R relies on to makes these queries.</p>
-<p><strong>Tip</strong>:</p>
+<p><strong>Note</strong>:</p>
 <blockquote>
 <p>It’s usually a good idea to leave several cores free when running
 parallel processes, so that you can still have enough resources to use
 your computer while the function is running. In the example below, I’m
 using 10/12 cores on my local laptop.</p>
 </blockquote>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<p><strong>Warning</strong>:</p>
+<p>Parallelisation is not currently compatible with Windows OS. If
+Windows OS is detected, import_peaks will automatically switch to serial
+processing with <code>nThread=1</code>.</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">grl4</span> <span class="op">&lt;-</span> <span class="fu">PeakyFinders</span><span class="fu">::</span><span class="fu"><a href="../reference/import_peaks.html">import_peaks</a></span><span class="op">(</span>
     ids <span class="op">=</span> <span class="st">"GSM945244"</span>,
     searches <span class="op">=</span> <span class="fu"><a href="../reference/construct_searches.html">construct_searches</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="st">"bigwig"</span><span class="op">)</span>,
@@ -299,7 +333,7 @@ using 10/12 cores on my local laptop.</p>
 <div class="section level2">
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<details><div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<details><div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## R version 4.2.0 (2022-04-22)</span>
 <span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span>

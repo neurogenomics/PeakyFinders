@@ -25,6 +25,9 @@
     <loc>/reference/call_peaks.html</loc>
   </url>
   <url>
+    <loc>/reference/call_peaks_macsr.html</loc>
+  </url>
+  <url>
     <loc>/reference/clean_granges.html</loc>
   </url>
   <url>
@@ -50,9 +53,6 @@
   </url>
   <url>
     <loc>/reference/import_bedgraph_chroms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/import_bigwig_filtered.html</loc>
   </url>
   <url>
     <loc>/reference/import_peaks.html</loc>

@@ -64,12 +64,17 @@
 <h2 class="page-header" data-toc-text="0.99.0" id="peakyfinders-0990">PeakyFinders 0.99.0<a class="anchor" aria-label="anchor" href="#peakyfinders-0990"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-99-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-99-0"></a></h3>
-<ul><li>Select <code>SnowParam</code> vs. <code>MultiParam</code> depending on OS to avoid issues on Windows.</li>
+<ul><li>Select <code>SnowParam</code> vs. <code>SerialParam</code> depending on OS to avoid issues on Windows.</li>
+<li>Fix vignette formatting.</li>
+<li>Add error handlers for <code>import.bw</code> on Windows (until someone fixes <code>rtracklayer</code>).</li>
+<li>Add error handlers for <code>MACSr</code> on Windows (until it becomes compatible).</li>
+<li>Remove <code>import_bigwig_filtered</code> function (not used).</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-99-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-99-0"></a></h3>
 <ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-<li>Set GHA to push to <em>DockerHub</em>.</li>
+<li>Set GHA to push to <em>DockerHub</em>.<br></li>
+<li>Give <code>call_peaks_macsr</code> it’s own subfunction.</li>
 </ul></div>
 </div>
   </div>
