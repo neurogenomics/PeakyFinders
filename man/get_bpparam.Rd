@@ -21,6 +21,6 @@ Get (and optionally register) \link[BiocParallel]{BiocParallel} parameter
 (\code{BPPARAM}). \link[BiocParallel]{SnowParam} is the default function
 as it tends to be more robust. However, because it doesn't work on Windows, 
 this function automatically detected the Operating System and switches 
-to  \link[BiocParallel]{MulticoreParam} as needed.
+to  \link[BiocParallel]{SerialParam} as needed.
 }
 \keyword{internal}

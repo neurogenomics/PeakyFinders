@@ -73,6 +73,10 @@ When no pre-computed peaks are available, you can instead use `import_peaks` to 
 
 > By default, `import_peaks` (and the subfunction `call_peaks`) automatically infer a reasonable cutoff threshold based on an iterative testing procedure. See `?PeakyFinders::call_peaks` for more details. 
 
+**Warning**: 
+
+Peak calling with `MACS3`/`MACSr` is not currently compatible with Windows OS.
+
 ```{r}
 ### rtracklayer::import.bw() is currently broken on Windows.
 if(.Platform$OS.type!="windows"){
@@ -104,6 +108,11 @@ Internally, `PeakyFinders` takes a number of steps to optimise these parallel pr
 **Note**:  
 
 > It's usually a good idea to leave several cores free when running parallel processes, so that you can still have enough resources to use your computer while the function is running. In the example below, I'm using 10/12 cores on my local laptop. 
+
+**Warning**: 
+
+Parallelisation is not currently compatible with Windows OS. 
+If Windows OS is detected, import_peaks will automatically switch to serial processing with `nThread=1`.  
 
 ```{r, eval=FALSE}
 grl4 <- PeakyFinders::import_peaks(
