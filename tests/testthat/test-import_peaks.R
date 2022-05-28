@@ -93,7 +93,7 @@ test_that("import_peaks works", {
         remove(grl)
     }
     if(.Platform$OS.type=="windows"){
-        testthat::expect_failure(
+        testthat::expect_error(
             bg_test()
         )
     } else {
@@ -117,7 +117,7 @@ test_that("import_peaks works", {
         remove(grl)
     }
     if(.Platform$OS.type=="windows"){
-        testthat::expect_failure(
+        testthat::expect_error(
             bg_test2()
         )
     } else {
@@ -142,7 +142,7 @@ test_that("import_peaks works", {
         remove(grl)
     }
     if(.Platform$OS.type=="windows"){
-        testthat::expect_failure(
+        testthat::expect_error(
             bw_test()
         )
     } else {
@@ -174,7 +174,7 @@ test_that("import_peaks works", {
     }
     
     if(.Platform$OS.type=="windows"){
-        testthat::expect_failure(
+        testthat::expect_error(
             bw_test2()
         )
     } else {
