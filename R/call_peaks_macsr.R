@@ -1,10 +1,11 @@
 #' Call peaks: MACSr
 #' 
-#' Call peaks from a bedGraph or bigWig file using multiple methods.
+#' Call peaks from a bedGraph or bigWig file using 
+#' \pkg{MACS3}/\link[MACSr]{MACSr}.
 #' By default, it automatically infers a reasonable 
 #' \code{cutoff} threshold as well.\cr
 #' \emph{Note : } 
-#' \pkg{MACS3}/\pkg{MACSr} is not currently compatible with Windows 
+#' \pkg{MACS3}/\link[MACSr]{MACSr} is not currently compatible with Windows 
 #' (see \href{https://github.com/macs3-project/MACSr/issues/13}{here}
 #'  for details). 
 #' @inheritParams call_peaks
@@ -33,27 +34,9 @@ call_peaks_macsr <- function(bedgraph_path,
         stopper("MACS3/MACSr is not currently compatible with Windows.")
     }
     #### Download ####
-    if(!is_local(bedgraph_path)){
-        bedgraph_path2 <- paste(tempdir(),
-                                basename(bedgraph_path),
-                                sep = "/")
-        utils::download.file(url = bedgraph_path, 
-                             destfile = bedgraph_path2)
-        if(R.utils::isGzipped(bedgraph_path2)){
-            bedgraph_path2 <- R.utils::gunzip(bedgraph_path2, 
-                                              overwrite=TRUE)
-        } 
-        bedgraph_path <- bedgraph_path2
-    }
-    #### Convert to bedGRaph ####
-    if(is_bigwig(bedgraph_path)){ 
-        messager("Converting bigWig --> bedGraph.",v=verbose)
-        gr <- rtracklayer::import(bedgraph_path)
-        bedgraph_path2 <- gsub("bigwig$|bw$","bedGraph",bedgraph_path,
-                               ignore.case = TRUE)
-        rtracklayer::export.bedGraph(object = gr, con = bedgraph_path2)
-        bedgraph_path <- bedgraph_path2
-    }
+    bedgraph_path <- download_bedgraph(bedgraph_path = bedgraph_path)
+    #### Convert to bedGraph ####
+    bedgraph_path <- bigwig_to_bedgraph(path = bedgraph_path)
     #### Determine cutoff threshold autmatically ####
     dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
     if(is.null(cutoff)){

@@ -30,7 +30,9 @@ test_that("import_bedgraph_chroms works", {
     #### rtracklayer is having some recurring struggles.... ####
     ## https://github.com/lawremi/rtracklayer/issues/63
     if(.Platform$OS.type=="windows"){
-        testthat::expect_failure(bigwig_test)
+        testthat::expect_error(
+            bigwig_test()
+        )
     } else {
         bigwig_test()
     } 
