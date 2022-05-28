@@ -80,20 +80,29 @@ test_that("import_peaks works", {
     
     
     #### called peaks: Without query_granges #### 
-    ids <- "GSM4703766"
-    grl <- PeakyFinders::import_peaks(ids = ids,
-                                   builds = "hg19", 
-                                   searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
-                                                        bigWig="bigwig|bw$"))
-    grl <- grl$GEO
-    testthat::expect_true(names(grl)==ids)
-    testthat::expect_true(methods::is(grl[[1]], "GRanges"))
-    testthat::expect_length(grl[[1]], 18112)
-    remove(grl)
+    bg_test <- function(){
+        ids <- "GSM4703766"
+        grl <- PeakyFinders::import_peaks(ids = ids,
+                                          builds = "hg19", 
+                                          searches = list(bedGraph="bedgraph|graph.gz|bdg.gz",
+                                                          bigWig="bigwig|bw$"))
+        grl <- grl$GEO
+        testthat::expect_true(names(grl)==ids)
+        testthat::expect_true(methods::is(grl[[1]], "GRanges"))
+        testthat::expect_length(grl[[1]], 18112)
+        remove(grl)
+    }
+    if(.Platform$OS.type=="windows"){
+        testthat::expect_failure(
+            bg_test()
+        )
+    } else {
+        bg_test()
+    }
     
     
     #### called peaks: With query_granges #### 
-    bg_test <- function(){
+    bg_test2 <- function(){
         ids <- "GSM4703766"
         grl <- PeakyFinders::import_peaks(ids = ids,
                                           builds = "hg19",
@@ -109,10 +118,10 @@ test_that("import_peaks works", {
     }
     if(.Platform$OS.type=="windows"){
         testthat::expect_failure(
-            bg_test()
+            bg_test2()
         )
     } else {
-        bg_test()
+        bg_test2()
     }
     
     
