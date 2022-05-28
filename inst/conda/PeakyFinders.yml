@@ -1,0 +1,12 @@
+name: peakyfinders
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  # Python
+  - python>=3.8
+  - numpy>=1.17
+  - seacr
+  - macs3 
+  - gopeaks 

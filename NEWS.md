@@ -14,3 +14,4 @@
 * Added a `NEWS.md` file to track changes to the package.
 * Set GHA to push to *DockerHub*.  
 * Give `call_peaks_macsr` it's own subfunction. 
+* Add conda env. 

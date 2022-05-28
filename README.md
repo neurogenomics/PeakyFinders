@@ -10,7 +10,7 @@ GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-pro
 Authors: <i>Brian Schilder</i>
 </h4>
 <h4>
-README updated: <i>May-22-2022</i>
+README updated: <i>May-28-2022</i>
 </h4>
 
 <!-- To modify Package/Title/Description/Authors fields, edit the DESCRIPTION file -->
