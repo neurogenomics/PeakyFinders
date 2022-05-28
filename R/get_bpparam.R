@@ -16,7 +16,7 @@ get_bpparam <- function(workers,
                         register_now=FALSE){
     
     if(.Platform$OS.type == "windows"){
-        BPPARAM <-  BiocParallel::SerialParam()
+        BPPARAM <-  BiocParallel::bpparam()#BiocParallel::SerialParam()
     } else {
         BPPARAM <-  BiocParallel::SnowParam(workers = workers,
                                             progressbar = workers>1)
