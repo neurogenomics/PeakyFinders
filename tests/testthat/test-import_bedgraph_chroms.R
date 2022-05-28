@@ -6,7 +6,7 @@ test_that("import_bedgraph_chroms works", {
     #### Get links to supplementary files on GEO ####
     links <- PeakyFinders:::get_geo_links(gsm = gsm) 
     #### Import bedgraph subset: chr6 ####
-    gr <- PeakyFinders::: import_bedgraph_chroms(URL = links$bedgraph, 
+    gr <- PeakyFinders:::import_bedgraph_chroms(URL = links$bedgraph, 
                                                 chroms = chroms)
     testthat::expect_true(methods::is(gr,"GRanges"))
     testthat::expect_length(gr, 19004)

@@ -87,5 +87,7 @@ tmp <- tempfile(fileext = ".bedgraph")
 rtracklayer::export.bedGraph(object = gr, con = tmp)
 
 #### Call peaks #### 
+if(.Platform$OS.type!="windows"){
 peaks <- PeakyFinders::call_peaks(bedgraph_path = tmp)
+}
 }
