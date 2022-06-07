@@ -191,6 +191,13 @@ import_peaks <- function(ids,
                 nThread = nThread,
                 verbose = verbose)
         } 
+        #### Remove empty entries ####
+        messager("Removing empty entries.",v=verbose) 
+        out_list <- mapply(out_list, 
+                           SIMPLIFY = FALSE,
+                           FUN=function(x){
+            x[unlist(lapply(x,length))>0]
+        }) 
         #### Save ####
         if(!is.null(save_path)){
             messager("Saving results ==> ",save_path,v=verbose)

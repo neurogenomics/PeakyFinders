@@ -59,11 +59,12 @@ or the peak data itself as a \link[GenomicRanges]{GRanges} object.}
 \link[GenomicRanges]{GRanges} or path to save peaks file.
 }
 \description{
-Call peaks from a bedGraph or bigWig file using multiple methods.
+Call peaks from a bedGraph or bigWig file using 
+\pkg{MACS3}/\link[MACSr]{MACSr}.
 By default, it automatically infers a reasonable 
 \code{cutoff} threshold as well.\cr
 \emph{Note : } 
-\pkg{MACS3}/\pkg{MACSr} is not currently compatible with Windows 
+\pkg{MACS3}/\link[MACSr]{MACSr} is not currently compatible with Windows 
 (see \href{https://github.com/macs3-project/MACSr/issues/13}{here}
  for details).
 }

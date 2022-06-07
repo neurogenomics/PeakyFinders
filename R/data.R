@@ -25,13 +25,13 @@
 #' meta <- search_annotationhub()
 #' searches <- construct_searches(keys = c("broadpeak","narrowpeak","genericpeak"))
 #' search_strings <- paste(unname(unlist(searches)),collapse = "|")
-#' peaks_metadata_annotationhub <- meta[with(meta, 
-#'                   grepl(search_strings, 
-#'                         paste(title,description,sourcetype,sourceurl), 
+#' peaks_metadata_annotationhub <- meta[with(meta,
+#'                   grepl(search_strings,
+#'                         paste(title,description,sourcetype,sourceurl),
 #'                         ignore.case = TRUE)
 #' ),
 #' ]
-#' drop_empty_cols(peaks_metadata_annotationhub)
+#' PeakyFinders:::drop_empty_cols(peaks_metadata_annotationhub)
 #' usethis::use_data(peaks_metadata_annotationhub, overwrite = TRUE)
 #' }
 #' @usage data("peaks_metadata_annotationhub")

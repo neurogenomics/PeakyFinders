@@ -139,6 +139,12 @@ import_peaks_multi <- function(links,
     #### Merge list ####
     if(merge_list){
         peaks_all <- unlist(GenomicRanges::GRangesList(peaks_all)) 
+        #### Ensure all rows are unique ####
+        if(length(unique(names(peaks_all)))==1){
+            names(peaks_all) <- NULL
+        } else {
+            names(peaks_all) <- make.unique(names(peaks_all))
+        } 
     } 
     t2 <- Sys.time()
     difftime(t2, t1, units = "min")

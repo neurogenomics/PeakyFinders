@@ -30,12 +30,13 @@ process_ids <- function(ids,
     geo_ids <- lapply(ids, function(id){ 
         ## Get GSM samples from GSE id.
         if(grepl("^GSE", id, ignore.case = TRUE)){
-            g <- GEOquery::getGEO(GEO = "GSE188512")
+            g <- GEOquery::getGEO(GEO = id) 
             samples <- unlist(
                 lapply(g, function(x){
                     x[["geo_accession"]]
                 }) 
             ) 
+            samples <- c(stats::setNames(id,id),samples)
         } else if(grepl("^GSM", id, ignore.case = TRUE)){
             samples <- id
         } else{ 

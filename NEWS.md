@@ -1,3 +1,13 @@
+# PeakyFinders 0.99.1
+
+## Bug fixes
+
+* Removed duplicated files from Google Drive ("(1).R"). 
+* Accidentally hard-coded a GSM ID into `process_ids`. 
+* Extract supp files from both the project-level GSE ID and sample-level GSM ids.
+* Figure out why package is unable to find `"peaks_metadata_roadmap"` unless package is loaded.
+* Force all rownames to be unique. 
+
 # PeakyFinders 0.99.0
 
 ## Bug fixes  
