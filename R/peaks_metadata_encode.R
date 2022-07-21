@@ -28,12 +28,12 @@
 #' @importFrom tools R_user_dir
 #' @examples 
 #' meta <- peaks_metadata_encode()
-peaks_metadata_encode <- function(save_dir=tools::R_user_dir(
-    package = "PeakyFinders", 
-    which = "cache"),
-    overwrite = FALSE
-    ){
-    requireNamespace("piggyback")
+peaks_metadata_encode <- function(
+        save_dir=tools::R_user_dir(package = "PeakyFinders", 
+                                   which = "cache"),
+        overwrite = FALSE
+        ){
+    requireNamespace("piggyback") 
     path <- file.path(save_dir, "encode_peaks_metadata.tsv.gz")
     if((!file.exists(path)) | isTRUE(overwrite)){
         dir.create(save_dir,showWarnings = FALSE, recursive = TRUE)
