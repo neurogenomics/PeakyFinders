@@ -1,5 +1,9 @@
 # PeakyFinders 0.99.1
 
+## New features
+
+* Add generic `find_links` function. 
+
 ## Bug fixes
 
 * Removed duplicated files from Google Drive ("(1).R"). 
