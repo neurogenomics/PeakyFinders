@@ -45,6 +45,8 @@ due to repeated calls to the underlying C libraries.}
 \itemize{
 \item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
 via \link[MACSr]{bdgpeakcall}.}
+\item{"SEACR" : }{Uses \href{https://github.com/FredHutch/SEACR}{SEACR} 
+via \link[echoconda]{find_packages}.}
 }}
 
 \item{cutoff}{\itemize{

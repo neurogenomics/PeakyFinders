@@ -10,6 +10,7 @@ GitHub Issue: illegal byte sequence}
 \usage{
 find_executable_seacr(
   packages = c("SEACR_1.3.sh", "SEACR_1.3.R"),
+  outdir = tempdir(),
   fix_script = TRUE,
   verbose = TRUE,
   ...

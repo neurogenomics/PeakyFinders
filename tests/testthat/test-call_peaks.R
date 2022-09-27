@@ -4,7 +4,7 @@ test_that("call_peaks works", {
         ## MACSr is currently incompatible with Windows.
         testthat::expect_null(NULL)
     } else { 
-        files <- example_files()
+        files <- example_bg_bw()
         testthat::expect_true(PeakyFinders:::is_granges(files$gr))
         testthat::expect_length(files$gr,1050)
         

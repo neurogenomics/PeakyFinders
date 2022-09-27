@@ -52,6 +52,8 @@ by setting \code{force_new} to perform new queries regardless and overwrite
 \itemize{
 \item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
 via \link[MACSr]{bdgpeakcall}.}
+\item{"SEACR" : }{Uses \href{https://github.com/FredHutch/SEACR}{SEACR} 
+via \link[echoconda]{find_packages}.}
 }}
 
 \item{cutoff}{\itemize{

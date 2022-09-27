@@ -9,6 +9,8 @@
     - `pooled_peaks`: Pool groups of BAM files and call peaks from them 
         (using either MACSr or SEACR).
     - `convert_bam`: Convert BAM file to any format.
+    - `example_bg_bw`
+    - `example_bam` 
 * New internal functions:
     - `report_time`
     - `import_peaks_seacr`

@@ -17,6 +17,8 @@
 #' \itemize{
 #' \item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
 #' via \link[MACSr]{bdgpeakcall}.}
+#' \item{"SEACR" : }{Uses \href{https://github.com/FredHutch/SEACR}{SEACR} 
+#' via \link[echoconda]{find_packages}.}
 #' }
 #' @param cutoff 
 #' \itemize{
@@ -48,14 +50,10 @@
 #' @returns \link[GenomicRanges]{GRanges} or path to save peaks file.
 #' 
 #' @export
-#' @examples
-#' #### Get bedGraph file ####
-#' bedgraph_path <- system.file("tests","test.bedGraph",
-#'                              package = "rtracklayer")
-#' #### Call peaks #### 
-#' if(.Platform$OS.type!="windows"){
-#'   peaks <- PeakyFinders::call_peaks(bedgraph_path = bedgraph_path)
-#' }
+#' @examples 
+#' files <- example_bg_bw()
+#' peaks <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
+#'                                   call_peaks_method="SEACR")
 call_peaks <- function(#### Shared args ####
                        bedgraph_path,
                        call_peaks_method = c("MACSr",

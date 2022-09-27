@@ -21,7 +21,7 @@
 pooled_peaks <- function(bam_files,
                          groups=names(bam_files),
                          save_dir=tempdir(),
-                         method="MACsr",
+                         method=c("MACSr","SEACR"),
                          verbose=TRUE,
                          ...){
     

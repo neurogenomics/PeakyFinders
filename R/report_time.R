@@ -10,7 +10,7 @@ report_time <- function(start,
                         prefix=NULL,
                         verbose = TRUE,
                         units = "min",
-                        digits = 1) { 
+                        digits = 2) { 
     messager(
         prefix, 
         "Done in",

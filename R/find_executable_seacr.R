@@ -11,6 +11,7 @@
 #' @importFrom echoconda find_packages
 find_executable_seacr <- function(packages=c("SEACR_1.3.sh",
                                              "SEACR_1.3.R"),
+                                  outdir=tempdir(),
                                   fix_script=TRUE,
                                   verbose=TRUE,
                                   ...){
@@ -40,7 +41,12 @@ find_executable_seacr <- function(packages=c("SEACR_1.3.sh",
        length(r)>0){
         messager("Fixing script:",basename(r),v=verbose)
         l <- readLines(r)
-        extra_line <- "library(utils);library(stats);"
+        extra_line <- paste(
+            paste0("setwd(",outdir,")"),
+            "library(utils)",
+            "library(stats)",
+            sep=";"
+        )
         if(all(isFALSE(grepl(extra_line,l)))){
             l <- c("library(utils);library(stats);",l) 
             writeLines(l,con = r)

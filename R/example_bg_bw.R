@@ -1,4 +1,16 @@
-example_files <- function(gsm="GSM4703766",
+#' Example bedGraph/bigWig files
+#' 
+#' Download examples bedGraph and bigWig files.
+#' @inheritParams get_geo_links
+#' @inheritParams GenomicRanges::GRanges
+#' @returns Named list of file paths.
+#' 
+#' @export
+#' @importFrom GenomicRanges GRanges
+#' @importFrom rtracklayer import export.bedGraph export.bw
+#' @examples 
+#' files <- example_bg_bw()
+example_bg_bw <- function(gsm="GSM4703766",
                           ranges = "chr6:165169213-167169213"){
     
     links <- get_geo_links(gsm = gsm) 

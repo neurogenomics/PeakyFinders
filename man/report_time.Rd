@@ -4,7 +4,7 @@
 \alias{report_time}
 \title{Report time}
 \usage{
-report_time(start, prefix = NULL, verbose = TRUE, units = "min", digits = 1)
+report_time(start, prefix = NULL, verbose = TRUE, units = "min", digits = 2)
 }
 \arguments{
 \item{units}{character string.  Units in which the results are
