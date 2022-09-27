@@ -3,33 +3,38 @@ test_that("call_peaks works", {
     if(.Platform$OS.type=="windows"){
         ## MACSr is currently incompatible with Windows.
         testthat::expect_null(NULL)
-    } else {
-        gsm <- "GSM4703766" 
-        links <- PeakyFinders:::get_geo_links(gsm = gsm) 
-        query_granges <- GenomicRanges::GRanges("chr6:165169213-167169213")
-        gr <- rtracklayer::import(con = links$bedgraph,
-                                  which = query_granges)
-        testthat::expect_true(PeakyFinders:::is_granges(gr))
-        testthat::expect_length(gr,1050)
+    } else { 
+        files <- example_files()
+        testthat::expect_true(PeakyFinders:::is_granges(files$gr))
+        testthat::expect_length(files$gr,1050)
         
-        #### From bedGraph #### 
-        tmp <- tempfile(fileext = ".bedgraph")
-        rtracklayer::export.bedGraph(object = gr, con = tmp)
-        peaks1 <- PeakyFinders::call_peaks(bedgraph_path = tmp)
+        #### MACSr:: From bedGraph ####  
+        peaks1 <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph, 
+                                           call_peaks_method = "MACSr")
         ## Tests 
         testthat::expect_true(PeakyFinders:::is_granges(peaks1))
         testthat::expect_length(peaks1, 11)
         
-        #### From bigWig #### 
-        tmp <- tempfile(fileext = ".bigwig") 
-        gr <- PeakyFinders:::fix_seqinfo(gr = gr, build = "hg19")
-        rtracklayer::export.bw(object = gr, con = tmp)
-        peaks2 <- PeakyFinders::call_peaks(bedgraph_path = tmp)
+        #### MACSr:: From bigWig ####    
+        peaks2 <- PeakyFinders::call_peaks(bedgraph_path = files$bigwig,
+                                           call_peaks_method = "MACSr")
         ## Tests
         testthat::expect_true(PeakyFinders:::is_granges(peaks2))
         testthat::expect_length(peaks2, 11)
         
         #### Check that peaks from bedGraph vs. bigWig are identical ####
         testthat::expect_equal(peaks1, peaks2)
+        
+        #### SEACR:: From bedGraph ####    
+        peaks3 <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
+                                           call_peaks_method = "SEACR")
+        testthat::expect_true(PeakyFinders:::is_granges(peaks3))
+        testthat::expect_length(peaks3, 11)
+        
+        #### SEACR:: From bigWig ####   
+        peaks4 <- PeakyFinders::call_peaks(bedgraph_path = files$bigwig,
+                                           call_peaks_method = "SEACR")
+        testthat::expect_true(PeakyFinders:::is_granges(peaks4))
+        testthat::expect_length(peaks4, 11)
     }
 })

@@ -83,7 +83,7 @@ search_encode <- function(## Filter args
         #                           skip = 1)
         # files <- unlist(stringr::str_split(meta$Files,",")) 
         # urls <- paste0("https://www.encodeproject.org",files)
-        # links <- find_links(urls = urls[1:10],
+        # links <- PeakyFinders::find_links(urls = urls[1:10],
         #                     pattern = "(@@download)*.&*.(\\.fastq\\.gz)")
         
     } else{

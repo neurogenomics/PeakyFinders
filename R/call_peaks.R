@@ -18,10 +18,24 @@
 #' \item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
 #' via \link[MACSr]{bdgpeakcall}.}
 #' }
-#' @param cutoff Cutoff depends on which method you used for score track.
+#' @param cutoff 
+#' \itemize{
+#' \item{when \code{call_peaks_method="MACSr"} : }{
+#' Passed to \code{cutoff} argument.
+#' Cutoff depends on which method you used for score track.
 #'  If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 #'  If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
 #'  through a \code{cutoff_analysis}. 
+#' }
+#' \item{when \code{call_peaks_method="SEACR"} : }{
+#' Passed to \code{control} argument.
+#' Control (IgG) data bedgraph file to generate an empirical
+#' threshold for peak calling.
+#' Alternatively, a numeric threshold n between 0 and 1 returns the top n
+#' fraction of peaks based on total signal within peaks 
+#' (default: \code{0.05}).
+#' }
+#' } 
 #' @param outdir Directory to store \code{cutoff_analysis} 
 #' report and peak file in.
 #' @param outputfile Name of the peak output file (stored in BED format).
@@ -29,40 +43,41 @@
 #' or the peak data itself as a \link[GenomicRanges]{GRanges} object.
 #' @param verbose Print messages.
 #' @inheritParams MACSr::bdgpeakcall
+#' @inheritParams call_peaks_seacr
 #' 
 #' @returns \link[GenomicRanges]{GRanges} or path to save peaks file.
 #' 
 #' @export
 #' @examples
-#' #### Get bedGraph subset ####
-#' ## Normally, you'd call peaks on the entire chromosome, 
-#' ## or even the whole genome. But for demo purposes we'll just use one locus.
-#' gsm <- "GSM4703766" 
-#' links <- PeakyFinders:::get_geo_links(gsm = gsm) 
-#' query_granges <- GenomicRanges::GRanges("chr6:165169213-167169213")
-#' gr <- rtracklayer::import(con = links$bedgraph, 
-#'                           which = query_granges)
-#' tmp <- tempfile(fileext = ".bedgraph")
-#' rtracklayer::export.bedGraph(object = gr, con = tmp)
-#' 
+#' #### Get bedGraph file ####
+#' bedgraph_path <- system.file("tests","test.bedGraph",
+#'                              package = "rtracklayer")
 #' #### Call peaks #### 
 #' if(.Platform$OS.type!="windows"){
-#' peaks <- PeakyFinders::call_peaks(bedgraph_path = tmp)
+#'   peaks <- PeakyFinders::call_peaks(bedgraph_path = bedgraph_path)
 #' }
-call_peaks <- function(bedgraph_path,
-                       call_peaks_method = "MACSr",
+call_peaks <- function(#### Shared args ####
+                       bedgraph_path,
+                       call_peaks_method = c("MACSr",
+                                             "SEACR"),
                        cutoff = NULL,
+                       #### MACSr args ####
                        minlen = 200L,
                        maxgap = 30L,
                        call_summits = TRUE,
                        trackline = TRUE,
                        log = TRUE,
+                       #### SEACR args ####
+                       norm = TRUE,
+                       stringent = TRUE,
                        outdir = tempdir(),
-                       outputfile = "MACSr.peaks.bed", 
+                       outputfile = paste0(call_peaks_method[[1]],
+                                           ".peaks.bed"), 
                        return_path = FALSE,
+                       nThread = 1,
                        verbose = TRUE){
-    call_peaks_method <- tolower(call_peaks_method)[1]
     
+    call_peaks_method <- tolower(call_peaks_method)[1]
     if(call_peaks_method=="macsr"){
         peaks <- call_peaks_macsr(bedgraph_path = bedgraph_path, 
                                   cutoff = cutoff,
@@ -75,7 +90,17 @@ call_peaks <- function(bedgraph_path,
                                   outputfile = outputfile,
                                   return_path = return_path,
                                   verbose = verbose)
-    } else {
+    } else if(call_peaks_method=="seacr") {
+        peaks <- call_peaks_seacr(bedgraph_path = bedgraph_path, 
+                                  control = cutoff,
+                                  norm = norm,
+                                  stringent = stringent,
+                                  outdir = outdir,
+                                  outputfile = outputfile, 
+                                  return_path = return_path,
+                                  nThread = nThread,
+                                  verbose = verbose)
+    } else{
         opts <- formals(call_peaks)$call_peaks_method
         stopper("call_peaks_method must be one of:",
                 paste("\n -",paste0("'",opts,"'"),collapse = ""))

@@ -20,19 +20,24 @@ import_peaks_genericpeak <- function(paths,
                 colnames(dat)[seq_len(3)] <- c("chr","start","end")
             } 
             p <- dt_to_granges(dat = dat, 
-                                         chrom_col = "chr", 
-                                         start_col = "start",
-                                         end_col = "end", 
-                                         style = "UCSC", 
-                                         verbose = verbose) 
-            GenomicRanges::mcols(p)$source <- basename(f)
-            return(p)
+                             chrom_col = "chr", 
+                             start_col = "start",
+                             end_col = "end", 
+                             style = "UCSC", 
+                             verbose = verbose) 
+            p <- add_mcol(gr = p,
+                          name = "source", 
+                          value =  basename(f)) 
+            return(p) 
         }, error = function(e){message(e);GenomicRanges::GRanges()})
     }) |> 
         unlist() |> 
         GenomicRanges::GRangesList() |> 
         unlist()  
-    ### Add to list ###
-    GenomicRanges::mcols(peaks)$peaktype <- "genericPeak"
+    ### Add peaktype ###
+    peaks <- add_mcol(gr = peaks,
+                      name = "peaktype", 
+                      value =  "genericPeak",
+                      verbose = verbose) 
     return(peaks)
 }

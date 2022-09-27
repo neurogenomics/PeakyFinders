@@ -36,13 +36,19 @@ call_peaks_macsr <- function(bedgraph_path,
     #### Download ####
     bedgraph_path <- download_bedgraph(bedgraph_path = bedgraph_path)
     #### Convert to bedGraph ####
-    bedgraph_path <- bigwig_to_bedgraph(path = bedgraph_path)
+    bedgraph_path <- bigwig_to_bedgraph(path = bedgraph_path,
+                                        verbose = verbose)
     #### Determine cutoff threshold autmatically ####
     dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
     if(is.null(cutoff)){
         messager("Analyzing cutoff thresholds.",v=verbose)
         out_cutoff <- MACSr::bdgpeakcall(ifile = bedgraph_path, 
                                          outdir = outdir,
+                                         minlen = minlen,
+                                         maxgap = maxgap,
+                                         call_summits = call_summits,
+                                         trackline = trackline,
+                                         log = log,
                                          cutoff_analysis = TRUE, 
                                          outputfile = gsub(
                                              ".bed$",".cutoff_analysis.txt",
@@ -56,15 +62,18 @@ call_peaks_macsr <- function(bedgraph_path,
     messager("Calling peaks.",v=verbose)
     out <- MACSr::bdgpeakcall(ifile = bedgraph_path, 
                               cutoff = cutoff, 
+                              minlen = minlen,
+                              maxgap = maxgap,
                               call_summits = call_summits,
                               trackline = trackline,
                               log = log,
                               outdir = outdir,
                               outputfile = outputfile)
-    if(return_path) {
+    if(isTRUE(return_path)) {
         return(out$outputs)
     } else {
-        peaks <- rtracklayer::import.bed(out$outputs)
+        peaks <- import_peaks_macs(paths = out$outputs,
+                                   verbose = verbose)
         messager(formatC(length(peaks),big.mark = ","),"peaks called.",
                  v=verbose)
         return(peaks)

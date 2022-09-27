@@ -1,7 +1,7 @@
 Package: PeakyFinders
 Type: Package
 Title: Mining, Calling, and Importing Epigenomic Peaks in R
-Version: 0.99.1
+Version: 0.99.2
 Authors@R: 
     c(person(given = "Brian",
            family = "Schilder",
@@ -40,7 +40,8 @@ Imports:
     MACSr,
     GEOquery,
     AnnotationHub,
-    stringr
+    stringr,
+    echoconda
 Suggests:
     markdown,
     rmarkdown,
@@ -58,7 +59,10 @@ Suggests:
     BSgenome.Hsapiens.UCSC.hg19.masked, 
     BSgenome.Hsapiens.UCSC.hg38.masked,
     piggyback
-RoxygenNote: 7.2.0
+Remotes:
+    github:macs3-project/MACSr,
+    github:RajLabMSSM/echoconda
+RoxygenNote: 7.2.1.9000
 VignetteBuilder: knitr
 License: GPL-3
 Config/testthat/edition: 3 

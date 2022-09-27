@@ -1,3 +1,28 @@
+# PeakyFinders 0.99.2
+
+## New features
+
+* `call_peaks`:
+    - SEACR now implemented!!
+* New exported functions:
+    - `merge_bam`: Merge multiple BAM files into one.
+    - `pooled_peaks`: Pool groups of BAM files and call peaks from them 
+        (using either MACSr or SEACR).
+    - `convert_bam`: Convert BAM file to any format.
+* New internal functions:
+    - `report_time`
+    - `import_peaks_seacr`
+    - `import_peaks_macs`
+    - `call_peaks_seacr`
+    - `pooled_peaks_seacr`/ `pooled_peaks_macsr` 
+    - `make_conda_env`
+    - `find_executable_seacr` 
+    - `add_mcol`
+
+## Bug fixes
+
+- `import_peaks_*`: Now handle situations where 0 peaks are called.
+
 # PeakyFinders 0.99.1
 
 ## New features

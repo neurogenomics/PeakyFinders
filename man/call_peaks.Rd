@@ -6,16 +6,19 @@
 \usage{
 call_peaks(
   bedgraph_path,
-  call_peaks_method = "MACSr",
+  call_peaks_method = c("MACSr", "SEACR"),
   cutoff = NULL,
   minlen = 200L,
   maxgap = 30L,
   call_summits = TRUE,
   trackline = TRUE,
   log = TRUE,
+  norm = TRUE,
+  stringent = TRUE,
   outdir = tempdir(),
-  outputfile = "MACSr.peaks.bed",
+  outputfile = paste0(call_peaks_method[[1]], ".peaks.bed"),
   return_path = FALSE,
+  nThread = 1,
   verbose = TRUE
 )
 }
@@ -32,10 +35,23 @@ genome.}
 via \link[MACSr]{bdgpeakcall}.}
 }}
 
-\item{cutoff}{Cutoff depends on which method you used for score track.
-If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
-If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
-through a \code{cutoff_analysis}.}
+\item{cutoff}{\itemize{
+\item{when \code{call_peaks_method="MACSr"} : }{
+Passed to \code{cutoff} argument.
+Cutoff depends on which method you used for score track.
+ If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
+ If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
+ through a \code{cutoff_analysis}. 
+}
+\item{when \code{call_peaks_method="SEACR"} : }{
+Passed to \code{control} argument.
+Control (IgG) data bedgraph file to generate an empirical
+threshold for peak calling.
+Alternatively, a numeric threshold n between 0 and 1 returns the top n
+fraction of peaks based on total signal within peaks 
+(default: \code{0.05}).
+}
+}}
 
 \item{minlen}{minimum length of peak, better to set it as d
 value. DEFAULT: 200", default = 200.}
@@ -52,6 +68,19 @@ files. The trackline is required by UCSC.}
 
 \item{log}{Whether to capture logs.}
 
+\item{norm}{Field 3: "norm" (default: \code{norm=TRUE}) 
+denotes normalization of control 
+to target data, "non" (\code{norm=FALSE}) skips this behavior.
+"norm" is recommended unless experimental and control data are already 
+rigorously normalized to each other (e.g. via spike-in).}
+
+\item{stringent}{Field 4:"relaxed" (\code{stringent=FALSE})
+uses a total signal 
+threshold between the knee and peak of the total signal curve,
+and corresponds to the “relaxed” mode described in the text, 
+whereas “stringent” (default: \code{stringent=TRUE}) 
+uses the peak of the curve, and corresponds to “stringent” mode.}
+
 \item{outdir}{Directory to store \code{cutoff_analysis} 
 report and peak file in.}
 
@@ -59,6 +88,9 @@ report and peak file in.}
 
 \item{return_path}{Whether to return the path to the saved peak file, 
 or the peak data itself as a \link[GenomicRanges]{GRanges} object.}
+
+\item{nThread}{When \code{nThread>1}, accelerates file importing 
+and peak calling using multi-core parallelisation.}
 
 \item{verbose}{Print messages.}
 }
@@ -75,19 +107,11 @@ By default, it automatically infers a reasonable
  for details).
 }
 \examples{
-#### Get bedGraph subset ####
-## Normally, you'd call peaks on the entire chromosome, 
-## or even the whole genome. But for demo purposes we'll just use one locus.
-gsm <- "GSM4703766" 
-links <- PeakyFinders:::get_geo_links(gsm = gsm) 
-query_granges <- GenomicRanges::GRanges("chr6:165169213-167169213")
-gr <- rtracklayer::import(con = links$bedgraph, 
-                          which = query_granges)
-tmp <- tempfile(fileext = ".bedgraph")
-rtracklayer::export.bedGraph(object = gr, con = tmp)
-
+#### Get bedGraph file ####
+bedgraph_path <- system.file("tests","test.bedGraph",
+                             package = "rtracklayer")
 #### Call peaks #### 
 if(.Platform$OS.type!="windows"){
-peaks <- PeakyFinders::call_peaks(bedgraph_path = tmp)
+  peaks <- PeakyFinders::call_peaks(bedgraph_path = bedgraph_path)
 }
 }

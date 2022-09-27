@@ -25,10 +25,23 @@ but this will first be converted to bedGraph format,
 which can take some time if trying to convert data from across the entire
 genome.}
 
-\item{cutoff}{Cutoff depends on which method you used for score track.
-If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
-If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
-through a \code{cutoff_analysis}.}
+\item{cutoff}{\itemize{
+\item{when \code{call_peaks_method="MACSr"} : }{
+Passed to \code{cutoff} argument.
+Cutoff depends on which method you used for score track.
+ If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
+ If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
+ through a \code{cutoff_analysis}. 
+}
+\item{when \code{call_peaks_method="SEACR"} : }{
+Passed to \code{control} argument.
+Control (IgG) data bedgraph file to generate an empirical
+threshold for peak calling.
+Alternatively, a numeric threshold n between 0 and 1 returns the top n
+fraction of peaks based on total signal within peaks 
+(default: \code{0.05}).
+}
+}}
 
 \item{minlen}{minimum length of peak, better to set it as d
 value. DEFAULT: 200", default = 200.}

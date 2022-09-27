@@ -8,5 +8,7 @@ dependencies:
   - python>=3.8
   - numpy>=1.17
   - seacr
-  - macs3 
   - gopeaks 
+  - pip
+  - pip:
+    - MACS3
