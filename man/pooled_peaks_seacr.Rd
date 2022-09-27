@@ -6,7 +6,7 @@
 \usage{
 pooled_peaks_seacr(
   bam_files,
-  save_dir = tempdir(),
+  outdir = tempdir(),
   g = NULL,
   overwrite = TRUE,
   nThread = 1,
@@ -16,6 +16,8 @@ pooled_peaks_seacr(
 }
 \arguments{
 \item{bam_files}{One or more BAM files.}
+
+\item{outdir}{Directory to save results to.}
 
 \item{...}{
   Arguments passed on to \code{\link[=call_peaks_seacr]{call_peaks_seacr}}
@@ -44,8 +46,6 @@ uses the peak of the curve, and corresponds to “stringent” mode.}
     \item{\code{nThread}}{When \code{nThread>1}, accelerates file importing 
 and peak calling using multi-core parallelisation.}
     \item{\code{verbose}}{Print messages.}
-    \item{\code{outdir}}{Directory to store \code{cutoff_analysis} 
-report and peak file in.}
     \item{\code{outputfile}}{Name of the peak output file (stored in BED format).}
     \item{\code{return_path}}{Whether to return the path to the saved peak file, 
 or the peak data itself as a \link[GenomicRanges]{GRanges} object.}

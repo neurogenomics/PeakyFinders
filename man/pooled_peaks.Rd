@@ -7,7 +7,7 @@
 pooled_peaks(
   bam_files,
   groups = names(bam_files),
-  save_dir = tempdir(),
+  outdir = tempdir(),
   method = c("MACSr", "SEACR"),
   verbose = TRUE,
   ...
@@ -19,11 +19,17 @@ pooled_peaks(
 \item{groups}{A character vector of the same length as \code{bam_files}
 defining how to group files when calling consensus peaks.}
 
+\item{outdir}{Directory to save results to.}
+
 \item{method}{Method to call consensus peaks with:
 \itemize{
-\item{"MACSr:}{Call consensus peaks by merging groups of BAM files with 
+\item{"MACSr : }{Call consensus peaks by merging groups of BAM files with 
 \link[Rsamtools]{mergeBam} and then calling peaks with 
-\link[MACSr]{callpeak}.
+\link[PeakyFinders]{call_peaks_macsr}.
+}
+\item{"SEACR : }{Call consensus peaks by merging groups of BAM files with 
+\link[Rsamtools]{mergeBam} and then calling peaks with 
+\link[PeakyFinders]{call_peaks_seacr}.
 }
 }}
 }

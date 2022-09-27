@@ -1,4 +1,5 @@
 import_peaks_macs <- function(paths,
+                              cutoff,
                               query_granges=NULL, 
                               split_files=FALSE,
                               verbose=TRUE){ 
@@ -19,7 +20,10 @@ import_peaks_macs <- function(paths,
     ### Add peaktype ###
     peaks <- add_mcol(gr = peaks,
                       name = "peaktype", 
-                      value =  "genericPeak") 
+                      value =  paste0("MACS3_cutoff",cutoff)) 
+    #### Add metadata #### 
+    peaks@metadata <- list(paths=paths,
+                           cutoff=cutoff)
     #### Split Granges into GRangesList #####
     if(isTRUE(split_files)){ 
         messager("Splitting GRanges into GRangesList.",v=verbose)

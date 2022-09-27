@@ -11,7 +11,7 @@
 #' @importFrom Rsamtools mergeBam
 #' @importFrom MACSr callpeak
 pooled_peaks_seacr <- function(bam_files,
-                               save_dir=tempdir(), 
+                               outdir=tempdir(), 
                                g=NULL,
                                overwrite=TRUE,
                                nThread=1,
@@ -19,7 +19,7 @@ pooled_peaks_seacr <- function(bam_files,
                                ...){ 
     
     destination <- gsub("\\.+",".",
-                        file.path(save_dir,paste("merged",g,"bam",sep=".")))
+                        file.path(outdir,paste("merged",g,"bam",sep=".")))
     merged <- merge_bam(bam_files=bam_files,
                         destination=destination,
                         overwrite=overwrite, 
@@ -30,9 +30,9 @@ pooled_peaks_seacr <- function(bam_files,
     #### Call peaks #### 
     messager("Calling consensus peaks with: SEACR",v=verbose) 
     outputfile <- gsub("\\.+",".",
-                       file.path(save_dir,paste("consensus",g,sep=".")))
+                       file.path(outdir,paste("consensus",g,sep=".")))
     peaks <- call_peaks_seacr(bedgraph_path = bedgraph_path, 
-                              outdir = save_dir,
+                              outdir = outdir,
                               outputfile = outputfile, 
                               return_path = FALSE,
                               verbose = verbose,

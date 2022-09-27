@@ -1,4 +1,5 @@
 import_peaks_seacr <- function(paths,
+                               control,
                                query_granges=NULL,
                                split_files=FALSE,
                                nThread=1,
@@ -20,9 +21,15 @@ import_peaks_seacr <- function(paths,
                                                         "max_signal_region")
     #### Add peak type ####
     GenomicRanges::mcols(peaks)["peaktype"] <- 
-        ifelse(grepl("stringent",peaks$source),"SEACR_stringent",
+        paste(
+            ifelse(grepl("stringent",peaks$source),"SEACR_stringent",
                    ifelse(grepl("relaxed",peaks$source),"SEACR_stringent",
-                                "SEACR")) 
+                          "SEACR")),
+            paste0("control",control),
+            sep = "_"
+        )
+    peaks@metadata <- list(paths=paths,
+                           control=control)
     #### Split Granges into GRangesList #####
     if(isTRUE(split_files)){ 
         messager("Splitting GRanges into GRangesList.",v=verbose)

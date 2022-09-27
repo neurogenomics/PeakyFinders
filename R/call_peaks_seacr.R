@@ -79,17 +79,10 @@ call_peaks_seacr <- function(bedgraph_path,
                          verbose = verbose)
     out <- system(cmd, intern = TRUE)
     #### Clean temp files #####
-    if(isTRUE(remove_tmps)){
-        messager("Removing temporary files.",v=verbose)
-        tmp_files <- list.files(getwd(), 
-                                pattern = paste(
-                                    c("\\.fdr\\.txt$",
-                                      "\\.auc\\.bed$",
-                                      "\\.auc$",
-                                      "\\.threshold\\.bed$",
-                                      "\\.threshold\\.txt$"),
-                                    collapse = "|"
-                                ), full.names = TRUE)
+    if(isTRUE(remove_tmps)){ 
+        tmp_files <- seacr_tmp_files(outdir=outdir)
+        messager("Removing",formatC(length(tmp_files),big.mark = ","),
+                 "temporary files.",v=verbose)
         out <- file.remove(tmp_files)
     }
     #### Report ####
@@ -112,7 +105,8 @@ call_peaks_seacr <- function(bedgraph_path,
         if(isTRUE(return_path)) {
             return(bed_files)
         } else {
-            peaks <- import_peaks_seacr(paths = bed_files, 
+            peaks <- import_peaks_seacr(paths = bed_files,
+                                        control = control,
                                         nThread = nThread, 
                                         verbose = verbose)
             return(peaks)

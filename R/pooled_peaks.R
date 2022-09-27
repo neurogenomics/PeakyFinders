@@ -7,11 +7,16 @@
 #' defining how to group files when calling consensus peaks.
 #' @param method Method to call consensus peaks with:
 #' \itemize{
-#' \item{"MACSr:}{Call consensus peaks by merging groups of BAM files with 
+#' \item{"MACSr : }{Call consensus peaks by merging groups of BAM files with 
 #' \link[Rsamtools]{mergeBam} and then calling peaks with 
-#' \link[MACSr]{callpeak}.
+#' \link[PeakyFinders]{call_peaks_macsr}.
+#' }
+#' \item{"SEACR : }{Call consensus peaks by merging groups of BAM files with 
+#' \link[Rsamtools]{mergeBam} and then calling peaks with 
+#' \link[PeakyFinders]{call_peaks_seacr}.
 #' }
 #' }
+#' @param outdir Directory to save results to.
 #' @returns \link[GenomicRanges]{GRangesList} object.
 #' 
 #' @export
@@ -20,8 +25,9 @@
 #' peaks <- pooled_peaks(bam_files = bam_files)
 pooled_peaks <- function(bam_files,
                          groups=names(bam_files),
-                         save_dir=tempdir(),
-                         method=c("MACSr","SEACR"),
+                         outdir=tempdir(),
+                         method=c("MACSr",
+                                  "SEACR"),
                          verbose=TRUE,
                          ...){
     
@@ -39,16 +45,16 @@ pooled_peaks <- function(bam_files,
         #### Call peaks ####
         if(method=="macsr"){  
             peaks <- pooled_peaks_macsr(bam_files=bfiles,
-                                           save_dir=save_dir,
-                                           g=g, 
-                                           verbose=verbose,
-                                           ...) 
+                                        outdir=outdir,
+                                        g=g, 
+                                        verbose=verbose,
+                                        ...) 
         } else if(method=="seacr") {
             peaks <- pooled_peaks_seacr(bam_files=bfiles,
-                                           save_dir=save_dir, 
-                                           g=g, 
-                                           verbose=verbose,
-                                           ...)
+                                        outdir=outdir, 
+                                        g=g, 
+                                        verbose=verbose,
+                                        ...)
         } else { 
             stopper("Method must be one of:",
                     paste("\n -",tolower(formals(pooled_peaks)$method),

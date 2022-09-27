@@ -4,6 +4,7 @@
 
 * `call_peaks`:
     - SEACR now implemented!!
+    - Add parameters as metadata in peak `GRanges`.
 * New exported functions:
     - `merge_bam`: Merge multiple BAM files into one.
     - `pooled_peaks`: Pool groups of BAM files and call peaks from them 
@@ -19,7 +20,7 @@
     - `pooled_peaks_seacr`/ `pooled_peaks_macsr` 
     - `make_conda_env`
     - `find_executable_seacr` 
-    - `add_mcol`
+    - `add_mcol` 
 
 ## Bug fixes
 

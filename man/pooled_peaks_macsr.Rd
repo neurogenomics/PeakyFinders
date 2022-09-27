@@ -6,7 +6,7 @@
 \usage{
 pooled_peaks_macsr(
   bam_files,
-  save_dir = tempdir(),
+  outdir = tempdir(),
   g = NULL,
   overwrite = TRUE,
   verbose = TRUE,
@@ -16,8 +16,14 @@ pooled_peaks_macsr(
 \arguments{
 \item{bam_files}{One or more BAM files.}
 
+\item{outdir}{Directory to save results to.}
+
 \item{overwrite}{A logical(1) indicating whether the destination
     can be over-written if it already exists.}
+
+\item{verbose}{Set verbose level of runtime message. 0: only show
+critical message, 1: show additional warning message, 2: show
+process information, 3: show debug messages. DEFAULT:2}
 
 \item{...}{
   Arguments passed on to \code{\link[MACSr:callpeak]{MACSr::callpeak}}
@@ -36,8 +42,6 @@ detected tag size. DEFAULT: Not set}
     \item{\code{keepduplicates}}{It controls the behavior towards duplicate
 tags at the exact same location -- the same coordination and
 the same strand.}
-    \item{\code{outdir}}{If specified all output files will be written to that
-directory.}
     \item{\code{name}}{Experiment name, which will be used to generate output
 file names.}
     \item{\code{store_bdg}}{Whether or not to save extended fragment pileup,
@@ -92,9 +96,6 @@ enriched peak region.}
     \item{\code{buffer_size}}{Buffer size for incrementally increasing
 internal array size to store reads alignment
 information. DEFAULT: 100000.}
-    \item{\code{verbose}}{Set verbose level of runtime message. 0: only show
-critical message, 1: show additional warning message, 2: show
-process information, 3: show debug messages. DEFAULT:2}
     \item{\code{log}}{Whether to capture logs.}
   }}
 }

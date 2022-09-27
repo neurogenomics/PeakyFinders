@@ -5,6 +5,7 @@
 #' \link[MACSr]{callpeak}. 
 #' @inheritParams pooled_peaks
 #' @inheritParams Rsamtools::mergeBam
+#' @inheritParams MACSr::callpeak 
 #' @inheritDotParams MACSr::callpeak
 #' @returns \link[GenomicRanges]{GRanges} object.
 #' 
@@ -12,7 +13,7 @@
 #' @importFrom Rsamtools mergeBam
 #' @importFrom MACSr callpeak
 pooled_peaks_macsr <- function(bam_files,
-                               save_dir=tempdir(),
+                               outdir=tempdir(),
                                g=NULL,
                                overwrite=TRUE,
                                verbose=TRUE,
@@ -24,8 +25,8 @@ pooled_peaks_macsr <- function(bam_files,
         messager("Merging",
                  formatC(length(bam_files),big.mark = ","),"BAM files.",
                  v=verbose)
-        dir.create(save_dir,showWarnings = FALSE, recursive = TRUE)
-        destination <- file.path(save_dir,paste(g,"merged.bam",sep="."))
+        dir.create(outdir,showWarnings = FALSE, recursive = TRUE)
+        destination <- file.path(outdir,paste(g,"merged.bam",sep="."))
         t1 <- Sys.time() 
         merged <- Rsamtools::mergeBam(files = bam_files,
                                       destination = destination,
@@ -41,6 +42,7 @@ pooled_peaks_macsr <- function(bam_files,
     messager("Calling consensus peaks with: MACSr",v=verbose)
     t1b <- Sys.time()
     out <- MACSr::callpeak(tfile = merged,
+                           outdir = outdir,
                            ...)
     report_time(start = t1b, 
                 prefix = "MACSr peak calling:",

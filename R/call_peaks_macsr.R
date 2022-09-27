@@ -73,6 +73,7 @@ call_peaks_macsr <- function(bedgraph_path,
         return(out$outputs)
     } else {
         peaks <- import_peaks_macs(paths = out$outputs,
+                                   cutoff = cutoff,
                                    verbose = verbose)
         messager(formatC(length(peaks),big.mark = ","),"peaks called.",
                  v=verbose)

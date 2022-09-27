@@ -42,7 +42,7 @@ find_executable_seacr <- function(packages=c("SEACR_1.3.sh",
         messager("Fixing script:",basename(r),v=verbose)
         l <- readLines(r)
         extra_line <- paste(
-            paste0("setwd(",outdir,")"),
+            paste0("setwd(",shQuote(outdir),")"),
             "library(utils)",
             "library(stats)",
             sep=";"
