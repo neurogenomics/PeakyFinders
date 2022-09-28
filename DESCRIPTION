@@ -60,8 +60,8 @@ Suggests:
     BSgenome.Hsapiens.UCSC.hg38.masked,
     piggyback
 Remotes:
-    github:macs3-project/MACSr,
-    github:RajLabMSSM/echoconda
+    github::macs3-project/MACSr,
+    github::RajLabMSSM/echoconda
 RoxygenNote: 7.2.1.9000
 VignetteBuilder: knitr
 License: GPL-3
