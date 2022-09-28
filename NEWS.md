@@ -21,6 +21,7 @@
     - `make_conda_env`
     - `find_executable_seacr` 
     - `add_mcol` 
+* Change all `call_peaks_method` args to simpler --> `method`. 
 
 ## Bug fixes
 

@@ -13,6 +13,8 @@ convert_bam(
 }
 \arguments{
 \item{bam_files}{One or more BAM files.}
+
+\item{verbose}{Print messages.}
 }
 \value{
 Converted file paths.

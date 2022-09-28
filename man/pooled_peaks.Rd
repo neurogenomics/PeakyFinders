@@ -8,6 +8,7 @@ pooled_peaks(
   bam_files,
   groups = names(bam_files),
   outdir = tempdir(),
+  cutoff = NULL,
   method = c("MACSr", "SEACR"),
   verbose = TRUE,
   ...
@@ -21,6 +22,24 @@ defining how to group files when calling consensus peaks.}
 
 \item{outdir}{Directory to save results to.}
 
+\item{cutoff}{\itemize{
+\item{when \code{method="MACSr"} : }{
+Passed to \code{cutoff} argument.
+Cutoff depends on which method you used for score track.
+ If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
+ If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
+ through a \code{cutoff_analysis}. 
+}
+\item{when \code{method="SEACR"} : }{
+Passed to \code{control} argument.
+Control (IgG) data bedgraph file to generate an empirical
+threshold for peak calling.
+Alternatively, a numeric threshold n between 0 and 1 returns the top n
+fraction of peaks based on total signal within peaks 
+(default: \code{0.05}).
+}
+}}
+
 \item{method}{Method to call consensus peaks with:
 \itemize{
 \item{"MACSr : }{Call consensus peaks by merging groups of BAM files with 
@@ -32,6 +51,12 @@ defining how to group files when calling consensus peaks.}
 \link[PeakyFinders]{call_peaks_seacr}.
 }
 }}
+
+\item{verbose}{Print messages.}
+
+\item{...}{Additional argument passed to either 
+\link[PeakyFinders]{call_peaks_macsr} or
+\link[PeakyFinders]{call_peaks_seacr}, depending on \code{method}.}
 }
 \value{
 \link[GenomicRanges]{GRangesList} object.

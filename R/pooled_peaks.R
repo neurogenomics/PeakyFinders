@@ -17,6 +17,10 @@
 #' }
 #' }
 #' @param outdir Directory to save results to.
+#' @param ... Additional argument passed to either 
+#' \link[PeakyFinders]{call_peaks_macsr} or
+#' \link[PeakyFinders]{call_peaks_seacr}, depending on \code{method}. 
+#' @inheritParams call_peaks
 #' @returns \link[GenomicRanges]{GRangesList} object.
 #' 
 #' @export
@@ -26,6 +30,7 @@
 pooled_peaks <- function(bam_files,
                          groups=names(bam_files),
                          outdir=tempdir(),
+                         cutoff=NULL,
                          method=c("MACSr",
                                   "SEACR"),
                          verbose=TRUE,
@@ -52,12 +57,14 @@ pooled_peaks <- function(bam_files,
             peaks <- pooled_peaks_macsr(bam_files=bfiles,
                                         outdir=outdir,
                                         g=g, 
+                                        cutoff=cutoff,
                                         verbose=verbose,
                                         ...) 
         } else if(method=="seacr") {
             peaks <- pooled_peaks_seacr(bam_files=bfiles,
                                         outdir=outdir, 
                                         g=g, 
+                                        control=cutoff,
                                         verbose=verbose,
                                         ...)
         } else { 

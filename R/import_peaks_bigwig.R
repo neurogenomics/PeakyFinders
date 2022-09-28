@@ -2,7 +2,7 @@ import_peaks_bigwig <- function(paths,
                                 id,
                                 query_granges,
                                 build,
-                                call_peaks_method,
+                                method,
                                 cutoff,
                                 peaks_dir,
                                 verbose=TRUE){
@@ -10,10 +10,10 @@ import_peaks_bigwig <- function(paths,
     messager("Computing peaks from bigWig file.",v=verbose)
     is_windows <- rtracklayer_bigwig_error() 
     #### Import bigWig subset #### 
-    which <- if(is.null(call_peaks_method)) query_granges else NULL
+    which <- if(is.null(method)) query_granges else NULL
     peaks_all <- lapply(paths, function(x){
         if((!is.null(query_granges)) &
-           (!is.null(call_peaks_method))){
+           (!is.null(method))){
             
             chroms <- as.character(
                 unique(GenomicRanges::seqnames(query_granges))
@@ -34,7 +34,7 @@ import_peaks_bigwig <- function(paths,
                           build = build, 
                           verbose = verbose)
         #### Exit early ####
-        if(is.null(call_peaks_method)) {
+        if(is.null(method)) {
             messager("Returning bigWig GRanges without computing peaks.",
                      v=verbose)
             GenomicRanges::mcols(gr)$peaktype <- "bigWig"

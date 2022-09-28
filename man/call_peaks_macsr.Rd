@@ -26,14 +26,14 @@ which can take some time if trying to convert data from across the entire
 genome.}
 
 \item{cutoff}{\itemize{
-\item{when \code{call_peaks_method="MACSr"} : }{
+\item{when \code{method="MACSr"} : }{
 Passed to \code{cutoff} argument.
 Cutoff depends on which method you used for score track.
  If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
  If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
  through a \code{cutoff_analysis}. 
 }
-\item{when \code{call_peaks_method="SEACR"} : }{
+\item{when \code{method="SEACR"} : }{
 Passed to \code{control} argument.
 Control (IgG) data bedgraph file to generate an empirical
 threshold for peak calling.

@@ -10,14 +10,14 @@ test_that("call_peaks works", {
         
         #### MACSr:: From bedGraph ####  
         peaks1 <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph, 
-                                           call_peaks_method = "MACSr")
+                                           method = "MACSr")
         ## Tests 
         testthat::expect_true(PeakyFinders:::is_granges(peaks1))
         testthat::expect_length(peaks1, 11)
         
         #### MACSr:: From bigWig ####    
         peaks2 <- PeakyFinders::call_peaks(bedgraph_path = files$bigwig,
-                                           call_peaks_method = "MACSr")
+                                           method = "MACSr")
         ## Tests
         testthat::expect_true(PeakyFinders:::is_granges(peaks2))
         testthat::expect_length(peaks2, 11)
@@ -27,13 +27,13 @@ test_that("call_peaks works", {
         
         #### SEACR:: From bedGraph ####    
         peaks3 <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
-                                           call_peaks_method = "SEACR")
+                                           method = "SEACR")
         testthat::expect_true(PeakyFinders:::is_granges(peaks3))
         testthat::expect_length(peaks3, 11)
         
         #### SEACR:: From bigWig ####   
         peaks4 <- PeakyFinders::call_peaks(bedgraph_path = files$bigwig,
-                                           call_peaks_method = "SEACR")
+                                           method = "SEACR")
         testthat::expect_true(PeakyFinders:::is_granges(peaks4))
         testthat::expect_length(peaks4, 11)
     }

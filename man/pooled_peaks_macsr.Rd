@@ -21,9 +21,7 @@ pooled_peaks_macsr(
 \item{overwrite}{A logical(1) indicating whether the destination
     can be over-written if it already exists.}
 
-\item{verbose}{Set verbose level of runtime message. 0: only show
-critical message, 1: show additional warning message, 2: show
-process information, 3: show debug messages. DEFAULT:2}
+\item{verbose}{Print messages.}
 
 \item{...}{
   Arguments passed on to \code{\link[MACSr:callpeak]{MACSr::callpeak}}

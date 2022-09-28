@@ -19,6 +19,8 @@ pooled_peaks_seacr(
 
 \item{outdir}{Directory to save results to.}
 
+\item{verbose}{Print messages.}
+
 \item{...}{
   Arguments passed on to \code{\link[=call_peaks_seacr]{call_peaks_seacr}}
   \describe{
@@ -45,7 +47,6 @@ uses the peak of the curve, and corresponds to “stringent” mode.}
 \pkg{SEACR} (i.e. )}
     \item{\code{nThread}}{When \code{nThread>1}, accelerates file importing 
 and peak calling using multi-core parallelisation.}
-    \item{\code{verbose}}{Print messages.}
     \item{\code{outputfile}}{Name of the peak output file (stored in BED format).}
     \item{\code{return_path}}{Whether to return the path to the saved peak file, 
 or the peak data itself as a \link[GenomicRanges]{GRanges} object.}

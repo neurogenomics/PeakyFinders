@@ -13,7 +13,7 @@
 #' but this will first be converted to bedGraph format, 
 #' which can take some time if trying to convert data from across the entire
 #' genome.
-#' @param call_peaks_method Method to call peaks with:
+#' @param method Method to call peaks with:
 #' \itemize{
 #' \item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
 #' via \link[MACSr]{bdgpeakcall}.}
@@ -22,14 +22,14 @@
 #' }
 #' @param cutoff 
 #' \itemize{
-#' \item{when \code{call_peaks_method="MACSr"} : }{
+#' \item{when \code{method="MACSr"} : }{
 #' Passed to \code{cutoff} argument.
 #' Cutoff depends on which method you used for score track.
 #'  If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
 #'  If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
 #'  through a \code{cutoff_analysis}. 
 #' }
-#' \item{when \code{call_peaks_method="SEACR"} : }{
+#' \item{when \code{method="SEACR"} : }{
 #' Passed to \code{control} argument.
 #' Control (IgG) data bedgraph file to generate an empirical
 #' threshold for peak calling.
@@ -53,10 +53,10 @@
 #' @examples 
 #' files <- example_bg_bw()
 #' peaks <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
-#'                                   call_peaks_method="SEACR")
+#'                                   method="SEACR")
 call_peaks <- function(#### Shared args ####
                        bedgraph_path,
-                       call_peaks_method = c("MACSr",
+                       method = c("MACSr",
                                              "SEACR"),
                        cutoff = NULL,
                        #### MACSr args ####
@@ -69,14 +69,14 @@ call_peaks <- function(#### Shared args ####
                        norm = TRUE,
                        stringent = TRUE,
                        outdir = tempdir(),
-                       outputfile = paste0(call_peaks_method[[1]],
+                       outputfile = paste0(method[[1]],
                                            ".peaks.bed"), 
                        return_path = FALSE,
                        nThread = 1,
                        verbose = TRUE){
     
-    call_peaks_method <- tolower(call_peaks_method)[1]
-    if(call_peaks_method=="macsr"){
+    method <- tolower(method)[1]
+    if(method=="macsr"){
         peaks <- call_peaks_macsr(bedgraph_path = bedgraph_path, 
                                   cutoff = cutoff,
                                   minlen = minlen,
@@ -88,7 +88,7 @@ call_peaks <- function(#### Shared args ####
                                   outputfile = outputfile,
                                   return_path = return_path,
                                   verbose = verbose)
-    } else if(call_peaks_method=="seacr") {
+    } else if(method=="seacr") {
         peaks <- call_peaks_seacr(bedgraph_path = bedgraph_path, 
                                   control = cutoff,
                                   norm = norm,
@@ -99,8 +99,8 @@ call_peaks <- function(#### Shared args ####
                                   nThread = nThread,
                                   verbose = verbose)
     } else{
-        opts <- formals(call_peaks)$call_peaks_method
-        stopper("call_peaks_method must be one of:",
+        opts <- formals(call_peaks)$method
+        stopper("method must be one of:",
                 paste("\n -",paste0("'",opts,"'"),collapse = ""))
     }
    return(peaks)

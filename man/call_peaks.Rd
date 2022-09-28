@@ -6,7 +6,7 @@
 \usage{
 call_peaks(
   bedgraph_path,
-  call_peaks_method = c("MACSr", "SEACR"),
+  method = c("MACSr", "SEACR"),
   cutoff = NULL,
   minlen = 200L,
   maxgap = 30L,
@@ -16,7 +16,7 @@ call_peaks(
   norm = TRUE,
   stringent = TRUE,
   outdir = tempdir(),
-  outputfile = paste0(call_peaks_method[[1]], ".peaks.bed"),
+  outputfile = paste0(method[[1]], ".peaks.bed"),
   return_path = FALSE,
   nThread = 1,
   verbose = TRUE
@@ -29,7 +29,7 @@ but this will first be converted to bedGraph format,
 which can take some time if trying to convert data from across the entire
 genome.}
 
-\item{call_peaks_method}{Method to call peaks with:
+\item{method}{Method to call peaks with:
 \itemize{
 \item{"MACSr" : }{Uses \href{https://github.com/macs3-project/MACS}{MACS3} 
 via \link[MACSr]{bdgpeakcall}.}
@@ -38,14 +38,14 @@ via \link[echoconda]{find_packages}.}
 }}
 
 \item{cutoff}{\itemize{
-\item{when \code{call_peaks_method="MACSr"} : }{
+\item{when \code{method="MACSr"} : }{
 Passed to \code{cutoff} argument.
 Cutoff depends on which method you used for score track.
  If the file contains pvalue scores from MACS3, score 5 means pvalue 1e-5.
  If \code{NULL}, a reasonable \code{cutoff} value will be inferred 
  through a \code{cutoff_analysis}. 
 }
-\item{when \code{call_peaks_method="SEACR"} : }{
+\item{when \code{method="SEACR"} : }{
 Passed to \code{control} argument.
 Control (IgG) data bedgraph file to generate an empirical
 threshold for peak calling.
@@ -111,5 +111,5 @@ By default, it automatically infers a reasonable
 \examples{
 files <- example_bg_bw()
 peaks <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
-                                  call_peaks_method="SEACR")
+                                  method="SEACR")
 }

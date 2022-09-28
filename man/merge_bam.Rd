@@ -21,6 +21,8 @@ merge_bam(
 
 \item{overwrite}{A logical(1) indicating whether the destination
     can be over-written if it already exists.}
+
+\item{verbose}{Print messages.}
 }
 \value{
 Path to merged BAM file.
