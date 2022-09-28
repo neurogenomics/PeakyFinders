@@ -38,10 +38,15 @@ pooled_peaks <- function(bam_files,
     #### Iterate over groups ####
     peaks_grouped <- lapply(groups, 
                             function(g){  
-        bfiles <- bam_files[which(groups==g)] 
+        #### Subset files ####
+        if(groups=="all"){
+            bfiles <- bam_files
+        } else {
+            bfiles <- bam_files[which(groups==g)] 
+        }
         messager("Computing consensus peaks for group:",g,
-                 paste0("\n - ",length(bfiles)," file(s)."
-                 )) 
+                 paste0("[",length(bfiles)," file(s)","]"),
+                 v=verbose) 
         #### Call peaks ####
         if(method=="macsr"){  
             peaks <- pooled_peaks_macsr(bam_files=bfiles,
