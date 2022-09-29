@@ -19,25 +19,13 @@ pooled_peaks_macsr <- function(bam_files,
                                verbose=TRUE,
                                ...){ 
      
-    bam_files <- unlist(bam_files)
     #### Merge bam ####
-    if(length(bam_files)>1){
-        messager("Merging",
-                 formatC(length(bam_files),big.mark = ","),"BAM files.",
-                 v=verbose)
-        dir.create(outdir,showWarnings = FALSE, recursive = TRUE)
-        destination <- file.path(outdir,paste(g,"merged.bam",sep="."))
-        t1 <- Sys.time() 
-        merged <- Rsamtools::mergeBam(files = bam_files,
-                                      destination = destination,
-                                      overwrite = overwrite)
-        report_time(start = t1, 
-                    prefix = "Merging BAM:",
-                    verbose = verbose)
-    } else {
-        messager("Only 1 file in group. Skipping BAM merging step.",v=verbose)
-        merged <- bam_files
-    } 
+    destination <- gsub("\\.+",".",
+                        file.path(outdir,paste("merged",g,"bam",sep=".")))
+    merged <- merge_bam(bam_files=bam_files,
+                        destination=destination,
+                        overwrite=overwrite, 
+                        verbose=verbose)
     #### Call peaks #### 
     messager("Calling consensus peaks with: MACSr",v=verbose)
     t1b <- Sys.time()

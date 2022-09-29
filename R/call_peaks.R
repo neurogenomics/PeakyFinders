@@ -57,7 +57,7 @@
 call_peaks <- function(#### Shared args ####
                        bedgraph_path,
                        method = c("MACSr",
-                                             "SEACR"),
+                                  "SEACR"),
                        cutoff = NULL,
                        #### MACSr args ####
                        minlen = 200L,

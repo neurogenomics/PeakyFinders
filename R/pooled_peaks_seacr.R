@@ -19,7 +19,7 @@ pooled_peaks_seacr <- function(bam_files,
                                ...){ 
     
     destination <- gsub("\\.+",".",
-                        file.path(outdir,paste("merged",g,"bam",sep=".")))
+                        file.path(outdir,paste("pooled",g,"bam",sep=".")))
     merged <- merge_bam(bam_files=bam_files,
                         destination=destination,
                         overwrite=overwrite, 
@@ -28,9 +28,8 @@ pooled_peaks_seacr <- function(bam_files,
                                  formats = "bedGraph", 
                                  verbose = verbose)[[1]][[1]]
     #### Call peaks #### 
-    messager("Calling consensus peaks with: SEACR",v=verbose) 
-    outputfile <- gsub("\\.+",".",
-                       file.path(outdir,paste("consensus",g,sep=".")))
+    messager("Calling pooled consensus peaks with: SEACR",v=verbose) 
+    outputfile <- gsub("\\.+",".",paste("poooled_peaks",g,sep="."))
     peaks <- call_peaks_seacr(bedgraph_path = bedgraph_path, 
                               outdir = outdir,
                               outputfile = outputfile, 
