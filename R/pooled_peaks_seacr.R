@@ -30,7 +30,7 @@ pooled_peaks_seacr <- function(bam_files,
                                  verbose = verbose)[[1]][[1]]
     #### Call peaks #### 
     messager("Calling pooled consensus peaks with: SEACR",v=verbose) 
-    outputfile <- gsub("\\.+",".",paste("poooled_peaks",g,sep="."))
+    outputfile <- gsub("\\.+",".",paste("pooled_peaks",g,sep="."))
     peaks <- call_peaks_seacr(bedgraph_path = bedgraph_path, 
                               outdir = outdir,
                               outputfile = outputfile, 
