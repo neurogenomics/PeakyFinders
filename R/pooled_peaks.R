@@ -41,7 +41,7 @@ pooled_peaks <- function(bam_files,
     groups <- check_groups(files = bam_files, 
                            groups = groups) 
     #### Iterate over groups ####
-    peaks_grouped <- lapply(groups, 
+    peaks_grouped <- lapply(unique(groups), 
                             function(g){  
         #### Subset files ####
         if(g=="all"){

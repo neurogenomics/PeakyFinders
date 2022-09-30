@@ -25,7 +25,8 @@ pooled_peaks_seacr <- function(bam_files,
                         overwrite=overwrite, 
                         verbose=verbose)
     bedgraph_path <- convert_bam(bam_files = merged, 
-                                 formats = "bedGraph", 
+                                 formats = "bedGraph",
+                                 outdir = outdir,
                                  verbose = verbose)[[1]][[1]]
     #### Call peaks #### 
     messager("Calling pooled consensus peaks with: SEACR",v=verbose) 

@@ -8,11 +8,14 @@ convert_bam(
   bam_files,
   formats = c("bedGraph", "bigWig"),
   width = 150,
+  outdir = NULL,
   verbose = TRUE
 )
 }
 \arguments{
 \item{bam_files}{One or more BAM files.}
+
+\item{outdir}{Directory to save results to.}
 
 \item{verbose}{Print messages.}
 }

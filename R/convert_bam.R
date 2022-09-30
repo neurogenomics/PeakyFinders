@@ -15,13 +15,15 @@
 convert_bam <- function(bam_files,
                         formats=c("bedGraph","bigWig"),
                         width=150,
+                        outdir=NULL,
                         verbose=TRUE){
     
     #### Name files ####
     if(is.null(names(bam_files))){
         names(bam_files) <- bam_files
     }
-    lapply(bam_files, function(file){
+    lapply(bam_files, 
+           function(file){
         messager("Processing:",file,v=verbose)              
         #### Import BAM ####
         bam <- rtracklayer::import(file, format="bam") 
@@ -43,6 +45,9 @@ convert_bam <- function(bam_files,
                                formats), 
                function(format){
             outfile <- paste(gsub("\\.bam", "", file),format,sep=".")
+            if(!is.null(outdir)) {
+                outfile <- file.path(outdir,basename(outfile))
+            }
             messager(paste0("Exporting to ",format,":"),outfile,v=verbose)
             rtracklayer::export(object = rpm, 
                                 con = outfile, 
