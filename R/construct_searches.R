@@ -17,9 +17,10 @@ construct_searches <- function(searches=NULL,
         searches = list(
             narrowPeak="narrowpeak",
             broadPeak="broadpeak",
-            genericPeak="peak",
+            genericPeak="peak|bed.gz$",
             bedGraph="bedgraph|graph.gz|bdg.gz",
-            bigWig="bigwig|bw$"
+            bigWig="bigwig|bw$",
+            bigBed="bigbed"
         )
     } 
     #### Make casing irrelevant ####

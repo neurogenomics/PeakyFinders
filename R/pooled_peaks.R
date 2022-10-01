@@ -24,6 +24,7 @@
 #' @returns \link[GenomicRanges]{GRangesList} object.
 #' 
 #' @export
+#' @importFrom stats setNames
 #' @examples
 #' bam_files <- example_bam()
 #' peaks <- pooled_peaks(bam_files = bam_files)
@@ -41,7 +42,8 @@ pooled_peaks <- function(bam_files,
     groups <- check_groups(files = bam_files, 
                            groups = groups) 
     #### Iterate over groups ####
-    peaks_grouped <- lapply(unique(groups), 
+    peaks_grouped <- lapply(stats::setNames(unique(groups),
+                                            unique(groups)), 
                             function(g){  
         #### Subset files ####
         if(g=="all"){

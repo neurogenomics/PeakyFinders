@@ -28,12 +28,13 @@ get_links_encode <- function(meta,
          } else {
              ## genericPeak is unnecessary here and 
              ## imports same peaks twice
-             peak_types <- c("narrowpeak","broadpeak","gappedpeak")
+             peak_types <- c("narrowpeak","broadpeak","gappedpeak","bigbed")
              if(any(peak_types %in% names(searches))){
                  searches$genericpeak <- NULL 
              } 
              ## Iterate over search keys
-             links <- lapply(names(searches), function(nm){
+             links <- lapply(names(searches), 
+                             function(nm){
                  m <- meta2[
                      grepl(searches[[nm]], x = meta2$href, 
                            ignore.case = TRUE) |   
@@ -55,6 +56,16 @@ get_links_encode <- function(meta,
                  } 
              }) |> `names<-`(tolower(names(searches))) 
          } 
+         #### Remove duplicated bigbed files from other categories ### 
+         if(!is.null(links$bigbed)){
+             messager("Removing duplicated bigBed files.",v=verbose)
+             for(l in links$bigbed){
+                 if(l %in% unlist(links[names(links)!="bigbed"])){
+                     links$bigbed <- links$bigbed[links$bigbed!=l]
+                 }
+             } 
+             links[lapply(links, length)==0] <- NULL
+         }
          return(links)
      }) 
     return(links_list)

@@ -51,7 +51,9 @@ import_peaks_encode <- function(ids,
                                    verbose = verbose)
     #### Import data ####
     ids <- stats::setNames(ids,ids)
-    grl <- mapply(ids, FUN=function(id){
+    grl <- mapply(ids, 
+                  SIMPLIFY = FALSE,
+                  FUN=function(id){
         messager("Processing id: >>>",id,"<<<",v=verbose)
         import_peaks_multi(links = links_list[[id]],
                            id = id,

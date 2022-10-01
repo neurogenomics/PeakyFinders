@@ -26,6 +26,9 @@
 ## Bug fixes
 
 - `import_peaks_*`: Now handle situations where 0 peaks are called.
+- `import_peaks`: Add support to bigBed format. 
+-  Switch from `BiocParallel` to `parallel`, 
+    as the former is extremely buggy and inconsistent.
 
 # PeakyFinders 0.99.1
 

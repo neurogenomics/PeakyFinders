@@ -11,13 +11,19 @@ import_peaks_bigwig <- function(paths,
     is_windows <- rtracklayer_bigwig_error() 
     #### Import bigWig subset #### 
     which <- if(is.null(method)) query_granges else NULL
-    peaks_all <- lapply(paths, function(x){
+    peaks_all <- lapply(paths, 
+                        function(x){
+        messager(" -",x)
         if((!is.null(query_granges)) &
            (!is.null(method))){
             
-            chroms <- as.character(
-                unique(GenomicRanges::seqnames(query_granges))
-            )
+            if(!is.null(query_granges)){
+                chroms <- as.character(
+                    unique(GenomicRanges::seqnames(query_granges))
+                )
+            } else {
+                chroms <- NULL
+            }
             ## Import the entire chromosome to accurately compute peaks.
             gr <- import_bedgraph_chroms(URL = x, 
                                          chroms = chroms, 
@@ -27,7 +33,10 @@ import_peaks_bigwig <- function(paths,
         } else {
             ## Import the entire genome.
             chroms <- "chrALL"
-            gr <- rtracklayer::import.bw(con = x, which=which)
+            ## NOTE: rtracklayer bug prevents querying bigwig subset.
+            ## Still waiting for maintainers to fix....
+            gr <- rtracklayer::import.bw(con = x, 
+                                         which = which)
         }
         #### Fix seqinfo ####
         gr <- fix_seqinfo(gr = gr, 

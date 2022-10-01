@@ -5,10 +5,10 @@
 #' @param pattern Regex pattern to search for files with.
 #' @param as_datatable Return the results as a \link[data.table]{data.table}
 #'  (default: \code{TRUE}), or a nested list (\code{FALSE}).
-#' @inheritParams get_bpparam
+#' @param workers Number of threads of parallelize across.
 #' @returns A data.table or named list.
 #' 
-#' @importFrom BiocParallel bplapply
+#' @importFrom parallel mclapply
 #' @export
 #' @examples
 #' links <- find_links(
@@ -18,18 +18,17 @@ find_links <- function(urls,
                        pattern=NULL,
                        as_datatable=TRUE,
                        workers=1){
+    
     requireNamespace("rvest")
     #### Name each url ####
     if(length(names(urls))!=length(urls)){
         message("Adding names to urls using basename.")
         names(urls) <- make.unique(basename(urls))
     } 
-    urls <- as.list(urls)
-    BPPARAM <- get_bpparam(workers = workers)
-    LINKS <- BiocParallel::bplapply(urls,
-                    BPPARAM = BPPARAM, 
-                    pattern = pattern,
-                    FUN=function(URL,pattern){
+    urls <- as.list(urls) 
+    LINKS <- parallel::mclapply(urls, 
+                                pattern = pattern,
+                                FUN=function(URL,pattern){
         tryCatch({
             page <- rvest::read_html(URL)
             links <- paste0(URL,

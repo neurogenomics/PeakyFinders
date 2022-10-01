@@ -14,7 +14,7 @@ find_links(urls, pattern = NULL, as_datatable = TRUE, workers = 1)
 \item{as_datatable}{Return the results as a \link[data.table]{data.table}
 (default: \code{TRUE}), or a nested list (\code{FALSE}).}
 
-\item{workers}{Number of threads to parallelize across.}
+\item{workers}{Number of threads of parallelize across.}
 }
 \value{
 A data.table or named list.

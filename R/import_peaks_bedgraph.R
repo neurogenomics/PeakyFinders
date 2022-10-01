@@ -8,9 +8,11 @@ import_peaks_bedgraph <- function(paths,
                                   verbose=TRUE){
     #### Import bedGraph subset #### 
     which <- if(is.null(method)) query_granges else NULL
-    peaks_all <- lapply(paths, function(x){
+    peaks_all <- lapply(paths, 
+                        function(x){
         if((!is.null(query_granges)) &
            (!is.null(method))){
+            messager(" -",x,v=verbose)
             ## Import the entire chromosome to accurately compute peaks.
             chroms <- as.character(
                 unique(GenomicRanges::seqnames(query_granges))

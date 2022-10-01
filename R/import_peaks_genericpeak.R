@@ -3,6 +3,7 @@ import_peaks_genericpeak <- function(paths,
                                      verbose=TRUE){
     messager("Importing pre-computed generic peak files.",v=verbose)
     peaks <- lapply(paths, function(f){
+        messager(" -",f,v=verbose)
         tryCatch({
             ### not all files parse very cleanly 
             dat <- data.table::fread(input = f, 

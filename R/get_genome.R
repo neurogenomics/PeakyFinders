@@ -24,12 +24,17 @@ get_genome <- function(keep.chr = paste0("chr",c(seq_len(22),"X","Y")),
                        sort = TRUE,
                        style = "UCSC",
                        split_chromosomes = FALSE
-                       ){ 
+                       ){  
     #### Standardize chromosomes ####
-    keep.chr <- paste0("chr",gsub("chr","",keep.chr))
-    if(sort) { 
-        keep.chr <- stringr::str_sort(keep.chr,numeric = TRUE) 
+    if(!is.null(keep.chr)){
+        keep.chr <- paste0("chr",gsub("chr","",keep.chr))
+        if(isTRUE(sort)) { 
+            keep.chr <- stringr::str_sort(keep.chr,
+                                          numeric = TRUE) 
+        }
     }
+    genome <- translate_genome(genome = genome,
+                               style = "UCSC")
     gr <- regioneR::filterChromosomes(
         A = regioneR::getGenome(genome = genome),
         keep.chr = keep.chr

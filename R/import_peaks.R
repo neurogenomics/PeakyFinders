@@ -101,7 +101,9 @@ import_peaks <- function(ids,
                          ),
                          nThread = 1,
                          verbose = TRUE){
-    
+    # templateR:::args2vars(PeakyFinders::import_peaks)
+    # templateR:::source_all()
+
     #### Check builds ####
     if(length(builds)>1 && (length(builds)!=length(ids))){
         stop("builds must be same length as ids.")

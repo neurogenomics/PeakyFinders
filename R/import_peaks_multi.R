@@ -9,7 +9,7 @@
 #' @inheritParams import_peaks 
 #' @inheritParams construct_searches 
 #' @keywords internal
-#' @importFrom BiocParallel register SnowParam bplapply
+#' @importFrom parallel mclapply
 import_peaks_multi <- function(links,
                                id=basename(tempfile()),
                                build = "hg19",
@@ -40,7 +40,7 @@ import_peaks_multi <- function(links,
         query_granges_build <- build
     }
     #### Split up chromosomes ####
-    if(split_chromosomes){ 
+    if(isTRUE(split_chromosomes)){ 
         if(is.null(query_granges)){
             query_granges <- get_genome(genome = build)
         }  
@@ -53,11 +53,10 @@ import_peaks_multi <- function(links,
     } else {
         query_granges_list <- list(all=query_granges)
     }  
-    #### Iterate over chromosomes #### 
-    BPPARAM <- get_bpparam(workers = nThread)
-    peaks_all <- BiocParallel::bplapply(X = query_granges_list, 
-                                        BPPARAM = BPPARAM,
-                                        FUN = function(query_granges){
+    #### Iterate over chromosomes ####  
+    peaks_all <- parallel::mclapply(X = query_granges_list, 
+                                    mc.cores = nThread, 
+                                    FUN = function(query_granges){
         message("\n")                               
         #### Intialize GRanges object ####                                             
         peaks_l <- GenomicRanges::GRanges()
@@ -77,7 +76,7 @@ import_peaks_multi <- function(links,
                                              verbose = verbose)
             processed <- TRUE
             peaks_l <- c(peaks_l, peaks)
-        } 
+        }  
         #### If files include broadPeak, import directly #### 
         if(length(links$broadpeak)>0){
             peaks <- import_peaks_broadpeak(paths = links$broadpeak,
@@ -87,16 +86,25 @@ import_peaks_multi <- function(links,
             peaks_l <- c(peaks_l, peaks)
         }  
         #### If files include generic peaks, import directly #### 
-        if(length(links$genericpeak)>0 && isFALSE(processed)){ 
+        if(length(links$genericpeak)>0 &&
+           isFALSE(processed)){ 
             nThread_dt <- if(split_chromosomes) 1 else nThread
             peaks <- import_peaks_genericpeak(paths = links$genericpeak,
                                               nThread = nThread_dt,
                                               verbose = verbose)
             peaks_l <- c(peaks_l, peaks) 
         }
-        
+        #### If files include bigbed, import directly #### 
+        if(length(links$bigbed)>0){
+            peaks <- import_peaks_bigbed(paths = links$bigbed,
+                                         query_granges = query_granges,
+                                         verbose = verbose)
+            processed <- TRUE
+            peaks_l <- c(peaks_l, peaks)
+        } 
         #### Call peaks from bedGraph #### 
-        if(length(links$bedgraph)>0){
+        if(length(links$bedgraph)>0 &&
+           isFALSE(processed)){
             messager("Computing peaks from bedGraph file.",v=verbose)
             peaks <- import_peaks_bedgraph(paths=links$bedgraph, 
                                            id=id, 
@@ -110,7 +118,8 @@ import_peaks_multi <- function(links,
         }
         
         #### Call peaks from bigWig #### 
-        if(length(links$bigwig)>0){
+        if(length(links$bigwig)>0 &&
+           isFALSE(processed)){
             peaks <- import_peaks_bigwig(paths=links$bigwig,
                                          id=id,
                                          query_granges=query_granges,
