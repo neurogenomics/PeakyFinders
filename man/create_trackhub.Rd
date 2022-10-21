@@ -5,10 +5,12 @@
 \title{Create TrackHub}
 \source{
 \href{UCSC track metadata descriptions}{
-https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html}
+https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html
+}
 
 \href{example trackhub}{
-https://github.com/mhalushka/UCSC_miRNA_barchart}
+https://github.com/mhalushka/UCSC_miRNA_barchart
+}
 }
 \usage{
 create_trackhub(

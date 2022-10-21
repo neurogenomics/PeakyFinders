@@ -3,6 +3,7 @@ create_trackhub_hub <- function(hub,
                                 shortLabel,
                                 longLabel,
                                 email,
+                                ucsc_url,
                                 hubFile,
                                 genomesFile,
                                 as_list=TRUE,
@@ -14,6 +15,7 @@ create_trackhub_hub <- function(hub,
                     shortLabel=shortLabel,
                     longLabel=longLabel,
                     genomesFile=basename(genomesFile),
+                    url=ucsc_url,
                     email=email)   
     hub_char <- list_to_char(lst = hub_lst)    
     ##### Write ####

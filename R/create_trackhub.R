@@ -11,9 +11,11 @@
 #' @param save_path Path to to save \emph{trackDb} file to.
 #' @returns Character or nested list.
 #' @source \href{UCSC track metadata descriptions}{
-#' https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html}
+#' https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html
+#' }
 #' @source \href{example trackhub}{
-#' https://github.com/mhalushka/UCSC_miRNA_barchart}
+#' https://github.com/mhalushka/UCSC_miRNA_barchart
+#' }
 #' 
 #' @export
 create_trackhub <- function(hub="cutntag_benchmarking",
@@ -35,7 +37,8 @@ create_trackhub <- function(hub="cutntag_benchmarking",
                             as_list=TRUE, 
                             sep="\t",
                             verbose=TRUE){
-    
+    # http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking/trackhub/hub.txt
+     
     # templateR:::args2vars(create_trackhub)
     # templateR:::source_all()
     # path="/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis"
@@ -45,6 +48,11 @@ create_trackhub <- function(hub="cutntag_benchmarking",
     genomesFile <- file.path(save_dir,"genomes.txt") 
     hubFile  <- file.path(save_dir,"hub.txt")
     trackdbFile <- file.path(save_dir,genome,"trackDb.txt")
+    ucsc_url <- paste0(
+        "http://genome.ucsc.edu/cgi-bin/hgTracks",
+        "?db=",genome,
+        "&hubUrl=",domain,top_dir(path = hubFile, n=2, invert = TRUE)
+    )  
     #### Create genomes.txt #### 
     genomes_lst <- create_trackhub_genomes(genomesFile=genomesFile,
                                            trackdbFile=trackdbFile,
@@ -56,6 +64,7 @@ create_trackhub <- function(hub="cutntag_benchmarking",
                                    shortLabel=shortLabel,
                                    longLabel=longLabel,
                                    email=email,
+                                   ucsc_url=ucsc_url,
                                    hubFile=hubFile,
                                    genomesFile=genomesFile,
                                    as_list=as_list,
@@ -76,7 +85,8 @@ create_trackhub <- function(hub="cutntag_benchmarking",
                 ## Paths
                 genomesFile=genomesFile,
                 hubFile=hubFile,
-                trackdbFile=trackdbFile
+                trackdbFile=trackdbFile,
+                ucsc_url=ucsc_url
     ))
 }
 
