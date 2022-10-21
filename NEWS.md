@@ -11,7 +11,7 @@
     
 ## Bug fixes
 
-* Make min R version 4.0.
+* Make min R version 4.1.
 
 # PeakyFinders 0.99.2
 
