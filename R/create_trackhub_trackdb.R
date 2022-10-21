@@ -45,7 +45,7 @@ create_trackhub_trackdb <- function(trackdbFile,
                   #### Lines in trackDb.txt ####
                   list(track=basename(y),
                        bigDataUrl=gsub(path,domain,y), 
-                       descriptionUrl=file.path(domain,descriptionUrl),
+                       descriptionUrl=descriptionUrl,
                        shortLabel=paste(ft,"file"),
                        longLabel=paste(ft,"file:",basename(y)),
                        type=ft,
