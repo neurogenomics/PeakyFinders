@@ -18,6 +18,7 @@ create_trackhub(
   path = getwd(),
   save_dir = file.path(path, "trackhub"),
   folders = c(""),
+  omit = "scCT_H3K27me3_rmDup_bowtie2.fragments.bedgraph",
   domain = "https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking",
   shortLabel = "CUT&Tag benchmarking",
   longLabel =
