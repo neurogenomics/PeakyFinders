@@ -27,7 +27,7 @@ bed_to <- function(files,
     lapply(files,
            function(y){
                messager("Converting: ",basename(y),v=verbose)     
-               gr <- import_peaks(ids = y)[[1]][[1]]
+               gr <- import_peaks(ids = y, save_path = NULL)[[1]][[1]]
                #### Ensure there is a score col ####
                if(!"score" %in% names(GenomicRanges::mcols(gr))){
                    gr <- add_mcol(
@@ -35,12 +35,14 @@ bed_to <- function(files,
                        name = "score", 
                        value =  gr$total_signal)  
                }
+               #### Remove NAs #####
+               gr <- gr[!is.na(gr$score),]
                #### Ensure score col is between 0-1000 ####
                if(max(gr$score,na.rm = TRUE)>1000){
                    gr <- add_mcol(
                        gr = gr,
                        name = "score", 
-                       value = gr$score/range(gr$score, na.rm = TRUE) * 1000) 
+                       value = gr$score/range(gr$score, na.rm = TRUE)[2] * 1000)  
                }
                gr <- fix_seqinfo(gr = gr,
                                  build = build)
