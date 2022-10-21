@@ -5,6 +5,7 @@ create_trackhub_trackdb <- function(trackdbFile,
                                     folders,
                                     filetypes, 
                                     visibility,
+                                    genome,
                                     as_list=TRUE,
                                     sep="\t",
                                     verbose=TRUE){ 
@@ -26,8 +27,11 @@ create_trackhub_trackdb <- function(trackdbFile,
     ## UCSC tracks require bigBed format (not bed)
     if("bed" %in% filetypes &&
        length(files$bed)>0){       
-        files[["bigBed"]] <- bed_to_bigbed(files = files$bed, 
-                                           save_dir = file.path(path,"bigbed"))
+        files[["bigBed"]] <- bed_to(files = files$bed, 
+                                    save_dir = file.path(path,"bigbed"), 
+                                    build = genome, 
+                                    formats = "bigbed", 
+                                    verbose = verbose)
         files[["bed"]] <- NULL
     }
     #### Create track data ####

@@ -27,7 +27,7 @@ create_trackhub(
   visibility = 2,
   genome = "hg19",
   descriptionUrl = paste(save_dir, "description.html", sep = "/"),
-  filetypes = c(bedGraph = ".bedgraph$|.bdg$", bigWig = ".bigwig$|.bw$"),
+  filetypes = c(bigWig = ".bigwig$|.bw$"),
   as_list = TRUE,
   sep = "\\t",
   verbose = TRUE

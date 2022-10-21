@@ -24,7 +24,7 @@ pooled_peaks_seacr <- function(bam_files,
                         destination=destination,
                         overwrite=overwrite, 
                         verbose=verbose)
-    bedgraph_path <- convert_bam(bam_files = merged, 
+    bedgraph_path <- bam_to(bam_files = merged, 
                                  formats = "bedGraph",
                                  outdir = outdir,
                                  verbose = verbose)[[1]][[1]]

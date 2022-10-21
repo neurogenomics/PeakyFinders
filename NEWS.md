@@ -8,6 +8,7 @@
 *  `create_trackhub`:
     - New set of functions to automatically creating UCSC Genome Browser TrackHubs from
     bigwig, bedGraph, bed, bedGraph files.
+* New function: `bed_to`
     
 ## Bug fixes
 
@@ -36,6 +37,7 @@
     - `make_conda_env`
     - `find_executable_seacr` 
     - `add_mcol` 
+    - `bam_to`
 * Change all `call_peaks_method` args to simpler --> `method`. 
 
 ## Bug fixes
