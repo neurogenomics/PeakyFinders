@@ -5,6 +5,10 @@
 * `import_peaks`:
     - Can now recognize and read in local/remote file paths passed to `ids`.
     - New subfunction `import_peaks_files` to support this.
+*  `create_trackhub`:
+    - New set of functions to automatically creating UCSC Genome Browser TrackHubs from
+    bigwig, bedGraph, bed, bedGraph files.
+
 
 # PeakyFinders 0.99.2
 
