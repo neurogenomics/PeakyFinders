@@ -21,13 +21,12 @@ create_trackhub <- function(hub="cutntag_benchmarking",
                             save_dir=file.path(path,"trackhub"),
                             folders=c(""),
                             domain="https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking",
-                            shortLabel="",
-                            longLabel="",
+                            shortLabel="CUT&Tag benchmarking",
+                            longLabel="Data track associated with the CUT&Tag benchmarking manuscript: https://doi.org/10.1101/2022.03.30.486382",
                             email="",
                             visibility=2,
                             genome="hg19",
-                            descriptionUrl=paste(domain,
-                                                 save_dir,
+                            descriptionUrl=paste(save_dir,
                                                  "description.html",
                                                  sep="/"),
                             filetypes=c("bedGraph"=".bedgraph$|.bdg$",
@@ -42,6 +41,7 @@ create_trackhub <- function(hub="cutntag_benchmarking",
     # path="/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis"
     # folders <- c("bigwig","bedgraph") 
     #### Create path names #### 
+    descriptionUrl <- gsub(path,domain,descriptionUrl)
     genomesFile <- file.path(save_dir,"genomes.txt") 
     hubFile  <- file.path(save_dir,"hub.txt")
     trackdbFile <- file.path(save_dir,genome,"trackDb.txt")
