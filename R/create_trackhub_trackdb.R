@@ -1,4 +1,5 @@
 create_trackhub_trackdb <- function(trackdbFile,
+                                    hub,
                                     path,
                                     domain,
                                     folders,
@@ -46,8 +47,8 @@ create_trackhub_trackdb <- function(trackdbFile,
                   list(track=basename(y),
                        bigDataUrl=gsub(path,domain,y), 
                        descriptionUrl=descriptionUrl,
-                       shortLabel=paste(ft,"file"),
-                       longLabel=paste(ft,"file:",basename(y)),
+                       shortLabel=basename(y),
+                       longLabel=paste(hub,ft,"file:",basename(y)),
                        type=ft,
                        visibility=visibility)  
               })    
@@ -62,7 +63,7 @@ create_trackhub_trackdb <- function(trackdbFile,
     }) |> paste(collapse = "\n\n") 
     
     #### Write ####
-    message('Writing trackdb file ==> ',trackdbFile)
+    messager('Writing trackdb file ==>',trackdbFile,v=verbose)
     dir.create(dirname(trackdbFile),showWarnings = FALSE, recursive = TRUE)
     writeLines(text = trackdb_char, 
                con = trackdbFile)  
