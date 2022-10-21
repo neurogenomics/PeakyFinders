@@ -5,12 +5,26 @@ channels:
   - nodefaults
 dependencies:
   # Python
-  - python>=3.8
+  - python>=3.7
   - numpy>=1.17
+  # R
+  - r-base>=4.2
+  - r-r.oo 
+  - r-devtools
+  - bioconductor-rtracklayer
+  # Peak callers
+  - macs2
   - seacr
   - gopeaks 
   - homer 
+  # UCSC 
+  # - ucsc-bedgraphtobigwig
+  # - ucsc-bedtobigbed
+  # - ucsc-bigwigtobedgraph 
+  # - ucsc-bigbedtobed 
+  # Genomic tools
   - bedtools
+  # - samtools
   - pip
   - pip:
     - MACS3

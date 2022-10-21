@@ -8,7 +8,10 @@
 *  `create_trackhub`:
     - New set of functions to automatically creating UCSC Genome Browser TrackHubs from
     bigwig, bedGraph, bed, bedGraph files.
+    
+## Bug fixes
 
+* Make min R version 4.0.
 
 # PeakyFinders 0.99.2
 

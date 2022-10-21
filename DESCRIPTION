@@ -20,7 +20,7 @@ Description:
 URL: https://github.com/neurogenomics/PeakyFinders
 BugReports: https://github.com/neurogenomics/PeakyFinders/issues
 Encoding: UTF-8
-Depends: R (>= 4.2)
+Depends: R (>= 4.1)
 biocViews:
     Genetics, FunctionalGenomics, SystemsBiology, WholeGenome, DataImport
 Imports:
