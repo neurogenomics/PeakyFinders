@@ -1,10 +1,21 @@
 import_peaks_genericpeak <- function(paths,
+                                     query_granges=NULL,
                                      nThread=1,
                                      verbose=TRUE){
     messager("Importing pre-computed generic peak files.",v=verbose)
     peaks <- lapply(paths, function(f){
         messager(" -",f,v=verbose)
-        tryCatch({
+        #### Try with  rtracklayer ####
+        gr <- tryCatch({
+            p <- rtracklayer::import(f, which=query_granges)
+            p <- add_mcol(gr = p,
+                          name = "source", 
+                          value =  basename(f))
+            return(p)
+        }, error = function(e){message(e);NULL})
+        if(!is.null(gr)) return(gr)
+        #### Try with data.table ####
+        gr <- tryCatch({
             ### not all files parse very cleanly 
             dat <- data.table::fread(input = f, 
                                      nThread = nThread)

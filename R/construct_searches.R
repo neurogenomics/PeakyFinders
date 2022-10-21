@@ -15,9 +15,10 @@ construct_searches <- function(searches=NULL,
                                keys=NULL){
     if(is.null(searches)){
         searches = list(
-            narrowPeak="narrowpeak",
+            narrowPeak="narrowpeak|MACS2.bed$",
             broadPeak="broadpeak",
-            genericPeak="peak|bed.gz$",
+            seacr="peaks.stringent.bed|peaks.relaxed.bed|SEACR.bed$",
+            genericPeak="peak|bed.gz$|.bed",
             bedGraph="bedgraph|graph.gz|bdg.gz",
             bigWig="bigwig|bw$",
             bigBed="bigbed"

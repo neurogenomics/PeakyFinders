@@ -24,12 +24,20 @@ import_peaks_multi <- function(links,
                                merge_list = TRUE,
                                nThread = 1,
                                verbose = TRUE){
+    # templateR:::args2vars(PeakyFinders:::import_peaks_multi)
+    # templateR:::source_all()
+    
     #### Parallelise ####
     ## SnowParam is less prone to errors than MultiParam, 
     ## but doesn't work on Windows.
     t1 <- Sys.time() 
     if(!is.null(names(links))){
         names(links) <- tolower(names(links))
+    }
+    if(is.null(names(links))){
+        links <- categorise_links(links_list = links,
+                                  searches = searches,
+                                  verbose = verbose)
     }
     #### Liftover (if necessary) ####
     if(!is.null(query_granges)){
@@ -51,7 +59,7 @@ import_peaks_multi <- function(links,
             query_granges = query_granges
         )
     } else {
-        query_granges_list <- list(all=query_granges)
+        query_granges_list <- list("all"=query_granges)
     }  
     #### Iterate over chromosomes ####  
     peaks_all <- parallel::mclapply(X = query_granges_list, 
@@ -85,11 +93,21 @@ import_peaks_multi <- function(links,
             processed <- TRUE
             peaks_l <- c(peaks_l, peaks)
         }  
+        if(length(links$seacr)>0){
+            peaks <- import_peaks_seacr(paths = links$seacr,
+                                        control = NULL,
+                                        query_granges = query_granges,
+                                        nThread = nThread,
+                                        verbose = verbose)
+            processed <- TRUE
+            peaks_l <- c(peaks_l, peaks)
+        }  
         #### If files include generic peaks, import directly #### 
         if(length(links$genericpeak)>0 &&
            isFALSE(processed)){ 
             nThread_dt <- if(split_chromosomes) 1 else nThread
             peaks <- import_peaks_genericpeak(paths = links$genericpeak,
+                                              query_granges = query_granges,
                                               nThread = nThread_dt,
                                               verbose = verbose)
             peaks_l <- c(peaks_l, peaks) 
@@ -143,10 +161,9 @@ import_peaks_multi <- function(links,
         } 
         message("\n")
         return(peaks_l)
-    })  # <-- End parallel loop
-    
+    })  # <-- End parallel loop 
     #### Merge list ####
-    if(merge_list){
+    if(isTRUE(merge_list)){
         peaks_all <- unlist(GenomicRanges::GRangesList(peaks_all)) 
         #### Ensure all rows are unique ####
         if(length(unique(names(peaks_all)))==1){

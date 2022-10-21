@@ -82,7 +82,7 @@
 #' @importFrom stats setNames 
 #' @importFrom GenomicRanges GRanges
 #' @examples
-#' grl <- PeakyFinders::import_peaks(
+#' out_list <- PeakyFinders::import_peaks(
 #'     ids = c("GSM945244"),# "ENCSR000AHD"
 #'     searches = PeakyFinders::construct_searches(keys = "narrowpeak"))
 import_peaks <- function(ids,
@@ -193,6 +193,21 @@ import_peaks <- function(ids,
                 nThread = nThread,
                 verbose = verbose)
         } 
+        #### Local/remote files ####
+        if(length(id_list$file)>0){
+            out_list[["file"]] <- import_peaks_files(
+                ids = id_list$file,  
+                build = builds,
+                query_granges = query_granges,
+                query_granges_build = query_granges_build,
+                split_chromosomes = split_chromosomes,
+                method = method,
+                cutoff = cutoff,
+                searches = searches,
+                peaks_dir = peaks_dir, 
+                nThread = nThread,
+                verbose = verbose)
+        } 
         #### Remove empty entries ####
         messager("Removing empty entries.",v=verbose) 
         out_list <- mapply(out_list, 
@@ -202,10 +217,14 @@ import_peaks <- function(ids,
         }) 
         #### Save ####
         if(!is.null(save_path)){
-            messager("Saving results ==> ",save_path,v=verbose)
-            dir.create(dirname(save_path),
-                       showWarnings = FALSE, recursive = TRUE)
-            saveRDS(out_list, save_path)
+            if(length(unlist(out_list))==0){
+                messager("No results to save.",save_path)
+            } else {
+                messager("Saving results ==> ",save_path,v=verbose)
+                dir.create(dirname(save_path),
+                           showWarnings = FALSE, recursive = TRUE)
+                saveRDS(out_list, save_path)
+            } 
         } 
     }
     return(out_list)    

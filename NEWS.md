@@ -1,3 +1,11 @@
+# PeakyFinders 0.99.3
+
+## New features
+
+* `import_peaks`:
+    - Can now recognize and read in local/remote file paths passed to `ids`.
+    - New subfunction `import_peaks_files` to support this.
+
 # PeakyFinders 0.99.2
 
 ## New features

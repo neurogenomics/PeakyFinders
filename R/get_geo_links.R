@@ -23,8 +23,7 @@ get_geo_links <- function(gsm,
     g <-  GEOquery::getGEOSuppFiles(GEO = gsm, 
                                     makeDirectory = FALSE,
                                     baseDir = tempdir(),
-                                    fetch_files = FALSE) 
-    supp_urls <- g$url
+                                    fetch_files = FALSE)  
     # g <- GEOquery::getGEO(GEO = gsm) 
     #### Determine file types ####
     # supp_urls <- g@header[
@@ -36,19 +35,8 @@ get_geo_links <- function(gsm,
     #          paste("\n -",paste("...",basename(unlist(supp_urls)),sep="/"),
     #                collapse = ""),
     #          v=verbose)
-    links <- mapply(searches,FUN=function(x){
-        grep(x, unlist(supp_urls),
-             ignore.case = TRUE, value = TRUE)
-    }, SIMPLIFY = FALSE) 
-    #### Remove empty slots #####
-    links <- links[mapply(links, FUN=function(x){length(x)>0})] 
-    #### Report ####
-    messager("Found file link(s) for",length(links),
-             if(length(links)>1) "categories." else "category.") 
-    for(nm in names(links)){
-        messager(nm,":",
-                 paste("\n>>>",links[[nm]], collapse = "")
-                 )
-    }
+    links <- categorise_links(links_list = g$url,
+                              searches = searches,
+                              verbose = verbose)
     return(links)
 }

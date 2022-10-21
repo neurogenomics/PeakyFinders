@@ -10,6 +10,16 @@ process_ids <- function(ids,
                             "ENCODE"=c("ENCSR","c818e","ENCFF"),
                             "ROADMAP"=c("E0"),
                             "AnnotationHub"=c("AH"))  
+        #### Check for files not matching any other db type ####
+        if(db=="file"){
+            ids2 <- grep(pattern = paste0("^",unlist(db_prefixes),
+                                          collapse = "|"),
+                         x = ids,
+                         invert = TRUE,
+                         ignore.case = TRUE, 
+                         value = TRUE)
+            return(ids2)
+        }
         ids2 <- grep(pattern = paste0("^",db_prefixes[[db]],collapse = "|"),
                      x = ids,
                      ignore.case = TRUE, 
@@ -47,7 +57,9 @@ process_ids <- function(ids,
     geo_ids <- unlist(geo_ids)[!duplicated(unlist(geo_ids))] 
     if(length(geo_ids)>0){
         messager(length(geo_ids),"unique GEO id(s) identified.",v=verbose)
-    } 
+    } else {
+        geo_ids <- character()
+    }
     #### ENCODE ####
     # meta <- search_encode() 
     # unique(stringr::str_sub(meta$accession,1,5))
@@ -73,11 +85,19 @@ process_ids <- function(ids,
         messager(length(ah_ids),"unique AnnotationHub id(s) identified.",
                  v=verbose)
     }
+    ##### Local/Remote files ####
+    file_ids <- id_matches(ids = ids,
+                           db = "file")
+    if(length(file_ids)>0){
+        messager(length(file_ids),"unique local file paths(s) identified.",
+                 v=verbose)
+    }
     #### Return named list ####
     return(list(
         GEO=geo_ids,
         ENCODE=encode_ids,
         ROADMAP=roadmap_ids,
-        AnnotationHub=ah_ids
+        AnnotationHub=ah_ids,
+        file=file_ids
     ))
 }

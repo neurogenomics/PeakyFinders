@@ -181,4 +181,23 @@ test_that("import_peaks works", {
         bw_test2()
     }
     
+    #### Test LOCAL file import #### 
+    ids <- system.file("tests/test.bed", package = "rtracklayer") 
+    grl <-  import_peaks(ids = ids,
+                         builds = "hg19") 
+    grl <- grl$file
+    testthat::expect_true(names(grl)==basename(ids))
+    testthat::expect_true(methods::is(grl[[1]], "GRanges"))
+    testthat::expect_length(grl[[1]], 5)
+    remove(grl)
+    
+    #### Test REMOTE file import #### 
+    ids <- "https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking/peaks/rmDup/Abcam-ab4729_MACS2.bed"
+    grl <-  import_peaks(ids = ids,
+                         builds = "hg19") 
+    grl <- grl$file
+    testthat::expect_true(names(grl)==basename(ids))
+    testthat::expect_true(methods::is(grl[[1]], "GRanges"))
+    testthat::expect_length(grl[[1]], 26077)
+    remove(grl)
 })

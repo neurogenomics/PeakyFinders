@@ -138,7 +138,7 @@ and peak calling using multi-core parallelisation.}
 }
 }
 \examples{
-grl <- PeakyFinders::import_peaks(
+out_list <- PeakyFinders::import_peaks(
     ids = c("GSM945244"),# "ENCSR000AHD"
     searches = PeakyFinders::construct_searches(keys = "narrowpeak"))
 }
