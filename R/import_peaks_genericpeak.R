@@ -8,6 +8,9 @@ import_peaks_genericpeak <- function(paths,
         #### Try with  rtracklayer ####
         gr <- tryCatch({
             p <- rtracklayer::import(f, which=query_granges)
+            p <- annot_macs(gr=p, 
+                            path=f,
+                            verbose=verbose)
             p <- add_mcol(gr = p,
                           name = "source", 
                           value =  basename(f))
@@ -36,10 +39,13 @@ import_peaks_genericpeak <- function(paths,
                              start_col = "start",
                              end_col = "end", 
                              style = "UCSC", 
-                             verbose = verbose) 
+                             verbose = verbose)  
             p <- add_mcol(gr = p,
                           name = "source", 
                           value =  basename(f)) 
+            p <- annot_macs(gr=p, 
+                            path=f,
+                            verbose=verbose)
             return(p) 
         }, error = function(e){message(e);GenomicRanges::GRanges()})
     }) |> 

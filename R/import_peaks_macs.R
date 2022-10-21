@@ -8,7 +8,10 @@ import_peaks_macs <- function(paths,
     peaks <- lapply(paths, function(f){ 
         p <- rtracklayer::import(con = f, 
                                  which = query_granges, 
-                                 format = "bed")
+                                 format = "bed") 
+        p <- annot_macs(gr=p, 
+                        path=f,
+                        verbose=verbose)
         p <- add_mcol(gr = p,
                       name = "source", 
                       value =  basename(f)) 

@@ -22,10 +22,13 @@ create_trackhub_trackdb <- function(trackdbFile,
                     })
     if(length(unlist(files))==0){
         stopper("0 files identified from search.")
+    } else {
+        messager(formatC(length(unlist(files)), big.mark = ","),
+                 "file(s) found total.",v=verbose)
     }
     #### Convert bed files to bigBed files ####
     ## UCSC tracks require bigBed format (not bed)
-    if("bed" %in% filetypes &&
+    if("bed" %in% names(filetypes) &&
        length(files$bed)>0){       
         files[["bigBed"]] <- bed_to(files = files$bed, 
                                     save_dir = file.path(path,"bigbed"), 

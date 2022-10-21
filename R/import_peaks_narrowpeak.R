@@ -10,12 +10,19 @@ import_peaks_narrowpeak <- function(paths,
         #### Handle narrowPeak files in bigBed format ####
         if(grepl("bigbed",f,ignore.case = TRUE)){
             #### Bug occurs when which=NULL #### 
-            if(is.null(query_granges)){
-                p <- rtracklayer::import(con = f)
-            } else {
-                p <- rtracklayer::import(con = f, 
-                                         which = query_granges)
-            }  
+            p <- tryCatch({
+                if(is.null(query_granges)){
+                    rtracklayer::import(con = f)
+                } else {
+                    rtracklayer::import(con = f, 
+                                        which = query_granges)
+                }  
+            }, error=function(e){message(e);NULL})
+            if(is.null(p)){
+                p <- import_peaks_genericpeak(paths = f, 
+                                              query_granges = query_granges, 
+                                              verbose = verbose)
+            }
             GenomicRanges::mcols(p)$peaktype <- "narrowPeak_bigBed"
         } else {
             p <- rtracklayer::import(con = f, 

@@ -7,6 +7,7 @@
 bed_to(
   files,
   build = "hg19",
+  keep_chr = NULL,
   formats = c("bigwig", "bigbed"),
   save_dir = tempdir(),
   verbose = TRUE,
@@ -17,6 +18,8 @@ bed_to(
 \item{files}{Paths to one or more BED files.}
 
 \item{build}{Genome build.}
+
+\item{keep_chr}{Which chromosomes to keep.}
 
 \item{save_dir}{Path to save bigBed files.}
 

@@ -27,6 +27,7 @@ bam_to <- function(bam_files,
     }
     lapply(bam_files, 
            function(file){
+        t1 <- Sys.time()
         messager("Processing:",file,v=verbose)              
         #### Import BAM ####
         bam <- rtracklayer::import(file, format="bam") 
@@ -42,7 +43,7 @@ bam_to <- function(bam_files,
         #### get coverage ####
         cov <- GenomicRanges::coverage(bam)
         rpm <- lapply(cov, function(x) signif(10^6 * x/totalReads,3))
-        rpm <- as(rpm,"SimpleRleList")
+        rpm <- methods::as(rpm,"SimpleRleList")
         #### export rpm to... ####
         lapply(stats::setNames(formats,
                                formats), 
@@ -51,11 +52,15 @@ bam_to <- function(bam_files,
             if(!is.null(outdir)) {
                 outfile <- file.path(outdir,basename(outfile))
             }
-            messager(paste0("Exporting to ",f,":"),outfile,v=verbose)
+            messager(paste0("Exporting to ",shQuote(f),":"),outfile,
+                     v=verbose)
             rtracklayer::export(object = rpm, 
                                 con = outfile, 
                                 format = f,
                                 ...)
+            report_time(start = t1,
+                        prefix = paste("Conversion to",shQuote(f)),
+                        verbose = verbose)
             return(outfile)
         })  
     })

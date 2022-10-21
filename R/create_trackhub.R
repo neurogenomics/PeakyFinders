@@ -38,12 +38,13 @@ create_trackhub <- function(hub="cutntag_benchmarking",
                             as_list=TRUE, 
                             sep="\t",
                             verbose=TRUE){
-    # http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking/trackhub/hub.txt
-     
+    
     # templateR:::args2vars(create_trackhub)
     # templateR:::source_all()
     # path="/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis"
-    # folders <- c("bigwig","bedgraph") 
+    # folders <- c("bigwig","bedgraph","peaks")
+    # filetypes=c("bedGraph"=".bedgraph$|.bdg$","bed"=".bed$","bigWig"=".bigwig$|.bw$")
+    
     #### Create path names #### 
     descriptionUrl <- gsub(path,domain,descriptionUrl)
     genomesFile <- file.path(save_dir,"genomes.txt") 
