@@ -9,6 +9,7 @@ dependencies:
   - numpy>=1.17
   - seacr
   - gopeaks 
+  - homer 
   - bedtools
   - pip
   - pip:
