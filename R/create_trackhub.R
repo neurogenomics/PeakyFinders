@@ -16,13 +16,19 @@
 #' @source \href{example trackhub}{
 #' https://github.com/mhalushka/UCSC_miRNA_barchart
 #' }
-#' 
+#' @source \href{https://github.com/lawremi/rtracklayer/issues/12}{
+#' rtracklayer possible memory leakage
+#' }
 #' @export
+#' @examples 
+#' \dontrun{
+#' res <- create_trackhub(path="/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis",
+#' folders <- c("bigwig","bedgraph","peaks"))
+#' }
 create_trackhub <- function(hub="cutntag_benchmarking",
                             path=getwd(),
                             save_dir=file.path(path,"trackhub"),
-                            folders=c(""),
-                            omit="scCT_H3K27me3_rmDup_bowtie2.fragments.bedgraph",
+                            folders=c(""), 
                             domain="https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking",
                             shortLabel="CUT&Tag benchmarking",
                             longLabel="Data track associated with the CUT&Tag benchmarking manuscript: https://doi.org/10.1101/2022.03.30.486382",
@@ -33,7 +39,7 @@ create_trackhub <- function(hub="cutntag_benchmarking",
                                                  "description.html",
                                                  sep="/"),
                             filetypes=c(#"bedGraph"=".bedgraph$|.bdg$",
-                                        # "bed"=".bed$",
+                                        "bed"=".bed$",
                                         "bigWig"=".bigwig$|.bw$"),
                             as_list=TRUE, 
                             sep="\t",

@@ -23,6 +23,8 @@ bed_to <- function(files,
                    verbose=TRUE,
                    ...){
     
+    requireNamespace("rtracklayer")
+    
     if(is.null(names(files))){
         names(files) <- make.unique(basename(files))
     }
@@ -34,11 +36,13 @@ bed_to <- function(files,
                                   save_path = NULL,
                                   verbose = verbose)[[1]][[1]]
                #### Ensure there is a score col ####
-               if(!"score" %in% names(GenomicRanges::mcols(gr))){
+               if(!"score" %in% names(GenomicRanges::mcols(gr)) &&
+                   "total_signal" %in% names(GenomicRanges::mcols(gr)) ){
                    gr <- add_mcol(
                        gr = gr,
                        name = "score", 
-                       value =  gr$total_signal)  
+                       value =  gr$total_signal,
+                       verbose = verbose)  
                }
                if(!"score" %in% names(GenomicRanges::mcols(gr))){
                    messager("WARNING: Could not find score column.",

@@ -10,8 +10,11 @@ create_trackhub_trackdb <- function(trackdbFile,
                                     sep="\t",
                                     verbose=TRUE){ 
     
+    requireNamespace("rtracklayer") 
+    
     messager("Creating file:",basename(trackdbFile),v=verbose) 
     #### Find files ####
+    messager("Searching for matching files.",v=verbose)
     files <- lapply(filetypes,
                     function(x){
                         list.files(path = file.path(path,folders),
@@ -33,11 +36,11 @@ create_trackhub_trackdb <- function(trackdbFile,
         files[["bigBed"]] <- bed_to(files = files$bed, 
                                     save_dir = file.path(path,"bigbed"), 
                                     build = genome, 
-                                    formats = "bigbed", 
+                                    formats = "bigBed", 
                                     verbose = verbose)
         files[["bed"]] <- NULL
     }
-    #### Create track data ####
+    #### Create track data #### 
     trackdb <- lapply(stats::setNames(names(files),
                                       names(files)), function(ft){
               message("Processing: ",ft)

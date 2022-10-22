@@ -11,6 +11,10 @@ https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html
 \href{example trackhub}{
 https://github.com/mhalushka/UCSC_miRNA_barchart
 }
+
+\href{https://github.com/lawremi/rtracklayer/issues/12}{
+rtracklayer possible memory leakage
+}
 }
 \usage{
 create_trackhub(
@@ -18,7 +22,6 @@ create_trackhub(
   path = getwd(),
   save_dir = file.path(path, "trackhub"),
   folders = c(""),
-  omit = "scCT_H3K27me3_rmDup_bowtie2.fragments.bedgraph",
   domain = "https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking",
   shortLabel = "CUT&Tag benchmarking",
   longLabel =
@@ -27,7 +30,7 @@ create_trackhub(
   visibility = 2,
   genome = "hg19",
   descriptionUrl = paste(save_dir, "description.html", sep = "/"),
-  filetypes = c(bigWig = ".bigwig$|.bw$"),
+  filetypes = c(bed = ".bed$", bigWig = ".bigwig$|.bw$"),
   as_list = TRUE,
   sep = "\\t",
   verbose = TRUE
@@ -54,4 +57,9 @@ Character or nested list.
 \description{
 Create TrackHub for visualization of genomic files 
 in the UCSC Genome Browser.
+}
+\examples{
+\dontrun{
+res <- create_trackhub(path="/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis")
+}
 }
