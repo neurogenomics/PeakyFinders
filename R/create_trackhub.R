@@ -22,8 +22,8 @@
 #' @export
 #' @examples 
 #' \dontrun{
-#' res <- create_trackhub(path="/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis",
-#' folders <- c("bigwig","bedgraph","peaks"))
+#' path <-"/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis"
+#' res <- create_trackhub(path=path, folders <- c("bigwig","bedgraph","peaks"))
 #' }
 create_trackhub <- function(hub="cutntag_benchmarking",
                             path=getwd(),
@@ -39,7 +39,7 @@ create_trackhub <- function(hub="cutntag_benchmarking",
                                                  "description.html",
                                                  sep="/"),
                             filetypes=c(#"bedGraph"=".bedgraph$|.bdg$",
-                                        "bed"=".bed$",
+                                        # "bed"=".bed$",
                                         "bigWig"=".bigwig$|.bw$"),
                             as_list=TRUE, 
                             sep="\t",

@@ -1,17 +1,13 @@
 <img src='https://github.com/neurogenomics/PeakyFinders/raw/master/inst/hex/hex.png' height='300'><br><br>
-[![](https://img.shields.io/badge/devel%20version-0.99.0-black.svg)](https://github.com/neurogenomics/PeakyFinders)
+[![](https://img.shields.io/badge/devel%20version-0.99.3-black.svg)](https://github.com/neurogenomics/PeakyFinders)
 [![R build
-status](https://github.com/neurogenomics/PeakyFinders/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/neurogenomics/PeakyFinders/actions)
+status](https://github.com/neurogenomics/PeakyFinders/workflows/rworkflows/badge.svg)](https://github.com/neurogenomics/PeakyFinders/actions)
 [![](https://img.shields.io/github/last-commit/neurogenomics/PeakyFinders.svg)](https://github.com/neurogenomics/PeakyFinders/commits/master)
 [![](https://app.codecov.io/gh/neurogenomics/PeakyFinders/branch/master/graph/badge.svg)](https://app.codecov.io/gh/neurogenomics/PeakyFinders)
 [![License:
 GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-project.org/web/licenses/GPL-3)
-<h4>
-Authors: <i>Brian Schilder</i>
-</h4>
-<h4>
-README updated: <i>May-28-2022</i>
-</h4>
+¶ <h4> ¶ Authors: <i>Brian Schilder</i> ¶ </h4>
+<h4> ¶ README updated: <i>Dec-22-2022</i> ¶ </h4>
 
 <!-- To modify Package/Title/Description/Authors fields, edit the DESCRIPTION file -->
 
