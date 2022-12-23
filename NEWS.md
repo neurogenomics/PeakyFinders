@@ -1,3 +1,9 @@
+# PeakyFinders 0.99.4
+
+## New features
+
+* Implement `rworkflows`.
+
 # PeakyFinders 0.99.3
 
 ## New features
