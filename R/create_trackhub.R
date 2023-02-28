@@ -25,13 +25,13 @@
 #' path <-"/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis"
 #' res <- create_trackhub(path=path, folders <- c("bigwig","bedgraph","peaks"))
 #' }
-create_trackhub <- function(hub="cutntag_benchmarking",
+create_trackhub <- function(hub="my_hub_name",
                             path=getwd(),
                             save_dir=file.path(path,"trackhub"),
                             folders=c(""), 
-                            domain="https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking",
-                            shortLabel="CUT&Tag benchmarking",
-                            longLabel="Data track associated with the CUT&Tag benchmarking manuscript: https://doi.org/10.1101/2022.03.30.486382",
+                            domain=paste("https://neurogenomics-ukdri.dsi.ic.ac.uk/",hub),
+                            shortLabel="",
+                            longLabel="",
                             email="",
                             visibility=2,
                             genome="hg19",

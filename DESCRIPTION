@@ -43,6 +43,7 @@ Imports:
     stringr,
     echoconda
 Suggests:
+    rworkflows,
     markdown,
     rmarkdown,
     magick,
@@ -51,7 +52,6 @@ Suggests:
     BiocStyle,
     covr,
     testthat (>= 3.0.0),
-    badger,
     hexSticker,
     here, 
     TxDb.Hsapiens.UCSC.hg19.knownGene,
