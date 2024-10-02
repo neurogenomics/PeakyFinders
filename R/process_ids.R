@@ -1,7 +1,8 @@
 process_ids <- function(ids, 
                         verbose=TRUE){
     # ids=c("GSE188512","GSM5684359") 
-    utils::data(peaks_metadata_roadmap) 
+    utils::data("peaks_metadata_roadmap", package = "PeakyFinders")
+    peaks_metadata_roadmap <- get("peaks_metadata_roadmap")
     messager("Processing id(s).",v=verbose)
     id_matches <- function(ids,
                            db="GEO"){ 

@@ -65,8 +65,7 @@ better to set it as tag size. DEFAULT: 30", default = 30.}
 approach to find all summits in each enriched peak region
 DEFAULT: False",default=False.}
 
-\item{trackline}{Tells MACS not to include trackline with bedGraph
-files. The trackline is required by UCSC.}
+\item{trackline}{Tells MACS not to include trackline with bedGraph files. The trackline is used by UCSC for the options for display.}
 
 \item{log}{Whether to capture logs.}
 

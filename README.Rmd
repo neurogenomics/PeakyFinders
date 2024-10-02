@@ -6,8 +6,6 @@ output:
   github_document
 ---
 
-<!-- To modify Package/Title/Description/Authors fields, edit the DESCRIPTION file -->
-
 ```{r, echo=FALSE, include=FALSE}
 pkg <- read.dcf("DESCRIPTION", fields = "Package")[1]
 title <- read.dcf("DESCRIPTION", fields = "Title")[1]
@@ -15,7 +13,6 @@ description <- read.dcf("DESCRIPTION", fields = "Description")[1]
 URL <- read.dcf('DESCRIPTION', fields = 'URL')[1]
 owner <- tolower(strsplit(URL,"/")[[1]][4])
 ```
-
 
 ## ``r pkg``: `r title`
 

@@ -1,9 +1,12 @@
 #' Convert a BED file
 #' 
-#' Convert a BED file to any format supported by \link[rtracklayer]{export}.
-#' @param ... Additional arguments passed to \link[rtracklayer]{export}.
+#' Convert a BED file to any format supported by \code{rtracklayer::export}.
+#' @source \href{https://support.bioconductor.org/p/81267/}{
+#' rtracklayer issues reading/writing files}
 #' @param files Paths to one or more BED files.
+#' @param formats A character vector of one or more formats for export file to.
 #' @param save_dir Path to save bigBed files.
+#' @inheritDotParams  rtracklayer::export.bw
 #' @inheritParams fix_seqinfo
 #' @inheritParams filter_chrom
 #' @returns Converted file paths.
@@ -16,7 +19,7 @@
 #' files <- system.file("tests","test.bed",package = "rtracklayer")
 #' out <- bed_to(files=files)
 bed_to <- function(files,
-                   build = "hg19",
+                   build, #= "hg19",
                    keep_chr = NULL,
                    formats=c("bigwig","bigbed"),
                    save_dir=tempdir(),
@@ -34,7 +37,7 @@ bed_to <- function(files,
                messager("Converting: ",basename(y),v=verbose)     
                gr <- import_peaks(ids = y, 
                                   save_path = NULL,
-                                  verbose = verbose)[[1]][[1]]
+                                  verbose = verbose)[[1]][[1]] 
                #### Ensure there is a score col ####
                if(!"score" %in% names(GenomicRanges::mcols(gr)) &&
                    "total_signal" %in% names(GenomicRanges::mcols(gr)) ){
@@ -74,11 +77,11 @@ bed_to <- function(files,
                    dir.create(dirname(outfile), 
                               showWarnings = FALSE, recursive = TRUE) 
                    messager(paste0("Exporting to ",shQuote(f),":"),outfile,
-                            v=verbose)
+                            v=verbose) 
                    rtracklayer::export(object = gr, 
                                        con = outfile,
-                                       format = f,
-                                       ...) 
+                                       format = f)
+                                       # ...) 
                    report_time(start = t1,
                                prefix = paste("Conversion to",shQuote(f)),
                                verbose = verbose)

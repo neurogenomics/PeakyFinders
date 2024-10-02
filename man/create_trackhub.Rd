@@ -18,36 +18,42 @@ rtracklayer possible memory leakage
 }
 \usage{
 create_trackhub(
-  hub = "cutntag_benchmarking",
+  hub = "my_hub_name",
+  genome,
   path = getwd(),
   save_dir = file.path(path, "trackhub"),
   folders = c(""),
-  domain = "https://webserver-schilder-ukdri.dsi.ic.ac.uk/cutntag_benchmarking",
-  shortLabel = "CUT&Tag benchmarking",
-  longLabel =
-    "Data track associated with the CUT&Tag benchmarking manuscript: https://doi.org/10.1101/2022.03.30.486382",
+  domain = paste0("https://neurogenomics-ukdri.dsi.ic.ac.uk/", hub),
+  shortLabel = "",
+  longLabel = "",
   email = "",
-  visibility = 2,
-  genome = "hg19",
   descriptionUrl = paste(save_dir, "description.html", sep = "/"),
-  filetypes = c(bigWig = ".bigwig$|.bw$"),
+  filetypes = c(bed = ".bed$", bigWig = ".bigwig$|.bw$"),
+  settings = list(visibility = 2, fontSize = "10", height = "100", autoScale = "on",
+    color = "255,102,102", renderer = "BAR_CHART", smoothingWindow = "off",
+    windowFunction = "mean", logo = "on"),
   as_list = TRUE,
   sep = "\\t",
   verbose = TRUE
 )
 }
 \arguments{
+\item{genome}{Genome build that files were aligned to.}
+
 \item{path}{Path to search for files within recursively.}
+
+\item{folders}{Subfolders within \code{path} to search,}
 
 \item{domain}{URL prefix where the files will be hosted.}
 
-\item{genome}{Genome build that files were aligned to.}
-
 \item{filetypes}{File types to search for.}
 
-\item{as_list}{Return each file as a nested list.}
+\item{settings}{Trackhub settings. 
+See 
+\href{ https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html}{
+UCSC trackhub documentation} for details.}
 
-\item{folder}{Subfolders within \code{path} to search,}
+\item{as_list}{Return each file as a nested list.}
 
 \item{save_path}{Path to to save \emph{trackDb} file to.}
 }
@@ -61,6 +67,12 @@ in the UCSC Genome Browser.
 \examples{
 \dontrun{
 path <-"/Volumes/bms20/projects/neurogenomics-lab/live/Projects/CUT_n_TAG/CUTnTag_analysis"
-res <- create_trackhub(path=path, folders <- c("bigwig","bedgraph","peaks"))
+res <- create_trackhub(path=path, folders = c("bigwig","bedgraph","peaks"))
+
+path <-"/Volumes/bms20/projects/neurogenomics-lab/live/Data/tip_seq/processed_data/without_duplicates/tipseq_9_17_jun_2022/"
+res <- create_trackhub(hub="tipseq_9_17_jun_2022",
+                       path=path, 
+                       folders = "03_peak_calling",
+                       genome="hg38")
 }
 }

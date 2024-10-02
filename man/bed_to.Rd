@@ -3,10 +3,14 @@
 \name{bed_to}
 \alias{bed_to}
 \title{Convert a BED file}
+\source{
+\href{https://support.bioconductor.org/p/81267/}{
+rtracklayer issues reading/writing files}
+}
 \usage{
 bed_to(
   files,
-  build = "hg19",
+  build,
   keep_chr = NULL,
   formats = c("bigwig", "bigbed"),
   save_dir = tempdir(),
@@ -21,17 +25,34 @@ bed_to(
 
 \item{keep_chr}{Which chromosomes to keep.}
 
+\item{formats}{A character vector of one or more formats for export file to.}
+
 \item{save_dir}{Path to save bigBed files.}
 
 \item{verbose}{Print messages.}
 
-\item{...}{Additional arguments passed to \link[rtracklayer]{export}.}
+\item{...}{
+  Arguments passed on to \code{\link[rtracklayer:BigWigFile]{rtracklayer::export.bw}}
+  \describe{
+    \item{\code{con}}{A path, URL or \code{BigWigFile} object. Connections are
+    not supported. For the functions ending in \code{.bw}, the file
+    format is indicated by the function name. For the \code{export}
+    and \code{import} methods, the format must be indicated another
+    way. If \code{con} is a path, or URL, either the file
+    extension or the \code{format} argument needs to be \dQuote{bigWig}
+    or \dQuote{bw}.
+  }
+    \item{\code{object}}{The object to export, should be an \code{RleList},
+    \code{IntegerList}, \code{NumericList},
+    \code{GRanges} or something coercible to a \code{GRanges}.
+  }
+  }}
 }
 \value{
 Converted file paths.
 }
 \description{
-Convert a BED file to any format supported by \link[rtracklayer]{export}.
+Convert a BED file to any format supported by \code{rtracklayer::export}.
 }
 \examples{
 files <- system.file("tests","test.bed",package = "rtracklayer")

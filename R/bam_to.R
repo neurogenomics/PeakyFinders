@@ -1,9 +1,10 @@
 #' Convert a BAM file
 #' 
-#' Convert a BAM file to any format supported by \link[rtracklayer]{export}.
-#' @param ... Additional arguments passed to \link[rtracklayer]{export}.
+#' Convert a BAM file to any format supported by \code{rtracklayer::export}.
 #' @inheritParams pooled_peaks
-#' @inheritParams GenomicRanges::resize 
+#' @inheritParams bed_to
+#' @inheritParams IRanges::resize 
+#' @inheritDotParams  rtracklayer::export.bw
 #' @returns Converted file paths.
 #' 
 #' @export

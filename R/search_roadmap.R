@@ -83,9 +83,9 @@ search_roadmap <- function(## Filter args
                                 ),
                                 verbose = verbose)
     } else {
-        messager("Subsetting metadata to only peaks.",v=verbose)
-        utils::data(peaks_metadata_roadmap)
-        meta <- peaks_metadata_roadmap
+        messager("Subsetting metadata to only peaks.",v=verbose) 
+        utils::data("peaks_metadata_roadmap", package = "PeakyFinders") 
+        meta <- get("peaks_metadata_roadmap")
     }
     #### Get arguments ####
     arg_list <- as.list(match.call(definition = search_roadmap))[-1]

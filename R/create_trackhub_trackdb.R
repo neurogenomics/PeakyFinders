@@ -3,9 +3,9 @@ create_trackhub_trackdb <- function(trackdbFile,
                                     path,
                                     domain,
                                     folders,
-                                    filetypes, 
-                                    visibility,
-                                    genome,
+                                    filetypes,  
+                                    genome, 
+                                    settings,
                                     as_list=TRUE,
                                     sep="\t",
                                     verbose=TRUE){ 
@@ -55,12 +55,22 @@ create_trackhub_trackdb <- function(trackdbFile,
                       verbose=verbose)
                   #### Lines in trackDb.txt ####
                   list(track=basename(y),
-                       bigDataUrl=gsub(path,domain,y), 
+                       #gsub(path,domain,y), 
+                       bigDataUrl=file.path(domain,tolower(ft),basename(y)),
                        descriptionUrl=descriptionUrl,
                        shortLabel=basename(y),
                        longLabel=paste(hub,ft,"file:",basename(y)),
                        type=ft,
-                       visibility=visibility)  
+                       visibility=settings$visibility,
+                       
+                       fontSize=settings$fontSize,
+                       height=settings$height,
+                       autoScale=settings$autoScale,
+                       color=settings$color,
+                       renderer=settings$renderer,
+                       smoothingWindow=settings$smoothingWindow,
+                       windowFunction=settings$windowFunction,
+                       logo=settings$logo)  
               })    
           }) 
     #### Convert to text ####

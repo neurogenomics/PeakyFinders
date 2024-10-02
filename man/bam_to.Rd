@@ -16,17 +16,48 @@ bam_to(
 \arguments{
 \item{bam_files}{One or more BAM files.}
 
+\item{formats}{A character vector of one or more formats for export file to.}
+
+\item{width}{
+    If \code{x} is an \link[IRanges]{IRanges}, \link[IRanges]{IPos} or \link[IRanges]{Views} object:
+    For \code{narrow} and \code{threebands}, a vector of integers,
+    eventually with NAs. See the SEW (Start/End/Width) interface for
+    the details (\code{?solveUserSEW}).
+    For \code{resize} and \code{flank}, the width of the resized or
+    flanking regions. Note that if \code{both} is \code{TRUE}, this
+    is effectively doubled. Recycled as necessary so that each
+    element corresponds to a range in \code{x}.
+
+    Can also be a list-like object \emph{parallel} to \code{x}
+    if \code{x} is a \link{RangesList} object.
+  }
+
 \item{outdir}{Directory to save results to.}
 
 \item{verbose}{Print messages.}
 
-\item{...}{Additional arguments passed to \link[rtracklayer]{export}.}
+\item{...}{
+  Arguments passed on to \code{\link[rtracklayer:BigWigFile]{rtracklayer::export.bw}}
+  \describe{
+    \item{\code{con}}{A path, URL or \code{BigWigFile} object. Connections are
+    not supported. For the functions ending in \code{.bw}, the file
+    format is indicated by the function name. For the \code{export}
+    and \code{import} methods, the format must be indicated another
+    way. If \code{con} is a path, or URL, either the file
+    extension or the \code{format} argument needs to be \dQuote{bigWig}
+    or \dQuote{bw}.
+  }
+    \item{\code{object}}{The object to export, should be an \code{RleList},
+    \code{IntegerList}, \code{NumericList},
+    \code{GRanges} or something coercible to a \code{GRanges}.
+  }
+  }}
 }
 \value{
 Converted file paths.
 }
 \description{
-Convert a BAM file to any format supported by \link[rtracklayer]{export}.
+Convert a BAM file to any format supported by \code{rtracklayer::export}.
 }
 \examples{
 bam_files <- c(f1=system.file("extdata","querybins.bam",package="Rsamtools"),
