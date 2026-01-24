@@ -1,0 +1,1 @@
+{"image":["ghcr.io/neurogenomics/rworkflows:dev"],"features":{"ghcr.io/devcontainers/features/conda:1":[]},"customizations":{"vscode":{"settings":[],"extensions":[["reditorsupport.r"],["visualstudioexptteam.vscodeintellicode"],["ionutvmi.path-autocomplete"]]}}}
