@@ -61,7 +61,7 @@ Suggests:
     piggyback
 Remotes:
     github::macs3-project/MACSr,
-    github::RajLabMSSM/echoconda
+    github::neurogenomics/echoconda@fix-basilisk-api
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 License: GPL-3
