@@ -72,7 +72,7 @@ encode_metadata <- search_encode(
 ## Documentation
 
 ### [Website](https://`r owner`.github.io/`r pkg`)
-### [Getting started](https://`r owner`.github.io/`r pkg`/articles/`r pkg`)
+### [Getting started](https://`r owner`.github.io/`r pkg`/articles/peakyfinders)
 
 ## Citation
 
