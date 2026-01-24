@@ -36,7 +36,6 @@
 #' @importFrom utils download.file
 #' @importFrom data.table fread
 #' @importFrom stats median
-#' @importFrom echoconda cmd_print
 call_peaks_seacr <- function(bedgraph_path, 
                              control=0.05,
                              norm=TRUE,
@@ -75,8 +74,11 @@ call_peaks_seacr <- function(bedgraph_path,
                  if(isTRUE(norm)) "norm" else "non",
                  if(isTRUE(stringent)) "stringent" else "relaxed",
                  output_prefix)
-    echoconda::cmd_print(cmd,
-                         verbose = verbose)
+    if(requireNamespace("echoconda", quietly = TRUE)){
+        echoconda::cmd_print(cmd, verbose = verbose)
+    } else {
+        messager(cmd, v = verbose)
+    }
     out <- system(cmd, intern = TRUE)
     #### Clean temp files #####
     if(isTRUE(remove_tmps)){ 

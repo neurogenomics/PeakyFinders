@@ -40,9 +40,9 @@ Imports:
     MACSr,
     GEOquery,
     AnnotationHub,
-    stringr,
-    echoconda
+    stringr
 Suggests:
+    echoconda,
     rworkflows,
     markdown,
     rmarkdown,

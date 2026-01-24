@@ -25,16 +25,19 @@ test_that("call_peaks works", {
         #### Check that peaks from bedGraph vs. bigWig are identical ####
         testthat::expect_equal(peaks1, peaks2)
         
-        #### SEACR:: From bedGraph ####    
-        peaks3 <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
-                                           method = "SEACR")
-        testthat::expect_true(PeakyFinders:::is_granges(peaks3))
-        testthat::expect_length(peaks3, 11)
-        
-        #### SEACR:: From bigWig ####   
-        peaks4 <- PeakyFinders::call_peaks(bedgraph_path = files$bigwig,
-                                           method = "SEACR")
-        testthat::expect_true(PeakyFinders:::is_granges(peaks4))
-        testthat::expect_length(peaks4, 11)
+        #### SEACR tests (require echoconda) ####
+        if(requireNamespace("echoconda", quietly = TRUE)){
+            #### SEACR:: From bedGraph ####
+            peaks3 <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
+                                               method = "SEACR")
+            testthat::expect_true(PeakyFinders:::is_granges(peaks3))
+            testthat::expect_length(peaks3, 11)
+
+            #### SEACR:: From bigWig ####
+            peaks4 <- PeakyFinders::call_peaks(bedgraph_path = files$bigwig,
+                                               method = "SEACR")
+            testthat::expect_true(PeakyFinders:::is_granges(peaks4))
+            testthat::expect_length(peaks4, 11)
+        }
     }
 })
