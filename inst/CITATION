@@ -1,15 +1,16 @@
-citHeader("If you use this package, please cite:")
+citHeader("To cite PeakyFinders in publications, please use:")
 
-citEntry(
-  entry    = "Article",
-  title    = "articleTitle",
-  author   = "author1, author2, author3",
-  journal  = "journalName",
-  year     = "publicationYear",
-  volume   = "volume",
-  number   = "number",
-  pages    = "pages",
-  url      = "linkToPublication",
-  textVersion = paste("author1, author2, author3 (publicationYear) articleTitle, *journalName*; volumeNumber, [linkToPublication](linkToPublication)"
-  )
+bibentry(
+  bibtype  = "Manual",
+  title    = "PeakyFinders: Mining, Calling, and Importing Epigenomic Peaks in R",
+  author   = c(
+    person("Brian", "Schilder", role = c("aut", "cre"),
+           email = "brian_schilder@alumni.brown.edu",
+           comment = c(ORCID = "0000-0001-5949-2191")),
+    person("Nathan", "Skene", role = "aut",
+           comment = c(ORCID = "0000-0002-6807-3180"))
+  ),
+  year     = "2024",
+  note     = "R package version 0.99.4",
+  url      = "https://github.com/neurogenomics/PeakyFinders"
 )
