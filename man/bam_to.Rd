@@ -36,22 +36,7 @@ bam_to(
 
 \item{verbose}{Print messages.}
 
-\item{...}{
-  Arguments passed on to \code{\link[rtracklayer:BigWigFile]{rtracklayer::export.bw}}
-  \describe{
-    \item{\code{con}}{A path, URL or \code{BigWigFile} object. Connections are
-    not supported. For the functions ending in \code{.bw}, the file
-    format is indicated by the function name. For the \code{export}
-    and \code{import} methods, the format must be indicated another
-    way. If \code{con} is a path, or URL, either the file
-    extension or the \code{format} argument needs to be \dQuote{bigWig}
-    or \dQuote{bw}.
-  }
-    \item{\code{object}}{The object to export, should be an \code{RleList},
-    \code{IntegerList}, \code{NumericList},
-    \code{GRanges} or something coercible to a \code{GRanges}.
-  }
-  }}
+\item{...}{Additional arguments passed to \code{rtracklayer::export}.}
 }
 \value{
 Converted file paths.

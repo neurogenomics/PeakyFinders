@@ -9,6 +9,7 @@
 #' @returns A data.table or named list.
 #' 
 #' @importFrom parallel mclapply
+#' @importFrom rvest read_html html_nodes html_attr
 #' @export
 #' @examples
 #' \dontrun{

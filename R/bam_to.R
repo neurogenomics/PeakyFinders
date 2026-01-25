@@ -4,7 +4,7 @@
 #' @inheritParams pooled_peaks
 #' @inheritParams bed_to
 #' @inheritParams IRanges::resize 
-#' @inheritDotParams  rtracklayer::export.bw
+#' @param ... Additional arguments passed to \code{rtracklayer::export}.
 #' @returns Converted file paths.
 #' 
 #' @export

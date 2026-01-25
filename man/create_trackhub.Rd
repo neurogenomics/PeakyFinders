@@ -38,24 +38,38 @@ create_trackhub(
 )
 }
 \arguments{
+\item{hub}{Name of the hub.}
+
 \item{genome}{Genome build that files were aligned to.}
 
 \item{path}{Path to search for files within recursively.}
 
-\item{folders}{Subfolders within \code{path} to search,}
+\item{save_dir}{Directory to save trackhub files to.}
+
+\item{folders}{Subfolders within \code{path} to search.}
 
 \item{domain}{URL prefix where the files will be hosted.}
 
+\item{shortLabel}{Short label for the hub.}
+
+\item{longLabel}{Long label for the hub.}
+
+\item{email}{Contact email for the hub.}
+
+\item{descriptionUrl}{URL to the description page.}
+
 \item{filetypes}{File types to search for.}
 
-\item{settings}{Trackhub settings. 
-See 
+\item{settings}{Trackhub settings.
+See
 \href{ https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html}{
 UCSC trackhub documentation} for details.}
 
 \item{as_list}{Return each file as a nested list.}
 
-\item{save_path}{Path to to save \emph{trackDb} file to.}
+\item{sep}{Field separator for trackDb file.}
+
+\item{verbose}{Print messages.}
 }
 \value{
 Character or nested list.

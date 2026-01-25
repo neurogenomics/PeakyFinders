@@ -42,6 +42,7 @@ Imports:
     GEOquery,
     AnnotationHub,
     stringr,
+    rvest,
     echoconda
 Suggests:
     rworkflows,
