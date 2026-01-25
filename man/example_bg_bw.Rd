@@ -17,5 +17,7 @@ Named list of file paths.
 Download examples bedGraph and bigWig files.
 }
 \examples{
+\donttest{
 files <- example_bg_bw()
+}
 }

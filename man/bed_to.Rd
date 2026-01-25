@@ -10,7 +10,7 @@ rtracklayer issues reading/writing files}
 \usage{
 bed_to(
   files,
-  build,
+  build = "hg19",
   keep_chr = NULL,
   formats = c("bigwig", "bigbed"),
   save_dir = tempdir(),
@@ -55,6 +55,8 @@ Converted file paths.
 Convert a BED file to any format supported by \code{rtracklayer::export}.
 }
 \examples{
+\donttest{
 files <- system.file("tests","test.bed",package = "rtracklayer")
 out <- bed_to(files=files)
+}
 }
