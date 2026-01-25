@@ -18,19 +18,7 @@ bam_to(
 
 \item{formats}{A character vector of one or more formats for export file to.}
 
-\item{width}{
-    If \code{x} is an \link[IRanges]{IRanges}, \link[IRanges]{IPos} or \link[IRanges]{Views} object:
-    For \code{narrow} and \code{threebands}, a vector of integers,
-    eventually with NAs. See the SEW (Start/End/Width) interface for
-    the details (\code{?solveUserSEW}).
-    For \code{resize} and \code{flank}, the width of the resized or
-    flanking regions. Note that if \code{both} is \code{TRUE}, this
-    is effectively doubled. Recycled as necessary so that each
-    element corresponds to a range in \code{x}.
-
-    Can also be a list-like object \emph{parallel} to \code{x}
-    if \code{x} is a \link[IRanges]{RangesList} object.
-  }
+\item{width}{Width to extend reads to (in base pairs).}
 
 \item{outdir}{Directory to save results to.}
 
