@@ -11,9 +11,11 @@
 #' @importFrom parallel mclapply
 #' @export
 #' @examples
+#' \donttest{
 #' links <- find_links(
 #'     urls="http://renlab.sdsc.edu/kai/Key_Processed_Data/ABC_scores/",
 #'     pattern="\\.tsv\\.gz")
+#' }
 find_links <- function(urls,
                        pattern=NULL,
                        as_datatable=TRUE,

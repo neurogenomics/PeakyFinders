@@ -26,8 +26,10 @@
 #' @export
 #' @importFrom stats setNames
 #' @examples
+#' \donttest{
 #' bam_files <- example_bam()
 #' peaks <- pooled_peaks(bam_files = bam_files)
+#' }
 pooled_peaks <- function(bam_files,
                          groups=names(bam_files),
                          outdir=tempdir(),

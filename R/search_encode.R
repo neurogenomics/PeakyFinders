@@ -33,12 +33,14 @@
 #' @export
 #' @importFrom AnnotationHub AnnotationHub query 
 #' @examples
-#' meta <- search_encode(assay = "chip-seq", 
+#' \donttest{
+#' meta <- search_encode(assay = "chip-seq",
 #'                       biosample_name = "K562",
 #'                       file_type = "peak",
 #'                       assembly = "GRCh38",
 #'                       organism = "Homo sapiens",
 #'                       partial_match = TRUE)
+#' }
 search_encode <- function(## Filter args
                           assay=NULL,
                           accession=NULL,

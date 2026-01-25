@@ -36,5 +36,7 @@ A subset of the ENCODE metadata that includes links to all
  human epigenomic peaks data.
 }
 \examples{
+\donttest{
 meta <- peaks_metadata_encode()
+}
 }

@@ -34,10 +34,12 @@
 #' @importFrom utils data
 #' @importFrom AnnotationHub AnnotationHub query 
 #' @examples
+#' \donttest{
 #' meta <- search_roadmap(biosample_type="brain",
 #'                        file_format_type="narrowPeak",
 #'                        genome="hg19",
 #'                        peaks_only=TRUE)
+#' }
 search_roadmap <- function(## Filter args
                             output_category=NULL,
                             output_type=NULL,

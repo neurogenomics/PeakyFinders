@@ -79,7 +79,9 @@ Search metadata from
 \href{https://doi.org/doi:10.18129/B9.bioc.AnnotationHub}{AnnotationHub}.
 }
 \examples{
+\donttest{
 meta <- search_annotationhub(searches=construct_searches(keys="narrowpeak"),
                              biosample_type="brain",
                              peaks_only=TRUE)
+}
 }

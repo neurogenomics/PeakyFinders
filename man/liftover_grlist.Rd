@@ -45,6 +45,7 @@ Perform genome build liftover to one or more
  \link[GenomicRanges]{GRanges} objects at once.
 }
 \examples{
+\donttest{
 grlist <- list("gr1"=GenomicRanges::GRanges("4:1-100000"),
                "gr2"=GenomicRanges::GRanges("6:1-100000"),
                "gr3"=GenomicRanges::GRanges("8:1-100000"))
@@ -52,4 +53,5 @@ grlist <- list("gr1"=GenomicRanges::GRanges("4:1-100000"),
 grlist_lifted <- liftover_grlist(grlist = grlist,
                                  input_build = "hg19",
                                  output_build="hg38")
+}
 }

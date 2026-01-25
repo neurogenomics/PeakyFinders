@@ -26,8 +26,10 @@
 #' 
 #' @export
 #' @importFrom tools R_user_dir
-#' @examples 
+#' @examples
+#' \donttest{
 #' meta <- peaks_metadata_encode()
+#' }
 peaks_metadata_encode <- function(
         save_dir=tools::R_user_dir(package = "PeakyFinders", 
                                    which = "cache"),

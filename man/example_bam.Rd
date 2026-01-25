@@ -14,5 +14,7 @@ Download exampe BAM files from
 \href{nf-core}{https://nf-co.re/cutandrun/results}.
 }
 \examples{
+\donttest{
 bam_files <- example_bam()
+}
 }

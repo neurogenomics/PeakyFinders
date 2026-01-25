@@ -23,7 +23,9 @@ A data.table or named list.
 Scrape a web page for links.
 }
 \examples{
+\donttest{
 links <- find_links(
     urls="http://renlab.sdsc.edu/kai/Key_Processed_Data/ABC_scores/",
     pattern="\\\\.tsv\\\\.gz")
+}
 }

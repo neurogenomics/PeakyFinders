@@ -26,5 +26,7 @@ Standardized genome build name as a character string.
 Translate the name of a genome build from one format to another.
 }
 \examples{
+\donttest{
 genome <- translate_genome(genome="hg38", style="Ensembl")
+}
 }
