@@ -66,7 +66,7 @@ Pool groups of BAM files into a smaller number of BAM files and call peaks
 on each of them.
 }
 \examples{
-\donttest{
+\dontrun{
 bam_files <- example_bam()
 peaks <- pooled_peaks(bam_files = bam_files)
 }

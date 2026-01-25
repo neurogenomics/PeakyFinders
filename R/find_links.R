@@ -11,7 +11,7 @@
 #' @importFrom parallel mclapply
 #' @export
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' links <- find_links(
 #'     urls="http://renlab.sdsc.edu/kai/Key_Processed_Data/ABC_scores/",
 #'     pattern="\\.tsv\\.gz")

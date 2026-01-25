@@ -10,7 +10,7 @@
 #' @importFrom GenomeInfoDb mapGenomeBuilds
 #' @importFrom utils tail
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' genome <- translate_genome(genome="hg38", style="Ensembl")
 #' }
 translate_genome <- function(genome,

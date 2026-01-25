@@ -108,7 +108,7 @@ By default, it automatically infers a reasonable
  for details).
 }
 \examples{
-\donttest{
+\dontrun{
 files <- example_bg_bw()
 peaks <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
                                   method="SEACR")

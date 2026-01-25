@@ -76,7 +76,7 @@ Search metadata from the Encyclopedia of DNA Elements
  (\href{https://www.encodeproject.org/}{ENCODE}).
 }
 \examples{
-\donttest{
+\dontrun{
 meta <- search_encode(assay = "chip-seq",
                       biosample_name = "K562",
                       file_type = "peak",

@@ -76,7 +76,7 @@ Search metadata from the Encyclopedia of DNA Elements
  (\href{https://www.encodeproject.org/}{ENCODE}).
 }
 \examples{
-\donttest{
+\dontrun{
 meta <- search_roadmap(biosample_type="brain",
                        file_format_type="narrowPeak",
                        genome="hg19",

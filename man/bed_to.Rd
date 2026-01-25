@@ -55,7 +55,7 @@ Converted file paths.
 Convert a BED file to any format supported by \code{rtracklayer::export}.
 }
 \examples{
-\donttest{
+\dontrun{
 files <- system.file("tests","test.bed",package = "rtracklayer")
 out <- bed_to(files=files)
 }

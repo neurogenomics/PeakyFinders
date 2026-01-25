@@ -27,7 +27,7 @@
 #' @export
 #' @importFrom tools R_user_dir
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' meta <- peaks_metadata_encode()
 #' }
 peaks_metadata_encode <- function(

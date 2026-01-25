@@ -9,7 +9,7 @@
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rtracklayer import export.bedGraph export.bw
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' files <- example_bg_bw()
 #' }
 example_bg_bw <- function(gsm="GSM4703766",

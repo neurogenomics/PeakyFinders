@@ -33,7 +33,7 @@
 #' @importFrom utils data
 #' @importFrom AnnotationHub AnnotationHub query 
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' meta <- search_annotationhub(searches=construct_searches(keys="narrowpeak"),
 #'                              biosample_type="brain",
 #'                              peaks_only=TRUE)

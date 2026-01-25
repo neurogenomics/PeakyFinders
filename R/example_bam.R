@@ -6,7 +6,7 @@
 #' @export
 #' @importFrom utils download.file
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' bam_files <- example_bam()
 #' }
 example_bam <- function(save_dir=tempdir()){

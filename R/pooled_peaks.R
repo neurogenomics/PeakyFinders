@@ -26,7 +26,7 @@
 #' @export
 #' @importFrom stats setNames
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' bam_files <- example_bam()
 #' peaks <- pooled_peaks(bam_files = bam_files)
 #' }

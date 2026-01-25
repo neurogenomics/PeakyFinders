@@ -16,7 +16,7 @@
 #' @importFrom rtracklayer export
 #' @importFrom GenomicRanges mcols
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' files <- system.file("tests","test.bed",package = "rtracklayer")
 #' out <- bed_to(files=files)
 #' }

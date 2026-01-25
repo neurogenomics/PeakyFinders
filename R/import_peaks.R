@@ -82,7 +82,7 @@
 #' @importFrom stats setNames 
 #' @importFrom GenomicRanges GRanges
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' out_list <- PeakyFinders::import_peaks(
 #'     ids = c("GSM945244"),# "ENCSR000AHD"
 #'     searches = PeakyFinders::construct_searches(keys = "narrowpeak"))

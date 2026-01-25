@@ -39,7 +39,7 @@ as a \link[GenomicRanges]{GRanges} object. This can be useful for
 querying whole-chromosomes at a time.
 }
 \examples{
-\donttest{
+\dontrun{
 gr <- get_genome(keep.chr=1:2)
 }
 }

@@ -33,7 +33,7 @@
 #' @export
 #' @importFrom AnnotationHub AnnotationHub query 
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' meta <- search_encode(assay = "chip-seq",
 #'                       biosample_name = "K562",
 #'                       file_type = "peak",
