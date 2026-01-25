@@ -26,7 +26,7 @@ biocViews:
 Imports:
     data.table,
     utils,
-    R.utils, 
+    R.utils,
     methods,
     tools,
     stats,
@@ -35,6 +35,7 @@ Imports:
     GenomeInfoDb,
     rtracklayer,
     regioneR,
+    Rsamtools,
     httr,
     parallel,
     MACSr,
