@@ -8,8 +8,10 @@
 #' @export
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rtracklayer import export.bedGraph export.bw
-#' @examples 
+#' @examples
+#' \donttest{
 #' files <- example_bg_bw()
+#' }
 example_bg_bw <- function(gsm="GSM4703766",
                           ranges = "chr6:165169213-167169213"){
     

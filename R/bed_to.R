@@ -15,9 +15,11 @@
 #' @importFrom stats setNames
 #' @importFrom rtracklayer export
 #' @importFrom GenomicRanges mcols
-#' @examples 
+#' @examples
+#' \donttest{
 #' files <- system.file("tests","test.bed",package = "rtracklayer")
 #' out <- bed_to(files=files)
+#' }
 bed_to <- function(files,
                    build = "hg19",
                    keep_chr = NULL,
