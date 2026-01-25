@@ -2,7 +2,8 @@
 #' 
 #' Download examples bedGraph and bigWig files.
 #' @inheritParams get_geo_links
-#' @inheritParams GenomicRanges::GRanges
+#' @param ranges Genomic ranges to query as a character string
+#' (e.g. "chr6:165169213-167169213").
 #' @returns Named list of file paths.
 #' 
 #' @export

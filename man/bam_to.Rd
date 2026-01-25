@@ -29,7 +29,7 @@ bam_to(
     element corresponds to a range in \code{x}.
 
     Can also be a list-like object \emph{parallel} to \code{x}
-    if \code{x} is a \link{RangesList} object.
+    if \code{x} is a \link[IRanges]{RangesList} object.
   }
 
 \item{outdir}{Directory to save results to.}

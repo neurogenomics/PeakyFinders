@@ -85,8 +85,6 @@ due to repeated calls to the underlying C libraries.}
 and peak calling using multi-core parallelisation.}
 
 \item{verbose}{Print messages.}
-
-\item{gsm}{GEO GSM id (e.g. "GSM4271282").}
 }
 \value{
 Named list of peak files in \link[GenomicRanges]{GRanges} format.

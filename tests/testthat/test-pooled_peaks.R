@@ -1,5 +1,7 @@
-test_that("pooled_peaks works", { 
-    
+test_that("pooled_peaks works", {
+
+    testthat::skip_on_os("windows")  # Rsamtools::mergeBam fails on Windows
+
     bam_files <- example_bam() 
     #### MACSr ####
     peaks1 <- pooled_peaks(bam_files = bam_files,
