@@ -9,6 +9,9 @@ example_bg_bw(gsm = "GSM4703766", ranges = "chr6:165169213-167169213")
 \arguments{
 \item{gsm}{GEO GSM id.
 Matches will be case-insensitive.}
+
+\item{ranges}{Genomic ranges to query as a character string
+(e.g. "chr6:165169213-167169213").}
 }
 \value{
 Named list of file paths.
@@ -17,5 +20,7 @@ Named list of file paths.
 Download examples bedGraph and bigWig files.
 }
 \examples{
+\dontrun{
 files <- example_bg_bw()
+}
 }

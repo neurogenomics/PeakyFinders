@@ -33,9 +33,11 @@
 #' @importFrom utils data
 #' @importFrom AnnotationHub AnnotationHub query 
 #' @examples
+#' \dontrun{
 #' meta <- search_annotationhub(searches=construct_searches(keys="narrowpeak"),
 #'                              biosample_type="brain",
 #'                              peaks_only=TRUE)
+#' }
 search_annotationhub <- function(searches=construct_searches(),
                                 ## Filter args
                                 ah_id=NULL,

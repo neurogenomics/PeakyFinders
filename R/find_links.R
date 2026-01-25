@@ -9,11 +9,14 @@
 #' @returns A data.table or named list.
 #' 
 #' @importFrom parallel mclapply
+#' @importFrom rvest read_html html_nodes html_attr
 #' @export
 #' @examples
+#' \dontrun{
 #' links <- find_links(
 #'     urls="http://renlab.sdsc.edu/kai/Key_Processed_Data/ABC_scores/",
 #'     pattern="\\.tsv\\.gz")
+#' }
 find_links <- function(urls,
                        pattern=NULL,
                        as_datatable=TRUE,

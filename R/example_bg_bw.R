@@ -2,14 +2,17 @@
 #' 
 #' Download examples bedGraph and bigWig files.
 #' @inheritParams get_geo_links
-#' @inheritParams GenomicRanges::GRanges
+#' @param ranges Genomic ranges to query as a character string
+#' (e.g. "chr6:165169213-167169213").
 #' @returns Named list of file paths.
 #' 
 #' @export
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rtracklayer import export.bedGraph export.bw
-#' @examples 
+#' @examples
+#' \dontrun{
 #' files <- example_bg_bw()
+#' }
 example_bg_bw <- function(gsm="GSM4703766",
                           ranges = "chr6:165169213-167169213"){
     

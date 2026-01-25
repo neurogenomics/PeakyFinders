@@ -82,9 +82,11 @@
 #' @importFrom stats setNames 
 #' @importFrom GenomicRanges GRanges
 #' @examples
+#' \dontrun{
 #' out_list <- PeakyFinders::import_peaks(
 #'     ids = c("GSM945244"),# "ENCSR000AHD"
 #'     searches = PeakyFinders::construct_searches(keys = "narrowpeak"))
+#' }
 import_peaks <- function(ids,
                          builds = "hg19",
                          query_granges = NULL, 

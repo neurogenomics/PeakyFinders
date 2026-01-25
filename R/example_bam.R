@@ -5,8 +5,10 @@
 #' @param save_dir Directory to save files to.
 #' @export
 #' @importFrom utils download.file
-#' @examples 
+#' @examples
+#' \dontrun{
 #' bam_files <- example_bam()
+#' }
 example_bam <- function(save_dir=tempdir()){
     baseurl <- paste(
         "https://nf-core-awsmegatests.s3-eu-west-1.amazonaws.com",

@@ -23,7 +23,8 @@
 #' @importFrom AnnotationHub AnnotationHub
 #' @importFrom rtracklayer liftOver
 #' @importFrom GenomicRanges GRangesList
-#' @examples 
+#' @examples
+#' \dontrun{
 #' grlist <- list("gr1"=GenomicRanges::GRanges("4:1-100000"),
 #'                "gr2"=GenomicRanges::GRanges("6:1-100000"),
 #'                "gr3"=GenomicRanges::GRanges("8:1-100000"))
@@ -31,6 +32,7 @@
 #' grlist_lifted <- liftover_grlist(grlist = grlist,
 #'                                  input_build = "hg19",
 #'                                  output_build="hg38")
+#' }
 liftover_grlist <- function(grlist,
                             input_build,
                             output_build="hg19",

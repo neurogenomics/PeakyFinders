@@ -1,18 +1,25 @@
 #' Create TrackHub
-#' 
-#' Create TrackHub for visualization of genomic files 
+#'
+#' Create TrackHub for visualization of genomic files
 #' in the UCSC Genome Browser.
+#' @param hub Name of the hub.
+#' @param genome Genome build that files were aligned to.
 #' @param path Path to search for files within recursively.
-#' @param folders Subfolders within \code{path} to search,
+#' @param save_dir Directory to save trackhub files to.
+#' @param folders Subfolders within \code{path} to search.
 #' @param domain URL prefix where the files will be hosted.
+#' @param shortLabel Short label for the hub.
+#' @param longLabel Long label for the hub.
+#' @param email Contact email for the hub.
+#' @param descriptionUrl URL to the description page.
 #' @param filetypes File types to search for.
-#' @param settings Trackhub settings. 
-#' See 
+#' @param settings Trackhub settings.
+#' See
 #' \href{ https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html}{
 #' UCSC trackhub documentation} for details.
 #' @param as_list Return each file as a nested list.
-#' @param genome Genome build that files were aligned to.
-#' @param save_path Path to to save \emph{trackDb} file to.
+#' @param sep Field separator for trackDb file.
+#' @param verbose Print messages.
 #' @returns Character or nested list.
 #' @source \href{UCSC track metadata descriptions}{
 #' https://genome-euro.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html

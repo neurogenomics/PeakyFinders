@@ -76,10 +76,12 @@ Search metadata from the Encyclopedia of DNA Elements
  (\href{https://www.encodeproject.org/}{ENCODE}).
 }
 \examples{
-meta <- search_encode(assay = "chip-seq", 
+\dontrun{
+meta <- search_encode(assay = "chip-seq",
                       biosample_name = "K562",
                       file_type = "peak",
                       assembly = "GRCh38",
                       organism = "Homo sapiens",
                       partial_match = TRUE)
+}
 }

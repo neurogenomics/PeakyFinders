@@ -10,7 +10,6 @@
 #' curl connection timeout issues}
 #' @source \href{https://github.com/Bioconductor/BiocParallel/issues/111}{
 #' Issue with importing bigWig files in parallel}
-#' @param gsm GEO GSM id (e.g. "GSM4271282").
 #' @inheritParams import_peaks
 #' @inheritParams get_geo_links
 #' @inheritParams base::options 

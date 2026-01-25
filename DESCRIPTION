@@ -26,7 +26,7 @@ biocViews:
 Imports:
     data.table,
     utils,
-    R.utils, 
+    R.utils,
     methods,
     tools,
     stats,
@@ -35,12 +35,14 @@ Imports:
     GenomeInfoDb,
     rtracklayer,
     regioneR,
+    Rsamtools,
     httr,
     parallel,
     MACSr,
     GEOquery,
     AnnotationHub,
     stringr,
+    rvest,
     echoconda
 Suggests:
     rworkflows,
@@ -61,8 +63,8 @@ Suggests:
     piggyback
 Remotes:
     github::macs3-project/MACSr,
-    github::RajLabMSSM/echoconda
-RoxygenNote: 7.3.2
+    github::neurogenomics/echoconda@fix-basilisk-api
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 License: GPL-3
 Config/testthat/edition: 3 

@@ -30,10 +30,15 @@ Some peaks files are already made available on [GEO](https://www.ncbi.nlm.nih.go
 where the names are the GEO sample `ids`. 
 
 ```{r}
-grl <- PeakyFinders::import_peaks(
-    ids = "GSM945244",
-    searches = construct_searches(keys = c("narrowpeak",
-                                           "broadpeak"))) 
+grl <- tryCatch({
+    PeakyFinders::import_peaks(
+        ids = "GSM945244",
+        searches = construct_searches(keys = c("narrowpeak",
+                                               "broadpeak")))
+}, error = function(e) {
+    message("GEO import skipped: ", conditionMessage(e))
+    NULL
+})
 ```
 
 
@@ -50,17 +55,24 @@ using the helper function `get_genome`
 query_granges <- PeakyFinders::get_genome(genome = "hg19",
                                           keep.chr = 22)
 
-grl2 <- PeakyFinders::import_peaks(
-    ids = "GSM945244",
-    searches = construct_searches(keys = c("narrowpeak",
-                                           "broadpeak")),
-    builds = "hg19",
-    query_granges = query_granges,
-    query_granges_build = "hg19") 
+grl2 <- tryCatch({
+    PeakyFinders::import_peaks(
+        ids = "GSM945244",
+        searches = construct_searches(keys = c("narrowpeak",
+                                               "broadpeak")),
+        builds = "hg19",
+        query_granges = query_granges,
+        query_granges_build = "hg19")
+}, error = function(e) {
+    message("GEO import skipped: ", conditionMessage(e))
+    NULL
+})
 
-knitr::kable(
-    head(data.frame(grl2$GSM945244))
-)
+if(!is.null(grl2)) {
+    knitr::kable(
+        head(data.frame(grl2$GSM945244))
+    )
+}
 ```
 
 ## Call peaks
@@ -79,20 +91,29 @@ Peak calling with `MACS3`/`MACSr` is not currently compatible with Windows OS.
 
 ```{r}
 ### rtracklayer::import.bw() is currently broken on Windows.
+### Peak calling with MACS3 can also fail in CI environments due to
+### external data dependencies, so we wrap in tryCatch.
 if(.Platform$OS.type!="windows"){
-    
-    grl3 <- PeakyFinders::import_peaks(
-    ids = "GSM945244",
-    searches = construct_searches(keys = "bigwig"),
-    builds = "hg19",
-    query_granges = query_granges,
-    query_granges_build = "hg19"
-    ) 
-    
-    knitr::kable(
-        head(data.frame(grl3$GSM945244))
-    )
-} 
+    grl3 <- tryCatch({
+        PeakyFinders::import_peaks(
+            ids = "GSM945244",
+            searches = construct_searches(keys = "bigwig"),
+            builds = "hg19",
+            query_granges = query_granges,
+            query_granges_build = "hg19"
+        )
+    }, error = function(e) {
+        message("Peak calling example skipped due to external dependency: ",
+                conditionMessage(e))
+        NULL
+    })
+
+    if(!is.null(grl3)) {
+        knitr::kable(
+            head(data.frame(grl3$GSM945244))
+        )
+    }
+}
 ```
 
 ## Parallelization

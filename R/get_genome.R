@@ -17,8 +17,10 @@
 #' @importFrom regioneR filterChromosomes getGenome
 #' @importFrom stringr str_sort
 #' @importFrom GenomeInfoDb seqlevelsStyle
-#' @examples 
+#' @examples
+#' \dontrun{
 #' gr <- get_genome(keep.chr=1:2)
+#' }
 get_genome <- function(keep.chr = paste0("chr",c(seq_len(22),"X","Y")),
                        genome = "hg19",
                        sort = TRUE,

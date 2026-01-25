@@ -9,8 +9,10 @@
 #' @export
 #' @importFrom GenomeInfoDb mapGenomeBuilds
 #' @importFrom utils tail
-#' @examples 
+#' @examples
+#' \dontrun{
 #' genome <- translate_genome(genome="hg38", style="Ensembl")
+#' }
 translate_genome <- function(genome,
                              style=c("UCSC", "Ensembl","NCBI"),
                              omit_subversion=TRUE){

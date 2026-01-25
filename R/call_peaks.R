@@ -50,10 +50,12 @@
 #' @returns \link[GenomicRanges]{GRanges} or path to save peaks file.
 #' 
 #' @export
-#' @examples 
+#' @examples
+#' \dontrun{
 #' files <- example_bg_bw()
 #' peaks <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
 #'                                   method="SEACR")
+#' }
 call_peaks <- function(#### Shared args ####
                        bedgraph_path,
                        method = c("MACSr",

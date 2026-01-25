@@ -3,8 +3,8 @@
 #' Convert a BAM file to any format supported by \code{rtracklayer::export}.
 #' @inheritParams pooled_peaks
 #' @inheritParams bed_to
-#' @inheritParams IRanges::resize 
-#' @inheritDotParams  rtracklayer::export.bw
+#' @param width Width to extend reads to (in base pairs).
+#' @param ... Additional arguments passed to \code{rtracklayer::export}.
 #' @returns Converted file paths.
 #' 
 #' @export
