@@ -29,9 +29,9 @@ owner <- tolower(strsplit(URL,"/")[[1]][4])
 ## Installation
 
 ```R
-if(!require("remotes")) install.packages("remotes")
+if(!require("BiocManager")) install.packages("BiocManager")
 
-remotes::install_github("`r URL`")
+BiocManager::install("`r owner`/`r pkg`")
 library(`r pkg`)
 ```
 

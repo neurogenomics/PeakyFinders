@@ -32,9 +32,9 @@ If you use `PeakyFinders`, please cite:
 ## Installation
 
 ``` r
-if(!require("remotes")) install.packages("remotes")
+if(!require("BiocManager")) install.packages("BiocManager")
 
-remotes::install_github("https://github.com/neurogenomics/PeakyFinders")
+BiocManager::install("neurogenomics/PeakyFinders")
 library(PeakyFinders)
 ```
 
