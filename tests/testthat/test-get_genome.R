@@ -17,7 +17,7 @@ test_that("get_genome works", {
 
     # Test split_chromosomes
     gr4 <- get_genome(keep.chr = 1:3, split_chromosomes = TRUE)
-    testthat::expect_true(is.list(gr4))
+    testthat::expect_true(methods::is(gr4, "GRangesList"))
     testthat::expect_equal(length(gr4), 3)
 
     # Test Ensembl style

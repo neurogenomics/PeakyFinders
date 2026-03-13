@@ -45,7 +45,6 @@ Imports:
     rvest
 Suggests:
     echoconda,
-    rworkflows,
     markdown,
     rmarkdown,
     magick,
