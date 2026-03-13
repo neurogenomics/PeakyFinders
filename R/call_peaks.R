@@ -54,7 +54,7 @@
 #' \dontrun{
 #' files <- example_bg_bw()
 #' peaks <- PeakyFinders::call_peaks(bedgraph_path = files$bedgraph,
-#'                                   method="SEACR")
+#'                                   method="MACSr")
 #' }
 call_peaks <- function(#### Shared args ####
                        bedgraph_path,
@@ -78,6 +78,11 @@ call_peaks <- function(#### Shared args ####
                        verbose = TRUE){
     
     method <- tolower(method)[1]
+    #### Check echoconda availability for SEACR ####
+    if(method=="seacr" && !requireNamespace("echoconda", quietly = TRUE)){
+        stopper("Package 'echoconda' is required for SEACR peak calling. ",
+                "Install it with: remotes::install_github('RajLabMSSM/echoconda')")
+    }
     if(method=="macsr"){
         peaks <- call_peaks_macsr(bedgraph_path = bedgraph_path, 
                                   cutoff = cutoff,

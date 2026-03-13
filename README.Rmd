@@ -1,6 +1,6 @@
 ---
-title: ""  
-author: "`r rworkflows::use_badges()`" 
+title: ""
+author: "`r rworkflows::use_badges()`"
 date: "<h4>README updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
 output:
   github_document
@@ -14,15 +14,19 @@ URL <- read.dcf('DESCRIPTION', fields = 'URL')[1]
 owner <- tolower(strsplit(URL,"/")[[1]][4])
 ```
 
-## ``r pkg``: `r title`
+## `r pkg`: `r title`
 
 `r description`
- 
-If you use ``r pkg``, please cite: 
 
-> `r utils::citation(pkg)$textVersion`
+### Key Features
 
-## Installation 
+- **Multi-source import**: Fetch peaks from GEO, ENCODE, ROADMAP, and AnnotationHub with a single function
+- **Automatic peak calling**: When peak files aren't available, automatically calls peaks from bedGraph or bigWig files using MACS3 or SEACR
+- **Region filtering**: Import only peaks overlapping regions of interest
+- **Genome build handling**: Automatic liftOver between genome builds (hg19/hg38)
+- **Parallelisation**: Efficiently import multiple peak files in parallel
+
+## Installation
 
 ```R
 if(!require("remotes")) install.packages("remotes")
@@ -30,22 +34,63 @@ if(!require("remotes")) install.packages("remotes")
 remotes::install_github("`r URL`")
 library(`r pkg`)
 ```
-## Documentation 
 
-### [Website](https://`r owner`.github.io/`r pkg`) 
-### [Getting started](https://`r owner`.github.io/`r pkg`/articles/`r pkg`) 
+## Quick Start
+
+```R
+library(PeakyFinders)
+
+# Import peaks from multiple sources at once
+ids <- c(
+    "GSM945244",    # GEO
+    "ENCSR000AHD",  # ENCODE
+    "AH32001"       # AnnotationHub
+)
+
+peaks <- import_peaks(
+    ids = ids,
+    builds = "hg38",
+    searches = list(narrowPeak = "narrowpeak")
+)
+
+# Filter to a specific region
+query_region <- GenomicRanges::GRanges("chr22:1-50000000")
+peaks_filtered <- import_peaks(
+    ids = ids,
+    builds = "hg38",
+    query_granges = query_region,
+    query_granges_build = "hg38"
+)
+
+# Search for available datasets
+encode_metadata <- search_encode(
+    target = "H3K27ac",
+    biosample = "K562"
+)
+```
+
+## Documentation
+
+### [Website](https://`r owner`.github.io/`r pkg`)
+### [Getting started](https://`r owner`.github.io/`r pkg`/articles/peakyfinders)
+
+## Citation
+
+If you use `r pkg`, please cite:
+
+> `r utils::citation(pkg)$textVersion`
 
 <hr>
 
 ## Contact
- 
+
 ### [Neurogenomics Lab](https://www.neurogenomics.co.uk/)
 
-UK Dementia Research Institute  
-Department of Brain Sciences  
-Faculty of Medicine  
-Imperial College London   
-[GitHub](https://github.com/neurogenomics)  
-[DockerHub](https://hub.docker.com/orgs/neurogenomicslab)  
+UK Dementia Research Institute
+Department of Brain Sciences
+Faculty of Medicine
+Imperial College London
+[GitHub](https://github.com/neurogenomics)
+[DockerHub](https://hub.docker.com/orgs/neurogenomicslab)
 
 <br>

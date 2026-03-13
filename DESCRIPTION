@@ -42,9 +42,9 @@ Imports:
     GEOquery,
     AnnotationHub,
     stringr,
-    rvest,
-    echoconda
+    rvest
 Suggests:
+    echoconda,
     rworkflows,
     markdown,
     rmarkdown,
@@ -63,7 +63,7 @@ Suggests:
     piggyback
 Remotes:
     github::macs3-project/MACSr,
-    github::neurogenomics/echoconda@fix-basilisk-api
+    github::RajLabMSSM/echoconda
 RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 License: GPL-3

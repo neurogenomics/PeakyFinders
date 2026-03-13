@@ -7,15 +7,18 @@
 #' @returns Path to \pkg{SEACR} executable.
 #' @source \href{https://github.com/FredHutch/SEACR/issues/54}{
 #' GitHub Issue: illegal byte sequence}
-#' 
-#' @importFrom echoconda find_packages
+#'
 find_executable_seacr <- function(packages=c("SEACR_1.3.sh",
                                              "SEACR_1.3.R"),
                                   outdir=tempdir(),
                                   fix_script=TRUE,
                                   verbose=TRUE,
                                   ...){
-    
+
+    if(!requireNamespace("echoconda", quietly = TRUE)){
+        stopper("Package 'echoconda' is required for SEACR functionality. ",
+                "Install it with: remotes::install_github('RajLabMSSM/echoconda')")
+    }
     conda_env <- make_conda_env(verbose=verbose)
     pkgs <- echoconda::find_packages(packages = packages,
                                      conda_env = conda_env,
