@@ -13,7 +13,7 @@ make_conda_env(...)
     \item{\code{yaml_path}}{Path to local or remote yaml file with conda build
 specifications.}
     \item{\code{method}}{Method to use to create the conda env:
-\itemize{
+\describe{
 \item{"basilisk" : }{Uses the R package \pkg{basilisk}.}
 \item{"reticulate" : }{Uses the R package \pkg{reticulate}.}
 \item{"cli" : }{Uses a custom wrapper for conda's command line interface.}

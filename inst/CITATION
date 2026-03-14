@@ -12,5 +12,6 @@ bibentry(
   ),
   year     = "2024",
   note     = "R package version 0.99.4",
-  url      = "https://github.com/neurogenomics/PeakyFinders"
+  url      = "https://github.com/neurogenomics/PeakyFinders",
+    textVersion = paste("Brian M. Schilder, Nathan G. Skene (2024). PeakyFinders: Mining, Calling, and Importing Epigenomic Peaks in R. R package version 0.99.4")
 )

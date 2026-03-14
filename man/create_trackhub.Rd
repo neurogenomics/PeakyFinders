@@ -75,7 +75,7 @@ UCSC trackhub documentation} for details.}
 Character or nested list.
 }
 \description{
-Create TrackHub for visualization of genomic files 
+Create TrackHub for visualization of genomic files
 in the UCSC Genome Browser.
 }
 \examples{
