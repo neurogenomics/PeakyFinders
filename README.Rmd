@@ -1,6 +1,6 @@
 ---
 title: ""
-author: "`r rworkflows::use_badges()`"
+author: "`r if(!requireNamespace('rworkflows',quietly=TRUE)) remotes::install_github('neurogenomics/rworkflows'); rworkflows::use_badges()`"
 date: "<h4>README updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
 output:
   github_document
